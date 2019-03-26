@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     buttonView: {
         width: '100%',
         position: 'absolute',
-        bottom: scale(8),
+        bottom: scale(16),
     },
     petButtonStyle: {
         borderRadius: 25,
