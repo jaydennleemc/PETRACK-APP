@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import { View, StyleSheet } from 'react-native';
 import RegisterPage from "./screens/RegisterPage";
+import RegisterPhonePage from "./screens/RegisterPhonePage";
 
 // import styles from './styles';
 
@@ -9,7 +10,7 @@ export default class  extends Component {
   render() {
     return (
       <View style={{flex:1}}>
-        <RegisterPage/>
+        <RegisterPhonePage/>
       </View>
     );
   }
