@@ -10,9 +10,9 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
-import * as colors from '../constants/Colors';
+import * as colors from '../constants/colors';
 import {Button} from 'react-native-elements';
-
+import {Styles} from "../constants/styles";
 
 // import styles from './styles';
 
@@ -91,9 +91,6 @@ export default class RegisterPhonePage extends Component {
 
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1
-    },
     view1: {
         margin: scale(24)
     },

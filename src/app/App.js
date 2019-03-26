@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 
 import { View, StyleSheet } from 'react-native';
+import SettingsPage from "./screens/SettingsPage";
 import RegisterPage from "./screens/RegisterPage";
 import RegisterPhonePage from "./screens/RegisterPhonePage";
+import ProfilePage from "./screens/ProfilePage";
 
-// import styles from './styles';
+
 
 export default class  extends Component {
   render() {
     return (
       <View style={{flex:1}}>
-        <RegisterPhonePage/>
+        {/*<SettingsPage/>*/}
+        <SettingsPage/>
       </View>
     );
   }

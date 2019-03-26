@@ -8,15 +8,16 @@ import {
     TouchableOpacity
 
 } from 'react-native';
-import * as colors from '../constants/Colors';
-import * as images from '../constants/Images';
+import * as colors from '../constants/colors';
+import * as images from '../constants/images';
+import {Styles} from "../constants/styles";
 
 // import styles from './styles';
 
 export default class RegisterPage extends Component {
   render() {
     return (
-      <View style={styles.container}>
+      <View style={Styles.containerWithThemeColor}>
           <SafeAreaView/>
           {/*  Logo */}
           <View style={styles.logoContainer}>
@@ -49,10 +50,6 @@ export default class RegisterPage extends Component {
 
 
 const styles = StyleSheet.create({
-   container: {
-       flex:1,
-       backgroundColor:colors.themeColor
-   },
     logoContainer:{
         alignItems:'center',
         justifyContent:'center',
