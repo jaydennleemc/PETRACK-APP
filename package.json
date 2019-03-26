@@ -3,6 +3,13 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+
+    "iPhone7": "react-native run-ios --simulator=\"iPhone 7\"",
+    "iPhone8": "react-native run-ios --simulator=\"iPhone 8\"",
+    "iPhone8+": "react-native run-ios --simulator=\"iPhone 8 Plus\"",
+    "iPhoneX": "react-native run-ios --simulator=\"iPhone X\"",
+    "iPhoneSE": "react-native run-ios --simulator=\"iPhone SE\"",
+
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
     "lint": "eslint ."
