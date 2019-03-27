@@ -8,6 +8,7 @@
     "iPhone8+": "react-native run-ios --simulator=\"iPhone 8 Plus\"",
     "iPhoneX": "react-native run-ios --simulator=\"iPhone X\"",
     "iPhoneSE": "react-native run-ios --simulator=\"iPhone SE\"",
+    "Android": "react-native run-android",
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
     "lint": "eslint ."
@@ -16,6 +17,7 @@
     "react": "16.8.3",
     "react-native": "0.59.2",
     "react-native-elements": "^1.1.0",
+    "react-native-maps": "git://github.com/react-native-community/react-native-maps.git#master",
     "react-native-size-matters": "^0.1.6",
     "react-native-vector-icons": "^6.4.2"
   },
