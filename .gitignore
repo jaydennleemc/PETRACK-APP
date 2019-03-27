@@ -54,3 +54,9 @@ buck-out/
 
 # Bundle artifact
 *.jsbundle
+
+# ignore fonts file
+/android/app/src/main/assets/fonts/
+
+# ignore package-lock file
+package-lock.json
