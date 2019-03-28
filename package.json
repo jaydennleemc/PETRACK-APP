@@ -17,7 +17,7 @@
     "react": "16.8.3",
     "react-native": "0.59.2",
     "react-native-elements": "^1.1.0",
-    "react-native-maps": "git://github.com/react-native-community/react-native-maps.git#master",
+    "react-native-maps": "github:jerolimov/react-native-maps#fix-rn59rc-compile-issues",
     "react-native-size-matters": "^0.1.6",
     "react-native-vector-icons": "^6.4.2"
   },
