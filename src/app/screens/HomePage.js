@@ -1,11 +1,9 @@
 import React, {Component} from 'react';
 
-import {StyleSheet, View, SafeAreaView, Text, Alert} from 'react-native';
+import {StyleSheet, View, SafeAreaView, Text, Image, TouchableOpacity} from 'react-native';
 import {scale} from "react-native-size-matters";
 import * as colors from '../constants/colors';
-import Icon from 'react-native-vector-icons/AntDesign';
 import * as images from '../constants/images';
-import {Button} from "react-native-elements";
 import {Styles} from '../constants/styles';
 import Toolbar from "../components/toolbar";
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps'
@@ -18,6 +16,8 @@ export default class HomePage extends Component {
                 <SafeAreaView/>
                 {/* App bar */}
                 <Toolbar title={'PETRACK'} disableLeft={true}/>
+
+                {/* Map View */}
                 <MapView
                     provider={PROVIDER_GOOGLE}
                     style={{flex: 1}}
@@ -29,11 +29,29 @@ export default class HomePage extends Component {
                     }}
                     showsUserLocation={true}
                 />
+
+                {/* Scan Button */}
+                <View style={styles.scanButtonView}>
+                    <TouchableOpacity>
+                        <Image source={images.Scan_btn}/>
+                    </TouchableOpacity>
+                    <Text style={styles.scanText}>Scan the QR code</Text>
+                </View>
             </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
-
+    scanButtonView:{
+        position:'absolute',
+        bottom:scale(40),
+        alignItems:'center',
+        width:'100%'
+    },
+    scanText:{
+        color:colors.themeColor,
+        marginTop:scale(8),
+        alignSelf:'center'
+    }
 });

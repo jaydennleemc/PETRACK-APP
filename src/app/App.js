@@ -5,6 +5,7 @@ import { View, StyleSheet } from 'react-native';
 import ProfileDetailsPage from "./screens/ProfileDetailsPage";
 import HomePage from "./screens/HomePage";
 import ProfilePage from "./screens/ProfilePage";
+import ScanPage from "./screens/ScanPage";
 
 
 
@@ -12,7 +13,7 @@ export default class  extends Component {
   render() {
     return (
       <View style={{flex:1}}>
-        <HomePage/>
+        <ScanPage/>
       </View>
     );
   }
