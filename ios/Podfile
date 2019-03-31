@@ -8,6 +8,8 @@ target 'petrack' do
   # Pods for petrack
   pod 'GoogleMaps'
 
+  pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
+
   target 'petrackTests' do
     inherit! :search_paths
     # Pods for testing
