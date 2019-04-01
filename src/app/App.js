@@ -17,8 +17,8 @@ export default class extends Component {
         return (
             <Router>
                 <Scene hideNavBar={true}>
-                    <Stack key="root">
-                        <Scene key={"splashScene"} initial component={WelcomePage} hideNavBar={true}/>
+                    <Stack key="root" initial>
+                        <Scene key={"splashScene"} component={WelcomePage} hideNavBar={true}/>
                         <Scene key={"registerScene"} component={RegisterPage} hideNavBar={true}/>
                         <Scene key={"registerPhoneScene"} component={RegisterPhonePage} hideNavBar={true}/>
                     </Stack>

@@ -11,21 +11,20 @@ export default class WelcomePage extends Component {
             SplashScreen.hide();
         }
 
-        this._goRegisterScene();
+        // automate jump to next screen
+        setTimeout(()=>{
+            this._goRegisterScene();
+        },0)
     }
 
-    _goRegisterScene = ()=>{
-        Actions.registerScene();
+
+    _goRegisterScene = () => {
+        Actions.replace('registerScene');
     }
 
     render() {
         return (
-            <View>
-                <SafeAreaView/>
-                <Button title={'sfs'} onPress={()=>{
-                    this._goRegisterScene();
-                }}/>
-            </View>
+            <View/>
         )
     }
 }

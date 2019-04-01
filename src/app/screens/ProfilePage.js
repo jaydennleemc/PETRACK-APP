@@ -20,8 +20,7 @@ export default class ProfilePage extends Component {
     render() {
         return (
             <View style={Styles.container}>
-                <SafeAreaView/>
-                <View style={styles.view1}>
+                <View style={[styles.view1, {paddingTop:scale(30)}]}>
                     <View style={{flexDirection: 'row'}}>
                         <TouchableOpacity style={{flex: 1,}}>
                             <Icon name={'arrowleft'} size={scale(30)} style={{color: colors.whiteColor}}/>
