@@ -13,8 +13,8 @@ import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import * as colors from '../constants/colors';
 import {Button} from 'react-native-elements';
 import {Styles} from "../constants/styles";
+import {Actions} from "react-native-router-flux";
 
-// import styles from './styles';
 
 export default class RegisterPhonePage extends Component {
 
@@ -68,6 +68,9 @@ export default class RegisterPhonePage extends Component {
                         style={[styles.underLine, {backgroundColor: this.state.input2Focus == true ? colors.themeColor : colors.lightColor}]}/>
 
                     <Button title={'LOGIN'}
+                            onPress={()=>{
+                                Actions.reset("home")
+                            }}
                             buttonStyle={styles.buttonStyle1}/>
                 </View>
 

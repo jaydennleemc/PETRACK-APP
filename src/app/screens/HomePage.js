@@ -7,6 +7,7 @@ import * as images from '../constants/images';
 import {Styles} from '../constants/styles';
 import Toolbar from "../components/toolbar";
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps'
+import {Actions} from "react-native-router-flux";
 
 
 export default class HomePage extends Component {
@@ -15,7 +16,11 @@ export default class HomePage extends Component {
             <View style={Styles.container}>
                 <SafeAreaView/>
                 {/* App bar */}
-                <Toolbar title={'PETRACK'} disableLeft={true}/>
+                <Toolbar title={'PETRACK'}
+                         rightIconOnPress={()=>{
+                             Actions.push("profileScene")
+                         }}
+                         disableLeft={true}/>
 
                 {/* Map View */}
                 <MapView
@@ -32,7 +37,9 @@ export default class HomePage extends Component {
 
                 {/* Scan Button */}
                 <View style={styles.scanButtonView}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={()=>{
+                        Actions.push("scanScene")
+                    }}>
                         <Image source={images.Scan_btn}/>
                     </TouchableOpacity>
                     <Text style={styles.scanText}>Scan the QR code</Text>

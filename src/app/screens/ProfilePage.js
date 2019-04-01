@@ -1,15 +1,22 @@
 import React, {Component, PureComponent} from 'react';
 
-import {View, StyleSheet, SafeAreaView, Image, Text, TouchableOpacity, FlatList} from 'react-native';
+import {View, StyleSheet, SafeAreaView, Image, Text, TouchableOpacity, FlatList, Alert} from 'react-native';
 import {scale} from "react-native-size-matters";
 import * as colors from '../constants/colors';
 import Icon from 'react-native-vector-icons/AntDesign';
 import * as images from '../constants/images';
 import {Button} from "react-native-elements";
 import {Styles} from '../constants/styles';
+import {Actions} from "react-native-router-flux";
 
 
 export default class ProfilePage extends Component {
+
+    _settingOnPress = ()=>{
+        Actions.settingScene();
+    }
+
+
     render() {
         return (
             <View style={Styles.container}>
@@ -19,7 +26,7 @@ export default class ProfilePage extends Component {
                         <TouchableOpacity style={{flex: 1,}}>
                             <Icon name={'arrowleft'} size={scale(30)} style={{color: colors.whiteColor}}/>
                         </TouchableOpacity>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={()=>{this._settingOnPress()}}>
                             <Icon name={'setting'} size={scale(30)} style={{color: colors.whiteColor}}/>
                         </TouchableOpacity>
                     </View>
@@ -68,7 +75,9 @@ class DogListItem extends PureComponent {
 
     render() {
         return (
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=>{
+                Actions.profileDetailScene();
+            }}>
                 <View style={listStyles.container}>
                     <Image source={images.Dog1}/>
                     <View style={listStyles.view}>
