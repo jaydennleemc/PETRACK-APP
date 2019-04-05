@@ -8,7 +8,8 @@ target 'petrack' do
   # Pods for petrack
   pod 'GoogleMaps'
 
-  pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
+  #disable splash screen on ios becasue React/RCTBridgeModule.h' file not found problem.
+  #pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
 
   target 'petrackTests' do
     inherit! :search_paths
