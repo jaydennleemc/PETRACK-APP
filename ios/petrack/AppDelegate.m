@@ -21,7 +21,7 @@
                                                    moduleName:@"petrack"
                                             initialProperties:nil];
   
-  [GMSServices provideAPIKey:@"AIzaSyDHooXkdcRGZEqztTlI84BKj1BOY5jt3KQ"];
+  [GMSServices provideAPIKey:@"AIzaSyCs7gTM1nkGaSUQcJVuuega3ks7iq11o8I"];
 
   rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
 
