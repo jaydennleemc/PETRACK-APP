@@ -11,6 +11,8 @@ target 'petrack' do
   #disable splash screen on ios becasue React/RCTBridgeModule.h' file not found problem.
   #pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
 
+  #pod 'react-native-fbsdk', :path => '../node_modules/react-native-fbsdk' //use FacebookSDK on xcode project
+
   target 'petrackTests' do
     inherit! :search_paths
     # Pods for testing
