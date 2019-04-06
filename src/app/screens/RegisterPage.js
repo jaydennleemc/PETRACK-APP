@@ -12,16 +12,23 @@ import * as colors from '../constants/colors';
 import * as images from '../constants/images';
 import {Styles} from "../constants/styles";
 import {Actions} from "react-native-router-flux";
-import {LoginManager} from "react-native-fbsdk";
+import {LoginManager, LoginButton, AccessToken} from "react-native-fbsdk";
+
 
 export default class RegisterPage extends Component {
 
-    _fbLogin = () => {
+    _fbAuth = () => {
         LoginManager.logInWithReadPermissions(["public_profile"]).then(
             function (result) {
                 if (result.isCancelled) {
                     console.log("Login cancelled");
                 } else {
+
+                    AccessToken.getCurrentAccessToken().then(
+                        (data) => {
+                            console.log(data.accessToken.toString())
+                        }
+                    )
                     console.log(
                         "Login success with permissions: " +
                         result.grantedPermissions.toString()
@@ -47,8 +54,9 @@ export default class RegisterPage extends Component {
 
                 {/*  Buttons */}
                 <View style={styles.bottomContainer}>
+
                     <View style={styles.image}>
-                        <TouchableOpacity onPress={()=>{this._fbLogin()}}>
+                        <TouchableOpacity onPress={()=>{this._fbAuth()}}>
                             <Image source={images.Register_Facebook}/>
                         </TouchableOpacity>
                     </View>
