@@ -60,3 +60,7 @@ buck-out/
 
 # ignore package-lock file
 package-lock.json
+# ignore Pods folder
+/ios/Pods/
+# ignore Podfile.lock file
+/ios/Podfile.lock
