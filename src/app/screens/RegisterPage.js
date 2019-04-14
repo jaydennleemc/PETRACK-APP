@@ -6,16 +6,49 @@ import {
     SafeAreaView,
     Image,
     TouchableOpacity
-
 } from 'react-native';
 import * as colors from '../constants/colors';
 import * as images from '../constants/images';
 import {Styles} from "../constants/styles";
 import {Actions} from "react-native-router-flux";
 import {LoginManager, LoginButton, AccessToken} from "react-native-fbsdk";
-
+import Permissions from 'react-native-permissions'
 
 export default class RegisterPage extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            cameraPermission:'',
+            photoPermission:''
+        }
+    }
+
+    componentDidMount() {
+        this._requestPermission();
+    }
+
+    _requestPermission = () => {
+        // Returns once the user has chosen to 'allow' or to 'not allow' access
+        // Response is one of: 'authorized', 'denied', 'restricted', or 'undetermined'
+        Permissions.request('photo').then(response => {
+            this.setState({ photoPermission: response });
+        });
+
+        Permissions.request('camera').then(response => {
+            this.setState({cameraPermission:response});
+        });
+    };
+
+    _checkCameraAndPhotos = () => {
+        //response is an object mapping type to permission
+        Permissions.checkMultiple(['camera', 'photo']).then(response => {
+            this.setState({
+                cameraPermission: response.camera,
+                photoPermission: response.photo,
+            });
+        })
+    };
 
     _fbAuth = () => {
         LoginManager.logInWithReadPermissions(["public_profile"]).then(
@@ -39,7 +72,7 @@ export default class RegisterPage extends Component {
                 console.log("Login fail with error: " + error);
             }
         );
-    }
+    };
 
     render() {
         return (

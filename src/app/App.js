@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 
-import {View, StyleSheet} from 'react-native';
 import {Actions, Scene, Router, Stack} from 'react-native-router-flux';
 import WelcomePage from "./screens/WelcomePage";
 import RegisterPage from "./screens/RegisterPage";

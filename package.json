@@ -20,6 +20,7 @@
     "react-native-elements": "^1.1.0",
     "react-native-fbsdk": "^0.8.0",
     "react-native-maps": "github:jerolimov/react-native-maps#fix-rn59rc-compile-issues",
+    "react-native-permissions": "^1.1.1",
     "react-native-router-flux": "^4.0.6",
     "react-native-size-matters": "^0.1.6",
     "react-native-splash-screen": "^3.2.0",

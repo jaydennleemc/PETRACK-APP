@@ -13,6 +13,8 @@ target 'petrack' do
 
   #pod 'react-native-fbsdk', :path => '../node_modules/react-native-fbsdk' //use FacebookSDK on xcode project
 
+  #pod 'ReactNativePermissions', :path => '../node_modules/react-native-permissions'
+
   target 'petrackTests' do
     inherit! :search_paths
     # Pods for testing
