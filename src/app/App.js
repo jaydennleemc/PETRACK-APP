@@ -12,8 +12,6 @@ import SettingsPage from "./screens/SettingsPage";
 
 
 export default class extends Component {
-
-
     render() {
         return (
             <Router>

@@ -14,7 +14,7 @@ export default class ProfilePage extends Component {
 
     _settingOnPress = ()=>{
         Actions.settingScene();
-    }
+    };
 
 
     render() {
