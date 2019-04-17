@@ -26,11 +26,12 @@ export function sendSMS(mobile) {
 }
 
 export function validateSMS(mobile, sms) {
-    return flyer.post(APIs.validateSMS, {'mobile' : mobile, 'code': sms});
+    return flyer.post(APIs.validateSMS, {'mobile': mobile, 'code': sms});
 }
 
 export function facebookAuth(access_token) {
-    return flyer.post(APIs.facebookAuth, {'access_token': access_token});
+    const  access_token1 = 'EAAFZB9OAB7rABAKMga6Y2KsibonGRJenhDSXLJRnBEU3huPMVoNUt3d79JhRAgCGo7D22fc6JfdvppRSS0K8nbgHGwVLjupHB3dpvq44feZCxPqobBXOLocHPkZCxmV83aZARuKRsrhYo4ZCNQvV3BZAtJYOBSUwIdHZAD899EmYP9vUOTXADOGov2R1y8jjtzpGo1kDCjl1gZDZD'
+    return flyer.post(APIs.facebookAuth, {'access_token': access_token1});
 }
 
 export function getProfile() {
@@ -39,11 +40,11 @@ export function getProfile() {
 
 export function updateProfile(nickname, mobile, email, country, city) {
     return flyer.post(APIs.updateProfile, {
-       'nickname': nickname,
-       'mobile': mobile,
-       'email': email,
-       'country': country,
-       'city':city
+        'nickname': nickname,
+        'mobile': mobile,
+        'email': email,
+        'country': country,
+        'city': city
     });
 }
 
@@ -61,11 +62,11 @@ export function addPet(name, gender, type, birthdate, weight) {
         'gender': gender,
         'type': type,
         'birthdate': birthdate,
-        'weight':weight
+        'weight': weight
     });
 }
 
-export function deletePet(id){
+export function deletePet(id) {
     return flyer.delete(APIs.deletePet + id);
 }
 

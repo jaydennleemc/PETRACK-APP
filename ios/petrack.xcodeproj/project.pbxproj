@@ -53,6 +53,7 @@
 		A059CDCB9D9E50AA284E4E35 /* libPods-petrack.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A21B4FDAC88F87C5F34C6111 /* libPods-petrack.a */; };
 		A9353C3BA60A40A0994D7CF6 /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D33D773E753E46099241F5C2 /* FontAwesome5_Brands.ttf */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
+		B20B0B682266352500ECE721 /* libRNCWebView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B20B0B652266350E00ECE721 /* libRNCWebView.a */; };
 		B21F37F22258B3F100117989 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B21F37EE2258B3F100117989 /* FBSDKLoginKit.framework */; };
 		B21F37F32258B3F100117989 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B21F37EF2258B3F100117989 /* FBSDKShareKit.framework */; };
 		B21F37F42258B3F100117989 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B21F37F02258B3F100117989 /* FBSDKCoreKit.framework */; };
@@ -335,6 +336,13 @@
 			remoteGlobalIDString = 358F4ED71D1E81A9004DF814;
 			remoteInfo = RCTBlob;
 		};
+		B20B0B642266350E00ECE721 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B20B0B382266350D00ECE721 /* RNCWebView.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNCWebView;
+		};
 		B21F37FA2258B48000117989 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B21F37F62258B48000117989 /* RCTFBSDK.xcodeproj */;
@@ -448,6 +456,8 @@
 		A21B4FDAC88F87C5F34C6111 /* libPods-petrack.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-petrack.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA9B3AF46F6648AE2D3332CD /* Pods-petrack-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-petrack-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-petrack-tvOSTests/Pods-petrack-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
+		B20B0AFC226634AB00ECE721 /* libreact-native-webview.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libreact-native-webview.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B20B0B382266350D00ECE721 /* RNCWebView.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNCWebView.xcodeproj; path = "../node_modules/react-native-webview/ios/RNCWebView.xcodeproj"; sourceTree = "<group>"; };
 		B21F37EE2258B3F100117989 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		B21F37EF2258B3F100117989 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		B21F37F02258B3F100117989 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
@@ -523,6 +533,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B20B0B682266352500ECE721 /* libRNCWebView.a in Frameworks */,
 				B250041322639177000030E9 /* libReactNativePermissions.a in Frameworks */,
 				B21F38022258B4FF00117989 /* libRCTFBSDK.a in Frameworks */,
 				ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */,
@@ -695,6 +706,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B20B0AFC226634AB00ECE721 /* libreact-native-webview.a */,
 				B21F37ED2258B3F100117989 /* FacebookSDK */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				A21B4FDAC88F87C5F34C6111 /* libPods-petrack.a */,
@@ -741,6 +753,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				B20B0B382266350D00ECE721 /* RNCWebView.xcodeproj */,
 				B25003E42263915E000030E9 /* ReactNativePermissions.xcodeproj */,
 				B21F37F62258B48000117989 /* RCTFBSDK.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
@@ -804,6 +817,14 @@
 			children = (
 				ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */,
 				2D16E6721FA4F8DC00B85C8A /* libRCTBlob-tvOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B20B0B392266350D00ECE721 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B20B0B652266350E00ECE721 /* libRNCWebView.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1112,6 +1133,10 @@
 					ProjectRef = B25003E42263915E000030E9 /* ReactNativePermissions.xcodeproj */;
 				},
 				{
+					ProductGroup = B20B0B392266350D00ECE721 /* Products */;
+					ProjectRef = B20B0B382266350D00ECE721 /* RNCWebView.xcodeproj */;
+				},
+				{
 					ProductGroup = B2A239AD224B7CEE003D3660 /* Products */;
 					ProjectRef = FB3C1F0A59484394897DB399 /* RNVectorIcons.xcodeproj */;
 				},
@@ -1356,6 +1381,13 @@
 			fileType = archive.ar;
 			path = libRCTBlob.a;
 			remoteRef = ADBDB9261DFEBF0700ED6528 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B20B0B652266350E00ECE721 /* libRNCWebView.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNCWebView.a;
+			remoteRef = B20B0B642266350E00ECE721 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		B21F37FB2258B48000117989 /* libRCTFBSDK.a */ = {

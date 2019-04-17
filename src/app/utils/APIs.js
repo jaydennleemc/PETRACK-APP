@@ -5,12 +5,12 @@ export const Config = {
 };
 
 export const APIs = {
-//GET
+//basic
     agreement: base_url + '/agreement',
     privacy: base_url + '/privacy',
     version: base_url + '/basic/versions',
     breeds: base_url + '/basic/breeds',
-//POST
+//auth
     sendSMS: base_url + '/auth/mobile/sendSMS',
     validateSMS: base_url + '/auth/mobile/validate',
     facebookAuth: base_url + '/auth/facebook',

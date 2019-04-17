@@ -12,16 +12,18 @@ import * as images from '../constants/images';
 import {Styles} from "../constants/styles";
 import {Actions} from "react-native-router-flux";
 import {LoginManager, LoginButton, AccessToken} from "react-native-fbsdk";
+import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import Permissions from 'react-native-permissions'
 import * as APIs from '../utils/API_Client';
+import * as utils from '../utils/CommonUtil';
 
 export default class RegisterPage extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            cameraPermission:'',
-            photoPermission:''
+            cameraPermission: '',
+            photoPermission: ''
         }
     }
 
@@ -42,11 +44,11 @@ export default class RegisterPage extends Component {
         // Returns once the user has chosen to 'allow' or to 'not allow' access
         // Response is one of: 'authorized', 'denied', 'restricted', or 'undetermined'
         Permissions.request('photo').then(response => {
-            this.setState({ photoPermission: response });
+            this.setState({photoPermission: response});
         });
 
         Permissions.request('camera').then(response => {
-            this.setState({cameraPermission:response});
+            this.setState({cameraPermission: response});
         });
     };
 
@@ -66,12 +68,17 @@ export default class RegisterPage extends Component {
                 if (result.isCancelled) {
                     console.log("Login cancelled");
                 } else {
-
-                    AccessToken.getCurrentAccessToken().then(
-                        (data) => {
-                            console.log(data.accessToken.toString())
+                    AccessToken.getCurrentAccessToken().then((data) => {
+                            console.log('facebook token: ' + data.accessToken.toString());
+                            APIs.facebookAuth(data.accessToken.toString()).then(function (resp) {
+                                console.log(resp.data.jwt_token);
+                                utils.storeJWTToken(resp.data.jwt_token);
+                            }).catch((error) => {
+                                console.log(error);
+                            })
                         }
-                    )
+                    );
+
                     console.log(
                         "Login success with permissions: " +
                         result.grantedPermissions.toString()
@@ -82,6 +89,10 @@ export default class RegisterPage extends Component {
                 console.log("Login fail with error: " + error);
             }
         );
+    };
+
+    _gotoAgreementView = () => {
+        Actions.push('agreementScene');
     };
 
     render() {
@@ -99,7 +110,9 @@ export default class RegisterPage extends Component {
                 <View style={styles.bottomContainer}>
 
                     <View style={styles.image}>
-                        <TouchableOpacity onPress={()=>{this._fbAuth()}}>
+                        <TouchableOpacity onPress={() => {
+                            this._fbAuth()
+                        }}>
                             <Image source={images.Register_Facebook}/>
                         </TouchableOpacity>
                     </View>
@@ -111,7 +124,9 @@ export default class RegisterPage extends Component {
                         </TouchableOpacity>
                     </View>
 
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => {
+                        this._gotoAgreementView()
+                    }}>
                         <Text style={styles.termsText}>Terms & Conditions</Text>
                     </TouchableOpacity>
                 </View>
@@ -129,16 +144,16 @@ const styles = StyleSheet.create({
     },
     bottomContainer: {
         flexDirection: 'column',
-        marginBottom: 30,
+        marginBottom: scale(30),
         alignItems: 'center',
 
     },
     image: {
-        height: 60,
+        height: scale(60),
     },
     termsText: {
-        marginTop: 10,
-        fontSize: 18,
+        marginTop: scale(10),
+        fontSize: scale(18),
         color: colors.whiteColor
     }
 });

@@ -3,6 +3,7 @@ package com.petrack;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.reactnativecommunity.webview.RNCWebViewPackage;
 
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
 
@@ -38,6 +39,7 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+            new RNCWebViewPackage(),
                     new FBSDKPackage(mCallbackManager),
                     new SplashScreenReactPackage(),
                     new MapsPackage(),
