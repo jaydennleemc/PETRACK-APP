@@ -3,7 +3,7 @@ import {SafeAreaView, Text, View} from 'react-native';
 import { WebView } from 'react-native-webview';
 import Toolbar from "../components/toolbar";
 import {Actions} from "react-native-router-flux";
-import * as requestService from '../utils/HttpRequests';
+import * as requestService from '../utils/httpRequests';
 import * as colors from '../constants/colors';
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 

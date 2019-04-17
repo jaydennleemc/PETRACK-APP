@@ -14,7 +14,7 @@ import {Actions} from "react-native-router-flux";
 import {LoginManager, LoginButton, AccessToken} from "react-native-fbsdk";
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import Permissions from 'react-native-permissions'
-import * as utils from '../utils/CommonUtil';
+import * as utils from '../utils/commonUtil';
 
 export default class RegisterPage extends Component {
 

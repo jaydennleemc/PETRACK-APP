@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import SplashScreen from 'react-native-splash-screen';
 import {View, Platform, Alert, Button, SafeAreaView} from 'react-native';
 import {Actions} from "react-native-router-flux";
-import * as utils from "../utils/CommonUtil";
-import * as requestService from "../utils/HttpRequests";
+import * as utils from "../utils/commonUtil";
+import * as requestService from "../utils/httpRequests";
 
 export default class SplashScene extends Component {
 
