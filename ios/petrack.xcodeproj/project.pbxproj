@@ -54,6 +54,8 @@
 		A9353C3BA60A40A0994D7CF6 /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D33D773E753E46099241F5C2 /* FontAwesome5_Brands.ttf */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		B20B0B682266352500ECE721 /* libRNCWebView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B20B0B652266350E00ECE721 /* libRNCWebView.a */; };
+		B20B0B772267839300ECE721 /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B20B0B762267838300ECE721 /* libSplashScreen.a */; };
+		B20B0B802267843000ECE721 /* libRNCAsyncStorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B20B0B7F226783F000ECE721 /* libRNCAsyncStorage.a */; };
 		B21F37F22258B3F100117989 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B21F37EE2258B3F100117989 /* FBSDKLoginKit.framework */; };
 		B21F37F32258B3F100117989 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B21F37EF2258B3F100117989 /* FBSDKShareKit.framework */; };
 		B21F37F42258B3F100117989 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B21F37F02258B3F100117989 /* FBSDKCoreKit.framework */; };
@@ -343,6 +345,20 @@
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = RNCWebView;
 		};
+		B20B0B752267838300ECE721 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B20B0B712267838300ECE721 /* SplashScreen.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3D7682761D8E76B80014119E;
+			remoteInfo = SplashScreen;
+		};
+		B20B0B7E226783F000ECE721 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B20B0B78226783F000ECE721 /* RNCAsyncStorage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNCAsyncStorage;
+		};
 		B21F37FA2258B48000117989 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B21F37F62258B48000117989 /* RCTFBSDK.xcodeproj */;
@@ -458,6 +474,8 @@
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		B20B0AFC226634AB00ECE721 /* libreact-native-webview.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libreact-native-webview.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B20B0B382266350D00ECE721 /* RNCWebView.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNCWebView.xcodeproj; path = "../node_modules/react-native-webview/ios/RNCWebView.xcodeproj"; sourceTree = "<group>"; };
+		B20B0B712267838300ECE721 /* SplashScreen.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SplashScreen.xcodeproj; path = "../node_modules/react-native-splash-screen/ios/SplashScreen.xcodeproj"; sourceTree = "<group>"; };
+		B20B0B78226783F000ECE721 /* RNCAsyncStorage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNCAsyncStorage.xcodeproj; path = "../node_modules/@react-native-community/async-storage/ios/RNCAsyncStorage.xcodeproj"; sourceTree = "<group>"; };
 		B21F37EE2258B3F100117989 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		B21F37EF2258B3F100117989 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		B21F37F02258B3F100117989 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
@@ -533,6 +551,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B20B0B802267843000ECE721 /* libRNCAsyncStorage.a in Frameworks */,
+				B20B0B772267839300ECE721 /* libSplashScreen.a in Frameworks */,
 				B20B0B682266352500ECE721 /* libRNCWebView.a in Frameworks */,
 				B250041322639177000030E9 /* libReactNativePermissions.a in Frameworks */,
 				B21F38022258B4FF00117989 /* libRCTFBSDK.a in Frameworks */,
@@ -753,6 +773,8 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				B20B0B78226783F000ECE721 /* RNCAsyncStorage.xcodeproj */,
+				B20B0B712267838300ECE721 /* SplashScreen.xcodeproj */,
 				B20B0B382266350D00ECE721 /* RNCWebView.xcodeproj */,
 				B25003E42263915E000030E9 /* ReactNativePermissions.xcodeproj */,
 				B21F37F62258B48000117989 /* RCTFBSDK.xcodeproj */,
@@ -825,6 +847,22 @@
 			isa = PBXGroup;
 			children = (
 				B20B0B652266350E00ECE721 /* libRNCWebView.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B20B0B722267838300ECE721 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B20B0B762267838300ECE721 /* libSplashScreen.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B20B0B79226783F000ECE721 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B20B0B7F226783F000ECE721 /* libRNCAsyncStorage.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1133,12 +1171,20 @@
 					ProjectRef = B25003E42263915E000030E9 /* ReactNativePermissions.xcodeproj */;
 				},
 				{
+					ProductGroup = B20B0B79226783F000ECE721 /* Products */;
+					ProjectRef = B20B0B78226783F000ECE721 /* RNCAsyncStorage.xcodeproj */;
+				},
+				{
 					ProductGroup = B20B0B392266350D00ECE721 /* Products */;
 					ProjectRef = B20B0B382266350D00ECE721 /* RNCWebView.xcodeproj */;
 				},
 				{
 					ProductGroup = B2A239AD224B7CEE003D3660 /* Products */;
 					ProjectRef = FB3C1F0A59484394897DB399 /* RNVectorIcons.xcodeproj */;
+				},
+				{
+					ProductGroup = B20B0B722267838300ECE721 /* Products */;
+					ProjectRef = B20B0B712267838300ECE721 /* SplashScreen.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -1388,6 +1434,20 @@
 			fileType = archive.ar;
 			path = libRNCWebView.a;
 			remoteRef = B20B0B642266350E00ECE721 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B20B0B762267838300ECE721 /* libSplashScreen.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libSplashScreen.a;
+			remoteRef = B20B0B752267838300ECE721 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B20B0B7F226783F000ECE721 /* libRNCAsyncStorage.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNCAsyncStorage.a;
+			remoteRef = B20B0B7E226783F000ECE721 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		B21F37FB2258B48000117989 /* libRCTFBSDK.a */ = {

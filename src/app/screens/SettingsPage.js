@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import {scale} from "react-native-size-matters";
 import {Styles} from "../constants/styles";
 import {Button} from "react-native-elements";
+import {Actions} from "react-native-router-flux";
 
 
 export default class SettingsPage extends Component {
@@ -16,7 +17,7 @@ export default class SettingsPage extends Component {
                 <SafeAreaView/>
                 <TouchableOpacity
                     onPress={() => {
-
+                        Actions.pop();
                     }}
                     style={{marginLeft: scale(24), marginTop: scale(16)}}>
                     <Icon name={'arrowleft'} size={scale(30)} style={{color: colors.greyColor}}/>
@@ -68,21 +69,25 @@ export default class SettingsPage extends Component {
                         {/* Help Filed */}
                         <View style={styles.body}>
                             <Text style={{color: colors.lightColor}}>Help</Text>
-                            <TouchableOpacity onPress={()=>{
+                            <TouchableOpacity onPress={() => {
                                 Alert.alert('Help was click!!!')
                             }}>
-                            <TextInput
-                                pointerEvents="none"
-                                editable={false}
-                                style={{borderBottomColor: colors.greyColor, borderBottomWidth: 1, height: scale(30),}}>Report
-                                Bug</TextInput>
+                                <TextInput
+                                    pointerEvents="none"
+                                    editable={false}
+                                    style={{
+                                        borderBottomColor: colors.greyColor,
+                                        borderBottomWidth: 1,
+                                        height: scale(30),
+                                    }}>Report
+                                    Bug</TextInput>
                             </TouchableOpacity>
                         </View>
 
                         {/* Contact Filed */}
                         <View style={styles.body}>
                             <Text style={{color: colors.lightColor}}>Contact</Text>
-                            <TouchableOpacity onPress={()=>{
+                            <TouchableOpacity onPress={() => {
                                 Alert.alert('Contact was click!!!')
                             }}>
                                 <TextInput

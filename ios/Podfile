@@ -8,14 +8,13 @@ target 'petrack' do
   # Pods for petrack
   pod 'GoogleMaps'
 
-  #disable splash screen on ios becasue React/RCTBridgeModule.h' file not found problem.
+  
+  #All Link From Native Project 
   #pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
-
   #pod 'react-native-fbsdk', :path => '../node_modules/react-native-fbsdk' //use FacebookSDK on xcode project
-
   #pod 'ReactNativePermissions', :path => '../node_modules/react-native-permissions'
-
   #pod 'react-native-webview', :path => '../node_modules/react-native-webview'
+  #pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
 
   target 'petrackTests' do
     inherit! :search_paths

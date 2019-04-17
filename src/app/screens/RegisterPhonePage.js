@@ -33,7 +33,9 @@ export default class RegisterPhonePage extends Component {
             <View>
                 <SafeAreaView/>
                 {/* back button */}
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => {
+                    Actions.pop();
+                }}>
                     <Icon name={"arrowleft"} size={scale(20)} style={{marginLeft: 16, marginTop: 16}}/>
                 </TouchableOpacity>
 
@@ -41,7 +43,7 @@ export default class RegisterPhonePage extends Component {
                     <Text style={styles.phoneText}>Enter Your Phone#</Text>
                     <Text style={styles.text1}>Phone Number</Text>
                     <TextInput
-                        style={[styles.textInput1, {borderBottomColor: this.state.input1Focus == true ? colors.themeColor : colors.lightColor}]}
+                        style={[styles.textInput1, {borderBottomColor: this.state.input1Focus === true ? colors.themeColor : colors.lightColor}]}
                         onFocus={() => {
                             this.setState({input1Focus: true})
                         }}
@@ -65,17 +67,17 @@ export default class RegisterPhonePage extends Component {
                     </View>
 
                     <View
-                        style={[styles.underLine, {backgroundColor: this.state.input2Focus == true ? colors.themeColor : colors.lightColor}]}/>
+                        style={[styles.underLine, {backgroundColor: this.state.input2Focus === true ? colors.themeColor : colors.lightColor}]}/>
 
                     <Button title={'LOGIN'}
-                            onPress={()=>{
+                            onPress={() => {
                                 Actions.reset("home")
                             }}
                             buttonStyle={styles.buttonStyle1}/>
                 </View>
 
 
-                <View style={{backgroundColor: colors.themeColor,height:scale(160), width: 0}}/>
+                <View style={{backgroundColor: colors.themeColor, height: scale(160), width: 0}}/>
 
                 <View style={styles.view3}>
                     <View style={styles.underline2}/>

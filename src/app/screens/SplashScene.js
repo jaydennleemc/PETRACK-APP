@@ -3,6 +3,7 @@ import SplashScreen from 'react-native-splash-screen';
 import {View, Platform, Alert, Button, SafeAreaView} from 'react-native';
 import {Actions} from "react-native-router-flux";
 import * as utils from "../utils/CommonUtil";
+import * as requestService from "../utils/HttpRequests";
 
 export default class SplashScene extends Component {
 
@@ -14,11 +15,8 @@ export default class SplashScene extends Component {
     }
 
     componentDidMount() {
-        // hide splash screen
-        if (Platform.OS === 'android') {
-            SplashScreen.hide();
-        }
-        this._checkToken();
+        SplashScreen.hide();
+        this._checkVersion();
     }
 
     _checkToken = () => {
@@ -33,6 +31,20 @@ export default class SplashScene extends Component {
                 }
             });
         }
+    };
+
+    _checkVersion = () => {
+        requestService.checkVersion().then((resp) => {
+            console.log(resp.data);
+            let code = resp.data.code;
+            if (code === 1) {
+                this._checkToken();
+            } else {
+                //todo handle update
+            }
+        }).catch((error) => {
+            console.log(error);
+        })
     };
 
     render() {

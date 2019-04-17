@@ -14,7 +14,6 @@ import {Actions} from "react-native-router-flux";
 import {LoginManager, LoginButton, AccessToken} from "react-native-fbsdk";
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import Permissions from 'react-native-permissions'
-import * as APIs from '../utils/API_Client';
 import * as utils from '../utils/CommonUtil';
 
 export default class RegisterPage extends Component {
@@ -29,16 +28,7 @@ export default class RegisterPage extends Component {
 
     componentDidMount() {
         this._requestPermission();
-        this._checkVersion();
     }
-
-    _checkVersion = () => {
-        APIs.checkVersion().then(function (resp) {
-            console.log(resp.data)
-        }).catch((error) => {
-            console.log(error);
-        })
-    };
 
     _requestPermission = () => {
         // Returns once the user has chosen to 'allow' or to 'not allow' access

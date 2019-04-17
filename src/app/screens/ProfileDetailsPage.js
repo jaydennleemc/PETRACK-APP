@@ -16,6 +16,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import * as images from '../constants/images';
 import {Button} from "react-native-elements";
 import {Styles} from '../constants/styles';
+import {Actions} from "react-native-router-flux";
 
 
 export default class ProfileDetailsPage extends Component {
@@ -27,7 +28,9 @@ export default class ProfileDetailsPage extends Component {
                     <ImageBackground source={images.Dog2} style={{width: '100%', height: scale(200)}}>
                         <SafeAreaView/>
                         <View style={{flexDirection: 'row', marginHorizontal: scale(16)}}>
-                            <TouchableOpacity style={{flex: 1,}}>
+                            <TouchableOpacity style={{flex: 1,}} onPress={() => {
+                                Actions.pop();
+                            }}>
                                 <Icon name={'arrowleft'} size={scale(30)} style={{color: colors.whiteColor}}/>
                             </TouchableOpacity>
                             <TouchableOpacity>

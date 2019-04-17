@@ -12,7 +12,7 @@ import {Actions} from "react-native-router-flux";
 
 export default class ProfilePage extends Component {
 
-    _settingOnPress = ()=>{
+    _settingOnPress = () => {
         Actions.settingScene();
     };
 
@@ -20,12 +20,16 @@ export default class ProfilePage extends Component {
     render() {
         return (
             <View style={Styles.container}>
-                <View style={[styles.view1, {paddingTop:scale(30)}]}>
+                <View style={[styles.view1, {paddingTop: scale(30)}]}>
                     <View style={{flexDirection: 'row'}}>
-                        <TouchableOpacity style={{flex: 1,}}>
+                        <TouchableOpacity style={{flex: 1,}} onPress={() => {
+                            Actions.pop();
+                        }}>
                             <Icon name={'arrowleft'} size={scale(30)} style={{color: colors.whiteColor}}/>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={()=>{this._settingOnPress()}}>
+                        <TouchableOpacity onPress={() => {
+                            this._settingOnPress()
+                        }}>
                             <Icon name={'setting'} size={scale(30)} style={{color: colors.whiteColor}}/>
                         </TouchableOpacity>
                     </View>
@@ -40,7 +44,7 @@ export default class ProfilePage extends Component {
 
                 <FlatList
                     bounces={false}
-                    contentContainerStyle={{paddingBottom:scale(60)}}
+                    contentContainerStyle={{paddingBottom: scale(60)}}
                     data={[{key: 'a'}, {key: 'b'}, {key: 'a'}, {key: 'b'}, {key: 'a'}, {key: 'b'}, {key: 'a'}, {key: 'b'}]}
                     renderItem={({item}) => <DogListItem/>}/>
 
@@ -64,17 +68,17 @@ class DogListItem extends PureComponent {
 
 
     _renderGridViewItem = (value1, value2) => {
-        return(
+        return (
             <View style={{flexDirection: 'column'}}>
                 <Text>{value1}</Text>
-                <Text style={{color:colors.greyColor, marginTop:scale(16)}}>{value2}</Text>
+                <Text style={{color: colors.greyColor, marginTop: scale(16)}}>{value2}</Text>
             </View>
         );
     }
 
     render() {
         return (
-            <TouchableOpacity onPress={()=>{
+            <TouchableOpacity onPress={() => {
                 Actions.profileDetailScene();
             }}>
                 <View style={listStyles.container}>
@@ -133,13 +137,13 @@ const listStyles = StyleSheet.create({
         flex: 1,
         marginHorizontal: scale(16)
     },
-    dogName:{
-      marginTop:scale(16),
-      marginLeft:scale(8),
+    dogName: {
+        marginTop: scale(16),
+        marginLeft: scale(8),
     },
-    gridView:{
-        marginTop:scale(50),
-        marginHorizontal:scale(16),
+    gridView: {
+        marginTop: scale(50),
+        marginHorizontal: scale(16),
         flexDirection: 'row',
         justifyContent: 'space-between',
     }
