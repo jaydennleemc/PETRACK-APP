@@ -21,12 +21,55 @@ export default class RegisterPhonePage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            input1Focus: false,
-            input2Focus: false,
-            input1Text: '',
-            input2Text: '',
+            canSendSMS: true,
+            timer: 60,
+            phoneNumFocus: false,
+            smsCodeFocus: false,
+            phoneNumText: '',
+            smsCodeText: '',
         }
     }
+
+
+    _resetSMSTimer = () => {
+        setInterval(() => {
+            if (this.state.timer === 0) {
+                this.setState({
+                    canSendSMS: true,
+                });
+                clearInterval()
+            } else {
+                this.setState((preState) => ({timer: preState.timer - 1}));
+            }
+        }, 1000)
+    };
+
+    _requestSMSCode = () => {
+        this.setState({
+            canSendSMS: false,
+        }, () => {
+            this._resetSMSTimer();
+        })
+    };
+
+
+    _renderSMSComp = () => {
+        if (this.state.canSendSMS === true) {
+            return (
+                <TouchableOpacity style={styles.sendPIN} onPress={() => {
+                    this._requestSMSCode();
+                }}>
+                    <Text style={styles.sendPINText}>Send PIN</Text>
+                </TouchableOpacity>
+            )
+        } else {
+            return (
+                <TouchableOpacity style={styles.sendPIN} disabled={true}>
+                    <Text style={styles.sendPINText}>{this.state.timer}</Text>
+                </TouchableOpacity>
+            )
+        }
+    };
 
     render() {
         return (
@@ -43,12 +86,12 @@ export default class RegisterPhonePage extends Component {
                     <Text style={styles.phoneText}>Enter Your Phone#</Text>
                     <Text style={styles.text1}>Phone Number</Text>
                     <TextInput
-                        style={[styles.textInput1, {borderBottomColor: this.state.input1Focus === true ? colors.themeColor : colors.lightColor}]}
+                        style={[styles.textInput1, {borderBottomColor: this.state.phoneNumFocus === true ? colors.themeColor : colors.lightColor}]}
                         onFocus={() => {
-                            this.setState({input1Focus: true})
+                            this.setState({phoneNumFocus: true})
                         }}
                         onEndEditing={() => {
-                            this.setState({input1Focus: false})
+                            this.setState({phoneNumFocus: false})
                         }}
                         placeholder={'12345678'}
                         maxLength={8}
@@ -57,21 +100,19 @@ export default class RegisterPhonePage extends Component {
                     <View style={styles.view2}>
                         <TextInput style={styles.textInput2}
                                    onFocus={() => {
-                                       this.setState({input2Focus: true})
+                                       this.setState({smsCodeFocus: true})
                                    }}
                                    placeholder={'PIN Number'}/>
 
-                        <TouchableOpacity style={styles.sendPIN}>
-                            <Text style={styles.sendPINText}>Send PIN</Text>
-                        </TouchableOpacity>
+                        {this._renderSMSComp}
                     </View>
 
                     <View
-                        style={[styles.underLine, {backgroundColor: this.state.input2Focus === true ? colors.themeColor : colors.lightColor}]}/>
+                        style={[styles.underLine, {backgroundColor: this.state.smsCodeFocus === true ? colors.themeColor : colors.lightColor}]}/>
 
                     <Button title={'LOGIN'}
                             onPress={() => {
-                                Actions.reset("home")
+                                Actions.reset("homeScene")
                             }}
                             buttonStyle={styles.buttonStyle1}/>
                 </View>
@@ -150,4 +191,4 @@ const styles = StyleSheet.create({
         backgroundColor: colors.lightColor,
         marginHorizontal: scale(8)
     }
-})
+});

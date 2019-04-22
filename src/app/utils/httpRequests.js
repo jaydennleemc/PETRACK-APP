@@ -31,7 +31,7 @@ export function validateSMS(mobile, sms) {
 
 export function facebookAuth(access_token) {
     const  access_token1 = 'EAAFZB9OAB7rABAKMga6Y2KsibonGRJenhDSXLJRnBEU3huPMVoNUt3d79JhRAgCGo7D22fc6JfdvppRSS0K8nbgHGwVLjupHB3dpvq44feZCxPqobBXOLocHPkZCxmV83aZARuKRsrhYo4ZCNQvV3BZAtJYOBSUwIdHZAD899EmYP9vUOTXADOGov2R1y8jjtzpGo1kDCjl1gZDZD'
-    return flyer.post(APIs.facebookAuth, {'access_token': access_token1});
+    return flyer.post(APIs.facebookAuth, {'access_token': access_token});
 }
 
 export function getProfile() {

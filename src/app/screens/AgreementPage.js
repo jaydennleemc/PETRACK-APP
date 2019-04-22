@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {SafeAreaView, Text, View} from 'react-native';
-import { WebView } from 'react-native-webview';
+import {WebView} from 'react-native-webview';
 import Toolbar from "../components/toolbar";
 import {Actions} from "react-native-router-flux";
 import * as requestService from '../utils/httpRequests';
@@ -8,7 +8,7 @@ import * as colors from '../constants/colors';
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 
 
-export default class Agreement extends Component {
+export default class AgreementPage extends Component {
 
     constructor(props) {
         super(props);
@@ -22,10 +22,10 @@ export default class Agreement extends Component {
     }
 
     _loadAgreement = () => {
-        APIs.getAgreement().then((resp) => {
+        requestService.getAgreement().then((resp) => {
             this.setState({
-                html:resp.data
-            },()=> {
+                html: resp.data
+            }, () => {
                 console.log(this.state.html)
             });
 
@@ -36,18 +36,18 @@ export default class Agreement extends Component {
 
     render() {
         return (
-            <View style={{backgroundColor:colors.white}}>
+            <View style={{backgroundColor: colors.white}}>
                 <SafeAreaView>
-                <Toolbar
-                    leftIconOnPress={() => {
-                        Actions.pop();
-                    }}
-                    title={"Agreement"}
-                    disableRight={true}/>
+                    <Toolbar
+                        leftIconOnPress={() => {
+                            Actions.pop();
+                        }}
+                        title={"Agreement"}
+                        disableRight={true}/>
 
-                <View style={{width:'100%', height:'100%', paddingBottom:scale(92)}}>
-                    <WebView source={{html: this.state.html}} />
-                </View>
+                    <View style={{width: '100%', height: '100%', paddingBottom: scale(92)}}>
+                        <WebView source={{html: this.state.html}}/>
+                    </View>
                 </SafeAreaView>
             </View>
         );

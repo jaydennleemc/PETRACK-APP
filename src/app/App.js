@@ -9,7 +9,7 @@ import ProfilePage from "./screens/ProfilePage";
 import ProfileDetailsPage from "./screens/ProfileDetailsPage";
 import ScanPage from "./screens/ScanPage";
 import SettingsPage from "./screens/SettingsPage";
-import Agreement from "./screens/Agreement";
+import AgreementPage from "./screens/AgreementPage";
 
 export default class extends Component {
 
@@ -20,7 +20,7 @@ export default class extends Component {
                     <Scene key={"splashScene"} component={SplashScene} hideNavBar={true}/>
                     <Scene key={"registerScene"} component={RegisterPage} hideNavBar={true}/>
                     <Scene key={"registerPhoneScene"} component={RegisterPhonePage} hideNavBar={true}/>
-                    <Scene key={"agreementScene"} component={Agreement} hideNavBar={true}/>
+                    <Scene key={"agreementScene"} component={AgreementPage} hideNavBar={true}/>
 
                     <Scene key={"homeScene"} component={HomePage} hideNavBar={true}/>
                     <Scene key={"profileScene"} component={ProfilePage} hideNavBar={true}/>

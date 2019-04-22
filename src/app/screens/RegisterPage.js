@@ -14,9 +14,12 @@ import {Actions} from "react-native-router-flux";
 import {LoginManager, LoginButton, AccessToken} from "react-native-fbsdk";
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import Permissions from 'react-native-permissions'
-import * as utils from '../utils/commonUtil';
+import * as requestService from "../utils/httpRequests";
+import AsyncStorage from "@react-native-community/async-storage";
 
 export default class RegisterPage extends Component {
+
+    facebookPermission = ['email', 'user_birthday', 'user_friends', 'user_gender', 'user_location'];
 
     constructor(props) {
         super(props);
@@ -53,26 +56,31 @@ export default class RegisterPage extends Component {
     };
 
     _fbAuth = () => {
-        LoginManager.logInWithReadPermissions(["public_profile"]).then(
+        LoginManager.logInWithReadPermissions(this.facebookPermission).then(
             function (result) {
                 if (result.isCancelled) {
                     console.log("Login cancelled");
                 } else {
-                    AccessToken.getCurrentAccessToken().then((data) => {
-                            console.log('facebook token: ' + data.accessToken.toString());
-                            APIs.facebookAuth(data.accessToken.toString()).then(function (resp) {
-                                console.log(resp.data.jwt_token);
-                                utils.storeJWTToken(resp.data.jwt_token);
-                            }).catch((error) => {
-                                console.log(error);
+                    AccessToken.getCurrentAccessToken().then(async function (data) {
+                        try {
+                            let token = data.accessToken.toString();
+                            console.log('facebook token: ', token);
+                            // store facebook token to AsyncStorage
+                            await AsyncStorage.setItem('facebookToken', token);
+                            // send facebook token to server
+                            requestService.facebookAuth(token).then(async function (resp) {
+                                let jwtToken = resp.data.jwt_token;
+                                console.log('jwtToken: ', jwtToken);
+                                // store jwt token to AsyncStorage
+                                await AsyncStorage.setItem('jwtToken', jwtToken).then(() => {
+                                    Actions.reset('homeScene');
+                                })
                             })
+                        } catch (error) {
+                            console.log('facebook auth error: ', error)
                         }
-                    );
-
-                    console.log(
-                        "Login success with permissions: " +
-                        result.grantedPermissions.toString()
-                    );
+                    });
+                    console.log("Login success with permissions: " + result.grantedPermissions.toString());
                 }
             },
             function (error) {

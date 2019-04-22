@@ -1,15 +1,44 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, SafeAreaView, TouchableOpacity, Text, TextInput, ScrollView, Alert} from 'react-native';
+import {
+    StyleSheet,
+    View,
+    SafeAreaView,
+    TouchableOpacity,
+    Text,
+    TextInput,
+    ScrollView,
+    Alert,
+} from 'react-native';
 import * as colors from '../constants/colors';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {scale} from "react-native-size-matters";
 import {Styles} from "../constants/styles";
 import {Button} from "react-native-elements";
 import {Actions} from "react-native-router-flux";
+import AsyncStorage from '@react-native-community/async-storage';
 
 
 export default class SettingsPage extends Component {
 
+    _signOut = () => {
+
+        Alert.alert('Sign Out', 'Do you want to sign out ?',
+            [
+                {
+                    text: 'Yes', onPress: () => {
+                        AsyncStorage.clear().then(() => {
+                            Actions.reset('registerScene');
+                        })
+                    }
+                },
+                {
+                    text: 'No',
+                    style: 'cancel'
+                }
+            ],
+            {cancelable: false}
+        );
+    };
 
     render() {
         return (
@@ -105,6 +134,9 @@ export default class SettingsPage extends Component {
 
                 <View style={styles.buttonView}>
                     <Button title={'Sign out'}
+                            onPress={() => {
+                                this._signOut();
+                            }}
                             buttonStyle={styles.petButtonStyle}
                             containerStyle={styles.petButtonContainer}/>
                 </View>
