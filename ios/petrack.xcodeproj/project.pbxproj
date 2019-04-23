@@ -83,6 +83,7 @@
 		B25652692257C475006D9550 /* AIRGoogleMap.m in Sources */ = {isa = PBXBuildFile; fileRef = B25652512257C475006D9550 /* AIRGoogleMap.m */; };
 		B256526A2257C475006D9550 /* AIRGoogleMapPolygon.m in Sources */ = {isa = PBXBuildFile; fileRef = B25652552257C475006D9550 /* AIRGoogleMapPolygon.m */; };
 		B256526B2257C475006D9550 /* AIRGMSMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = B25652562257C475006D9550 /* AIRGMSMarker.m */; };
+		B2D4AEAB226F7C4A00A8AA75 /* libRNCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2D4AEA5226F7C2C00A8AA75 /* libRNCamera.a */; };
 		B419A39D5E524E598BAF0F6A /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E62991615A94054A1302B03 /* MaterialCommunityIcons.ttf */; };
 		CA735902C833412F95640C10 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B242E2538804450D8226D549 /* MaterialIcons.ttf */; };
 		D172EB16032748CDBCAAAB28 /* libRNVectorIcons-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D77AA1087E54EF4B3A39812 /* libRNVectorIcons-tvOS.a */; };
@@ -422,6 +423,13 @@
 			remoteGlobalIDString = A39873CE1EA65EE60051E01A;
 			remoteInfo = "RNVectorIcons-tvOS";
 		};
+		B2D4AEA4226F7C2C00A8AA75 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B2D4AE78226F7C2C00A8AA75 /* RNCamera.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4107012F1ACB723B00C6AA39;
+			remoteInfo = RNCamera;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -525,6 +533,7 @@
 		B25652542257C475006D9550 /* AIRGoogleMapCircleManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIRGoogleMapCircleManager.h; sourceTree = "<group>"; };
 		B25652552257C475006D9550 /* AIRGoogleMapPolygon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIRGoogleMapPolygon.m; sourceTree = "<group>"; };
 		B25652562257C475006D9550 /* AIRGMSMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIRGMSMarker.m; sourceTree = "<group>"; };
+		B2D4AE78226F7C2C00A8AA75 /* RNCamera.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNCamera.xcodeproj; path = "../node_modules/react-native-camera/ios/RNCamera.xcodeproj"; sourceTree = "<group>"; };
 		C22D2467975648BBA95FDDC3 /* libAirMaps.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAirMaps.a; sourceTree = "<group>"; };
 		C3884BA3FB2245BC98D48785 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		C932512168296B269ADFADF7 /* Pods-petrackTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-petrackTests.debug.xcconfig"; path = "Target Support Files/Pods-petrackTests/Pods-petrackTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -551,6 +560,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2D4AEAB226F7C4A00A8AA75 /* libRNCamera.a in Frameworks */,
 				B20B0B802267843000ECE721 /* libRNCAsyncStorage.a in Frameworks */,
 				B20B0B772267839300ECE721 /* libSplashScreen.a in Frameworks */,
 				B20B0B682266352500ECE721 /* libRNCWebView.a in Frameworks */,
@@ -773,6 +783,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				B2D4AE78226F7C2C00A8AA75 /* RNCamera.xcodeproj */,
 				B20B0B78226783F000ECE721 /* RNCAsyncStorage.xcodeproj */,
 				B20B0B712267838300ECE721 /* SplashScreen.xcodeproj */,
 				B20B0B382266350D00ECE721 /* RNCWebView.xcodeproj */,
@@ -971,6 +982,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		B2D4AE79226F7C2C00A8AA75 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B2D4AEA5226F7C2C00A8AA75 /* libRNCamera.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		D671CDFE4D564FD6989C9ACF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -1084,7 +1103,11 @@
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = 4L5LCELMR8;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
+					};
+					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = 4L5LCELMR8;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -1169,6 +1192,10 @@
 				{
 					ProductGroup = B25003E52263915E000030E9 /* Products */;
 					ProjectRef = B25003E42263915E000030E9 /* ReactNativePermissions.xcodeproj */;
+				},
+				{
+					ProductGroup = B2D4AE79226F7C2C00A8AA75 /* Products */;
+					ProjectRef = B2D4AE78226F7C2C00A8AA75 /* RNCamera.xcodeproj */;
 				},
 				{
 					ProductGroup = B20B0B79226783F000ECE721 /* Products */;
@@ -1513,6 +1540,13 @@
 			remoteRef = B2A239B3224B7CEE003D3660 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		B2D4AEA5226F7C2C00A8AA75 /* libRNCamera.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNCamera.a;
+			remoteRef = B2D4AEA4226F7C2C00A8AA75 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -1794,6 +1828,7 @@
 			baseConfigurationReference = C932512168296B269ADFADF7 /* Pods-petrackTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 4L5LCELMR8;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1828,6 +1863,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 4L5LCELMR8;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
@@ -1859,6 +1895,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = 4L5LCELMR8;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks/",
@@ -1894,6 +1931,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4L5LCELMR8;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks/",

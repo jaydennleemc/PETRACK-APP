@@ -89,13 +89,11 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-  
-  <key>NSCameraUsageDescription</key>
-  <string></string>
-  <key>NSPhotoLibraryAddUsageDescription</key>
-  <string></string>
-  <key>NSPhotoLibraryUsageDescription</key>
-  <string></string>
-
+	<key>NSCameraUsageDescription</key>
+	<string/>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string/>
 </dict>
 </plist>
