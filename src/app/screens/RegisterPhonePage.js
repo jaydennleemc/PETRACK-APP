@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-
 import {
     View,
     Text,
@@ -12,8 +11,8 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import * as colors from '../constants/colors';
 import {Button} from 'react-native-elements';
-import {Styles} from "../constants/styles";
 import {Actions} from "react-native-router-flux";
+import * as requestService from "../utils/httpRequests";
 
 
 export default class RegisterPhonePage extends Component {
@@ -22,14 +21,14 @@ export default class RegisterPhonePage extends Component {
         super(props);
         this.state = {
             canSendSMS: true,
-            timer: 60,
+            timer: 30,
             phoneNumFocus: false,
             smsCodeFocus: false,
+            loginButton: true,
             phoneNumText: '',
             smsCodeText: '',
         }
     }
-
 
     _resetSMSTimer = () => {
         setInterval(() => {
@@ -44,7 +43,7 @@ export default class RegisterPhonePage extends Component {
         }, 1000)
     };
 
-    _requestSMSCode = () => {
+    _requestSMSCodeTimer = () => {
         this.setState({
             canSendSMS: false,
         }, () => {
@@ -52,12 +51,11 @@ export default class RegisterPhonePage extends Component {
         })
     };
 
-
     _renderSMSComp = () => {
         if (this.state.canSendSMS === true) {
             return (
                 <TouchableOpacity style={styles.sendPIN} onPress={() => {
-                    this._requestSMSCode();
+                    this._requestSMSCodeTimer();
                 }}>
                     <Text style={styles.sendPINText}>Send PIN</Text>
                 </TouchableOpacity>
@@ -65,10 +63,42 @@ export default class RegisterPhonePage extends Component {
         } else {
             return (
                 <TouchableOpacity style={styles.sendPIN} disabled={true}>
-                    <Text style={styles.sendPINText}>{this.state.timer}</Text>
+                    <Text style={[styles.sendPINText, {
+                        alignSelf: 'center',
+                        color: colors.themeColor
+                    }]}>{this.state.timer}</Text>
                 </TouchableOpacity>
             )
         }
+    };
+
+    _enableLoginButton = () => {
+        if (this.state.phoneNumText.length === 8 && this.state.smsCodeText.length === 4) {
+            this.setState({
+                loginButton: false
+            })
+        } else {
+            this.setState({
+                loginButton: true
+            })
+        }
+    };
+
+    _requestSMSCode = () => {
+        requestService.sendSMS(this.state.phoneNumText).then(function (resp) {
+
+        }).catch((error) => {
+            console.log('Request SMS Code Error: ', error)
+        });
+
+    };
+
+    _phoneLogin = () => {
+        requestService.validateSMS(this.state.phoneNumText, this.state.smsCodeText).then(function (resp) {
+
+        }).catch((error) => {
+            console.log('Mobile Phone Login Error: ', error);
+        })
     };
 
     render() {
@@ -85,44 +115,65 @@ export default class RegisterPhonePage extends Component {
                 <View style={styles.view1}>
                     <Text style={styles.phoneText}>Enter Your Phone#</Text>
                     <Text style={styles.text1}>Phone Number</Text>
+                    {/* Phone Number Field */}
                     <TextInput
-                        style={[styles.textInput1, {borderBottomColor: this.state.phoneNumFocus === true ? colors.themeColor : colors.lightColor}]}
+                        style={[styles.phoneNumText,
+                            {borderBottomColor: this.state.phoneNumFocus === true ? colors.themeColor : colors.lightColor}]}
                         onFocus={() => {
-                            this.setState({phoneNumFocus: true})
+                            this.setState({
+                                phoneNumFocus: true,
+                                smsCodeFocus: false,
+                            })
                         }}
-                        onEndEditing={() => {
-                            this.setState({phoneNumFocus: false})
+                        onChangeText={(text) => {
+                            this.setState({phoneNumText: text}, () => {
+                                this._enableLoginButton();
+                            })
                         }}
                         placeholder={'12345678'}
                         maxLength={8}
                         keyboardType={'number-pad'}
                         clearButtonMode={'while-editing'}/>
                     <View style={styles.view2}>
-                        <TextInput style={styles.textInput2}
+                        {/* SMS Code Field */}
+                        <TextInput style={styles.smsCodeText}
                                    onFocus={() => {
-                                       this.setState({smsCodeFocus: true})
+                                       this.setState({
+                                           smsCodeFocus: true,
+                                           phoneNumFocus: false,
+                                       })
                                    }}
+                                   onChangeText={(text) => {
+                                       this.setState({smsCodeText: text}, () => {
+                                           this._enableLoginButton();
+                                       })
+                                   }}
+                                   maxLength={4}
                                    placeholder={'PIN Number'}/>
 
-                        {this._renderSMSComp}
+                        {/*    Render Send PIN or Timer       */}
+                        {this._renderSMSComp()}
                     </View>
-
                     <View
-                        style={[styles.underLine, {backgroundColor: this.state.smsCodeFocus === true ? colors.themeColor : colors.lightColor}]}/>
+                        style={[styles.underLine,
+                            {backgroundColor: this.state.smsCodeFocus === true ? colors.themeColor : colors.lightColor}]}/>
 
+                    <View style={{marginTop: scale(40)}}/>
+
+                    {/*   Login Button     */}
                     <Button title={'LOGIN'}
                             onPress={() => {
                                 Actions.reset("homeScene")
                             }}
-                            buttonStyle={styles.buttonStyle1}/>
+                            disabled={this.state.loginButton}
+                            buttonStyle={styles.loginButton}/>
                 </View>
-
-
                 <View style={{backgroundColor: colors.themeColor, height: scale(160), width: 0}}/>
-
                 <View style={styles.view3}>
                     <View style={styles.underline2}/>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => {
+                        Actions.pop();
+                    }}>
                         <View style={{flexDirection: 'row'}}>
                             <Text style={{color: colors.greyColor}}>Login with </Text>
                             <Text style={{color: colors.themeColor}}>Facebook</Text>
@@ -148,7 +199,7 @@ const styles = StyleSheet.create({
         marginTop: scale(20),
         color: colors.lightColor
     },
-    textInput1: {
+    phoneNumText: {
         marginTop: scale(16),
         height: scale(40),
         borderBottomWidth: scale(1),
@@ -157,7 +208,7 @@ const styles = StyleSheet.create({
         marginTop: scale(16),
         flexDirection: 'row'
     },
-    textInput2: {
+    smsCodeText: {
         flex: 3,
         marginTop: scale(16)
     },
@@ -173,11 +224,10 @@ const styles = StyleSheet.create({
         marginTop: scale(8),
         height: scale(1),
     },
-    buttonStyle1: {
-        marginTop: scale(60),
+    loginButton: {
         borderRadius: 25,
         height: scale(40),
-        backgroundColor: '#C7C7CC',
+        backgroundColor: colors.themeColor,
     },
     view3: {
         marginLeft: scale(16),

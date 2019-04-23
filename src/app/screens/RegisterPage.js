@@ -64,20 +64,22 @@ export default class RegisterPage extends Component {
                     AccessToken.getCurrentAccessToken().then(async function (data) {
                         try {
                             let token = data.accessToken.toString();
-                            console.log('facebook token: ', token);
+                            console.log('Facebook Token: ', token);
                             // store facebook token to AsyncStorage
                             await AsyncStorage.setItem('facebookToken', token);
                             // send facebook token to server
                             requestService.facebookAuth(token).then(async function (resp) {
                                 let jwtToken = resp.data.jwt_token;
-                                console.log('jwtToken: ', jwtToken);
+                                console.log('JWT Token: ', jwtToken);
                                 // store jwt token to AsyncStorage
                                 await AsyncStorage.setItem('jwtToken', jwtToken).then(() => {
                                     Actions.reset('homeScene');
                                 })
-                            })
+                            }).catch((error) => {
+                                console.log('Request JWT Token Error: ', error)
+                            });
                         } catch (error) {
-                            console.log('facebook auth error: ', error)
+                            console.log('Facebook Authentication Error: ', error)
                         }
                     });
                     console.log("Login success with permissions: " + result.grantedPermissions.toString());
