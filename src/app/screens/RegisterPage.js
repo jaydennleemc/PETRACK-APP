@@ -14,8 +14,9 @@ import {Actions} from "react-native-router-flux";
 import {LoginManager, LoginButton, AccessToken} from "react-native-fbsdk";
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import Permissions from 'react-native-permissions'
-import * as requestService from "../utils/httpRequests";
 import AsyncStorage from "@react-native-community/async-storage";
+
+let ApiService = require('../utils/APIService');
 
 export default class RegisterPage extends Component {
 
@@ -31,7 +32,6 @@ export default class RegisterPage extends Component {
 
     componentDidMount() {
         this._requestPermission();
-        console.log('apis version ' + requestService.cloudVersion)
     }
 
     _requestPermission = () => {
@@ -67,7 +67,7 @@ export default class RegisterPage extends Component {
                             let token = data.accessToken.toString();
                             console.log('Facebook Token: ', token);
                             // send facebook token to server
-                            requestService.facebookAuth(token).then(async function (resp) {
+                            ApiService.facebookAuth(token, ApiService.cloudVersion).then(async function (resp) {
                                 let jwtToken = resp.data.jwt_token;
                                 console.log('JWT Token: ', jwtToken);
                                 // store jwt token to AsyncStorage

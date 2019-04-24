@@ -3,10 +3,10 @@ import {SafeAreaView, Text, View} from 'react-native';
 import {WebView} from 'react-native-webview';
 import Toolbar from "../components/toolbar";
 import {Actions} from "react-native-router-flux";
-import * as requestService from '../utils/httpRequests';
 import * as colors from '../constants/colors';
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 
+let ApiService = require('../utils/APIService');
 
 export default class AgreementPage extends Component {
 
@@ -22,7 +22,7 @@ export default class AgreementPage extends Component {
     }
 
     _loadAgreement = () => {
-        requestService.getAgreement().then((resp) => {
+        ApiService.getAgreement().then((resp) => {
             this.setState({
                 html: resp.data
             }, () => {

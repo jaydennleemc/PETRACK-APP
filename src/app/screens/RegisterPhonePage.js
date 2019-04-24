@@ -12,8 +12,8 @@ import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import * as colors from '../constants/colors';
 import {Button} from 'react-native-elements';
 import {Actions} from "react-native-router-flux";
-import * as requestService from "../utils/httpRequests";
 
+let ApiService = require('../utils/APIService');
 
 export default class RegisterPhonePage extends Component {
 
@@ -85,7 +85,7 @@ export default class RegisterPhonePage extends Component {
     };
 
     _requestSMSCode = () => {
-        requestService.sendSMS(this.state.phoneNumText).then(function (resp) {
+        ApiService.sendSMS(this.state.phoneNumText, ApiService.cloudVersion).then(function (resp) {
 
         }).catch((error) => {
             console.log('Request SMS Code Error: ', error)
@@ -94,7 +94,7 @@ export default class RegisterPhonePage extends Component {
     };
 
     _phoneLogin = () => {
-        requestService.validateSMS(this.state.phoneNumText, this.state.smsCodeText).then(function (resp) {
+        ApiService.validateSMS(this.state.phoneNumText, this.state.smsCodeText, ApiService.cloudVersion).then(function (resp) {
 
         }).catch((error) => {
             console.log('Mobile Phone Login Error: ', error);

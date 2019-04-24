@@ -2,9 +2,10 @@ import React, {Component} from 'react';
 import SplashScreen from 'react-native-splash-screen';
 import {View, Platform, Alert, Button, SafeAreaView,} from 'react-native';
 import {Actions} from "react-native-router-flux";
-import * as requestService from "../utils/httpRequests";
+
 import AsyncStorage from '@react-native-community/async-storage';
 
+let ApiService = require('../utils/APIService');
 
 export default class SplashScene extends Component {
 
@@ -38,10 +39,10 @@ export default class SplashScene extends Component {
     };
 
     _checkVersion = () => {
-        requestService.checkVersion().then((resp) => {
+        ApiService.checkVersion().then((resp) => {
             console.log(resp.data);
             let code = resp.data.code;
-            requestService.cloudVersion = 'v1';
+            ApiService.cloudVersion = 'v1';
             if (code === 1) {
                 this._checkToken()
             } else {
