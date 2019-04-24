@@ -49,7 +49,7 @@ export default class SettingsPage extends Component {
                         Actions.pop();
                     }}
                     style={{marginLeft: scale(24), marginTop: scale(16)}}>
-                    <Icon name={'arrowleft'} size={scale(30)} style={{color: colors.greyColor}}/>
+                    <Icon name={'arrowleft'} size={scale(30)} style={{color: colors.whiteColor}}/>
                 </TouchableOpacity>
 
                 <View style={styles.view1}>

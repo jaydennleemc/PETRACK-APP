@@ -1,45 +1,79 @@
 import fly from 'flyio';
-import {APIs, Config} from "./APIs";
 
+const base_url = 'http://api.petrack.app';
 const flyer = fly;
-flyer.config.timeout = Config.timeout;
+flyer.config.timeout = 3000;
+
+export var cloudVersion = 'v1';
+
+const APIs = {
+//basic
+    agreement: '/agreement',
+    privacy: '/privacy',
+    version: '/basic/versions',
+    breeds: '/basic/breeds',
+//auth
+    sendSMS: '/auth/mobile/sendSMS',
+    validateSMS: '/auth/mobile/validate',
+    facebookAuth: '/auth/facebook',
+
+//Profile
+    getProfile: '/me/profile',
+    updateProfile: '/me/profile/update',
+//Pet
+    getPets: '/me/pets',
+    getPet: '/me/pet/',
+    addPet: '/me/pet/add',
+    deletePet: '/me/pet/remove/',
+    updatePet: '/me/pet/update/'
+
+};
+
 
 //General routes
 export function checkVersion() {
-    return flyer.get(APIs.version);
+    const url = base_url + APIs.version;
+    return flyer.get(url);
 }
 
 export function getAgreement() {
-    return flyer.get(APIs.agreement);
+    const url = base_url + APIs.agreement;
+    return flyer.get(url);
 }
 
 export function getPrivacy() {
-    return flyer.get(APIs.privacy);
+    const url = base_url + APIs.privacy;
+    return flyer.get(url);
 }
 
 export function getBreeds() {
-    return flyer.get(APIs.breeds);
+    const url = base_url + APIs.breeds;
+    return flyer.get(url);
 }
 
 export function sendSMS(mobile) {
-    return flyer.post(APIs.sendSMS, {'mobile': mobile});
+    const url = base_url + '/' + cloudVersion + APIs.sendSMS;
+    return flyer.post(url, {'mobile': mobile});
 }
 
 export function validateSMS(mobile, sms) {
-    return flyer.post(APIs.validateSMS, {'mobile': mobile, 'code': sms});
+    const url = base_url + '/' + cloudVersion + APIs.validateSMS;
+    return flyer.post(url, {'mobile': mobile, 'code': sms});
 }
 
 export function facebookAuth(access_token) {
-    const  access_token1 = 'EAAFZB9OAB7rABAKMga6Y2KsibonGRJenhDSXLJRnBEU3huPMVoNUt3d79JhRAgCGo7D22fc6JfdvppRSS0K8nbgHGwVLjupHB3dpvq44feZCxPqobBXOLocHPkZCxmV83aZARuKRsrhYo4ZCNQvV3BZAtJYOBSUwIdHZAD899EmYP9vUOTXADOGov2R1y8jjtzpGo1kDCjl1gZDZD'
-    return flyer.post(APIs.facebookAuth, {'access_token': access_token});
+    const url = base_url + '/' + cloudVersion + APIs.facebookAuth;
+    return flyer.post(url, {'access_token': access_token});
 }
 
 export function getProfile() {
-    return flyer.get(APIs.getProfile);
+    const url = base_url + '/' + cloudVersion + APIs.getProfile;
+    return flyer.get(url);
 }
 
 export function updateProfile(nickname, mobile, email, country, city) {
-    return flyer.post(APIs.updateProfile, {
+    const url = base_url + '/' + cloudVersion + APIs.updateProfile;
+    return flyer.post(url, {
         'nickname': nickname,
         'mobile': mobile,
         'email': email,
@@ -49,15 +83,18 @@ export function updateProfile(nickname, mobile, email, country, city) {
 }
 
 export function getPets() {
-    return flyer.get(APIs.getPets);
+    const url = base_url + '/' + cloudVersion + APIs.getPets;
+    return flyer.get(url);
 }
 
 export function getPet(id) {
-    return flyer.get(APIs.getPet + id);
+    const url = base_url + '/' + cloudVersion + APIs.getPet;
+    return flyer.get(url + id);
 }
 
 export function addPet(name, gender, type, birthdate, weight) {
-    return flyer.post(APIs.addPet, {
+    const url = base_url + '/' + cloudVersion + APIs.addPet;
+    return flyer.post(url, {
         'name': name,
         'gender': gender,
         'type': type,
@@ -67,9 +104,11 @@ export function addPet(name, gender, type, birthdate, weight) {
 }
 
 export function deletePet(id) {
-    return flyer.delete(APIs.deletePet + id);
+    const url = base_url + '/' + cloudVersion + APIs.deletePet;
+    return flyer.delete(url + id);
 }
 
 export function updatePet(id) {
-    return flyer.post(APIs.updatePet + id)
+    const url = base_url + '/' + cloudVersion + APIs.updatePet;
+    return flyer.post(url + id)
 }

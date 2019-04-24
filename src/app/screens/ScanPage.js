@@ -10,10 +10,13 @@ import QRCodeScanner from 'react-native-qrcode-scanner';
 
 export default class ScanPage extends Component {
 
+    constructor(props) {
+        super(props)
+    }
+
+    //  handle QR Code Scanner
     onSuccess(e) {
-        Linking
-            .openURL(e.data)
-            .catch(err => console.error('An error occured', err));
+
     }
 
     render() {
@@ -29,43 +32,33 @@ export default class ScanPage extends Component {
                 <View style={{
                     flex: 1,
                     alignItems: 'center',
-                    backgroundColor: colors.lightColor,
+                    backgroundColor: colors.blackColor,
                     justifyContent: 'center',
                 }}>
-
                     <QRCodeScanner
-                        onRead={this.onSuccess.bind(this)}
-                    />
-                    {/*<ImageBackground source={images.Scan_square} style={{width: scale(200), height: scale(200),}}>*/}
-                    {/*    <Animatable.View animation="fadeInDown" duration={1000} iterationCount={100}>*/}
-                    {/*        <Image source={images.Scan_line} style={{width: scale(200), marginTop: scale(120)}}*/}
-                    {/*               resizeMode={'stretch'}/>*/}
-                    {/*    </Animatable.View>*/}
-                    {/*</ImageBackground>*/}
-                </View>
+                        cameraStyle={{width: '100%', height: '100%'}}
+                        fadeIn={true}
+                        onRead={this.onSuccess.bind(this)}/>
 
+                    <View style={styles.scannerView}>
+                        <ImageBackground source={images.Scan_square} style={{width: scale(200), height: scale(200),}}>
+                            <Animatable.View animation="fadeInDown" duration={1000} iterationCount={100}>
+                                <Image source={images.Scan_line} style={{width: scale(200), marginTop: scale(120)}}
+                                       resizeMode={'stretch'}/>
+                            </Animatable.View>
+                        </ImageBackground>
+                    </View>
+                </View>
             </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
-    centerText: {
-        flex: 1,
-        fontSize: 18,
-        padding: 32,
-        color: '#777',
-    },
-    textBold: {
-        fontWeight: '500',
-        color: '#000',
-    },
-    buttonText: {
-        fontSize: 21,
-        color: 'rgb(0,122,255)',
-    },
-    buttonTouchable: {
-        padding: 16,
-    },
+    scannerView: {
+        position: 'absolute',
+        top: '30%',
+        bottom: '25%'
+    }
 });
 

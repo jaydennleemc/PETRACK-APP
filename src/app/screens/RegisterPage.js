@@ -31,6 +31,7 @@ export default class RegisterPage extends Component {
 
     componentDidMount() {
         this._requestPermission();
+        console.log('apis version ' + requestService.cloudVersion)
     }
 
     _requestPermission = () => {
@@ -65,8 +66,6 @@ export default class RegisterPage extends Component {
                         try {
                             let token = data.accessToken.toString();
                             console.log('Facebook Token: ', token);
-                            // store facebook token to AsyncStorage
-                            await AsyncStorage.setItem('facebookToken', token);
                             // send facebook token to server
                             requestService.facebookAuth(token).then(async function (resp) {
                                 let jwtToken = resp.data.jwt_token;
