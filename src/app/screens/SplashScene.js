@@ -25,6 +25,7 @@ export default class SplashScene extends Component {
         try {
             let value = await AsyncStorage.getItem('jwtToken');
             if (value !== null) {
+                ApiService.setupJWTToken(value);
                 this.setState({
                     hasToken: true
                 }, () => {
@@ -42,7 +43,7 @@ export default class SplashScene extends Component {
         ApiService.checkVersion().then((resp) => {
             console.log(resp.data);
             let code = resp.data.code;
-            ApiService.cloudVersion = 'v1';
+            ApiService.setupCloudVersion('/v1');
             if (code === 1) {
                 this._checkToken()
             } else {

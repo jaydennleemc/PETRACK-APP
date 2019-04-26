@@ -1,9 +1,9 @@
 import fly from 'flyio';
 
 const base_url = 'http://api.petrack.app';
-const flyer = fly;
-flyer.config.timeout = 3000;
-export var cloudVersion = '';
+fly.config.timeout = 3000;
+fly.config.baseURL = base_url;
+var cloudVersion = '';
 
 const APIs = {
 //basic
@@ -30,6 +30,16 @@ const APIs = {
 
 
 class APIService {
+
+    static setupJWTToken(token) {
+        const bearer = "Bearer " + token;
+        fly.config.headers = {"Authorization": bearer};
+    }
+
+    static setupCloudVersion(version) {
+        cloudVersion = version;
+    }
+
     static checkVersion() {
         const url = base_url + APIs.version;
         return fly.get(url);
@@ -37,42 +47,42 @@ class APIService {
 
     static getAgreement() {
         const url = base_url + APIs.agreement;
-        return flyer.get(url);
+        return fly.get(url);
     }
 
     static getPrivacy() {
         const url = base_url + APIs.privacy;
-        return flyer.get(url);
+        return fly.get(url);
     }
 
     static getBreeds() {
         const url = base_url + APIs.breeds;
-        return flyer.get(url);
+        return fly.get(url);
     }
 
-    static sendSMS(mobile, version) {
-        const url = base_url + version + cloudVersion + APIs.sendSMS;
-        return flyer.post(url, {'mobile': mobile});
+    static sendSMS(mobile) {
+        const url = base_url + cloudVersion + APIs.sendSMS;
+        return fly.post(url, {'mobile': mobile});
     }
 
-    static validateSMS(mobile, sms, version) {
-        const url = base_url + version + cloudVersion + APIs.validateSMS;
-        return flyer.post(url, {'mobile': mobile, 'code': sms});
+    static validateSMS(mobile, sms) {
+        const url = base_url + cloudVersion + APIs.validateSMS;
+        return fly.post(url, {'mobile': mobile, 'code': sms});
     }
 
-    static facebookAuth(access_token, version) {
-        const url = base_url + version + cloudVersion + APIs.facebookAuth;
-        return flyer.post(url, {'access_token': access_token});
+    static facebookAuth(access_token) {
+        const url = base_url + cloudVersion + APIs.facebookAuth;
+        return fly.post(url, {'access_token': access_token});
     }
 
-    static getProfile(version) {
-        const url = base_url + version + cloudVersion + APIs.getProfile;
-        return flyer.get(url);
+    static getProfile() {
+        const url = base_url + cloudVersion + APIs.getProfile;
+        return fly.get(url);
     }
 
-    static updateProfile(nickname, mobile, email, country, city, version) {
-        const url = base_url + version + cloudVersion + APIs.updateProfile;
-        return flyer.post(url, {
+    static updateProfile(nickname, mobile, email, country, city) {
+        const url = base_url + cloudVersion + APIs.updateProfile;
+        return fly.post(url, {
             'nickname': nickname,
             'mobile': mobile,
             'email': email,
@@ -81,19 +91,19 @@ class APIService {
         });
     }
 
-    static getPets(version) {
-        const url = base_url + version + cloudVersion + APIs.getPets;
-        return flyer.get(url);
+    static getPets() {
+        const url = base_url + cloudVersion + APIs.getProfile;
+        return fly.get(url);
     }
 
-    static getPet(id, version) {
-        const url = base_url + version + cloudVersion + APIs.getPet;
-        return flyer.get(url + id);
+    static getPet(id) {
+        const url = base_url + cloudVersion + APIs.getPet;
+        return fly.get(url + id);
     }
 
-    static addPet(name, gender, type, birthdate, weight, version) {
-        const url = base_url + version + cloudVersion + APIs.addPet;
-        return flyer.post(url, {
+    static addPet(name, gender, type, birthdate, weight) {
+        const url = base_url + cloudVersion + APIs.addPet;
+        return fly.post(url, {
             'name': name,
             'gender': gender,
             'type': type,
@@ -102,14 +112,14 @@ class APIService {
         });
     }
 
-    static deletePet(id, version) {
-        const url = base_url + version + cloudVersion + APIs.deletePet;
-        return flyer.delete(url + id);
+    static deletePet(id) {
+        const url = base_url + cloudVersion + APIs.deletePet;
+        return fly.delete(url + id);
     }
 
-    static updatePet(id, version) {
-        const url = base_url + version + cloudVersion + APIs.updatePet;
-        return flyer.post(url + id)
+    static updatePet(id) {
+        const url = base_url + cloudVersion + APIs.updatePet;
+        return fly.post(url + id)
     }
 }
 

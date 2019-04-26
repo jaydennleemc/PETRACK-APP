@@ -9,8 +9,21 @@ import {Button} from "react-native-elements";
 import {Styles} from '../constants/styles';
 import {Actions} from "react-native-router-flux";
 
+let ApiService = require('../utils/APIService');
 
 export default class ProfilePage extends Component {
+
+    constructor(props) {
+        super(props)
+    }
+
+    componentDidMount() {
+        ApiService.getPets().then(function (resp) {
+            console.log('resp: ', resp)
+        }).catch((error) => {
+            console.log('get pets error: ', error);
+        })
+    }
 
     _settingOnPress = () => {
         Actions.settingScene();

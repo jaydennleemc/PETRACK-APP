@@ -85,7 +85,7 @@ export default class RegisterPhonePage extends Component {
     };
 
     _requestSMSCode = () => {
-        ApiService.sendSMS(this.state.phoneNumText, ApiService.cloudVersion).then(function (resp) {
+        ApiService.sendSMS(this.state.phoneNumText).then(function (resp) {
 
         }).catch((error) => {
             console.log('Request SMS Code Error: ', error)
@@ -94,7 +94,7 @@ export default class RegisterPhonePage extends Component {
     };
 
     _phoneLogin = () => {
-        ApiService.validateSMS(this.state.phoneNumText, this.state.smsCodeText, ApiService.cloudVersion).then(function (resp) {
+        ApiService.validateSMS(this.state.phoneNumText, this.state.smsCodeText).then(function (resp) {
 
         }).catch((error) => {
             console.log('Mobile Phone Login Error: ', error);

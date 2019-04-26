@@ -67,10 +67,11 @@ export default class RegisterPage extends Component {
                             let token = data.accessToken.toString();
                             console.log('Facebook Token: ', token);
                             // send facebook token to server
-                            ApiService.facebookAuth(token, ApiService.cloudVersion).then(async function (resp) {
+                            ApiService.facebookAuth(token).then(async function (resp) {
                                 let jwtToken = resp.data.jwt_token;
                                 console.log('JWT Token: ', jwtToken);
                                 // store jwt token to AsyncStorage
+                                ApiService.jwtToken = jwtToken;
                                 await AsyncStorage.setItem('jwtToken', jwtToken).then(() => {
                                     Actions.reset('homeScene');
                                 })
