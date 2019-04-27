@@ -69,9 +69,9 @@ export default class RegisterPage extends Component {
                             // send facebook token to server
                             ApiService.facebookAuth(token).then(async function (resp) {
                                 let jwtToken = resp.data.jwt_token;
+                                ApiService.jwtToken = jwtToken;
                                 console.log('JWT Token: ', jwtToken);
                                 // store jwt token to AsyncStorage
-                                ApiService.jwtToken = jwtToken;
                                 await AsyncStorage.setItem('jwtToken', jwtToken).then(() => {
                                     Actions.reset('homeScene');
                                 })
@@ -101,7 +101,10 @@ export default class RegisterPage extends Component {
                 <SafeAreaView/>
                 {/*  Logo */}
                 <View style={styles.logoContainer}>
-                    <Image source={images.Logo}/>
+                    <Image
+                        resizeMode={"contain"}
+                        style={{width:scale(250), height:scale(200)}}
+                        source={images.Logo}/>
                 </View>
 
                 <View style={{flex: 1}}/>
@@ -113,14 +116,20 @@ export default class RegisterPage extends Component {
                         <TouchableOpacity onPress={() => {
                             this._fbAuth()
                         }}>
-                            <Image source={images.Register_Facebook}/>
+                            <Image
+                                resizeMode={"contain"}
+                                style={styles.image}
+                                source={images.Register_Facebook}/>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.image}>
                         <TouchableOpacity onPress={() => {
                             Actions.registerPhoneScene();
                         }}>
-                            <Image source={images.Register_Phone}/>
+                            <Image
+                                resizeMode={'contain'}
+                                style={styles.image}
+                                source={images.Register_Phone}/>
                         </TouchableOpacity>
                     </View>
 
@@ -143,12 +152,15 @@ const styles = StyleSheet.create({
         marginTop: '30%'
     },
     bottomContainer: {
+        marginHorizontal:scale(16),
         flexDirection: 'column',
         marginBottom: scale(30),
         alignItems: 'center',
 
     },
     image: {
+        marginTop:scale(8),
+        width:'100%',
         height: scale(60),
     },
     termsText: {

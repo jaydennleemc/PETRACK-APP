@@ -29,7 +29,8 @@
     "react-native-size-matters": "^0.1.6",
     "react-native-splash-screen": "^3.2.0",
     "react-native-vector-icons": "^6.4.2",
-    "react-native-webview": "^5.7.0"
+    "react-native-webview": "^5.7.0",
+    "rn-fetch-blob": "^0.10.15"
   },
   "devDependencies": {
     "@babel/core": "^7.4.0",

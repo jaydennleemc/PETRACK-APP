@@ -83,6 +83,7 @@
 		B25652692257C475006D9550 /* AIRGoogleMap.m in Sources */ = {isa = PBXBuildFile; fileRef = B25652512257C475006D9550 /* AIRGoogleMap.m */; };
 		B256526A2257C475006D9550 /* AIRGoogleMapPolygon.m in Sources */ = {isa = PBXBuildFile; fileRef = B25652552257C475006D9550 /* AIRGoogleMapPolygon.m */; };
 		B256526B2257C475006D9550 /* AIRGMSMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = B25652562257C475006D9550 /* AIRGMSMarker.m */; };
+		B299C0B522741E9B00D45F18 /* libRNFetchBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B299C0B122741E8800D45F18 /* libRNFetchBlob.a */; };
 		B2D4AEAB226F7C4A00A8AA75 /* libRNCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2D4AEA5226F7C2C00A8AA75 /* libRNCamera.a */; };
 		B419A39D5E524E598BAF0F6A /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E62991615A94054A1302B03 /* MaterialCommunityIcons.ttf */; };
 		CA735902C833412F95640C10 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B242E2538804450D8226D549 /* MaterialIcons.ttf */; };
@@ -374,6 +375,13 @@
 			remoteGlobalIDString = 9D23B34F1C767B80008B4819;
 			remoteInfo = ReactNativePermissions;
 		};
+		B299C0B022741E8800D45F18 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B299C08122741E8800D45F18 /* RNFetchBlob.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A15C300E1CD25C330074CB35;
+			remoteInfo = RNFetchBlob;
+		};
 		B2A239A0224B7CED003D3660 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 146833FF1AC3E56700842450 /* React.xcodeproj */;
@@ -533,6 +541,7 @@
 		B25652542257C475006D9550 /* AIRGoogleMapCircleManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIRGoogleMapCircleManager.h; sourceTree = "<group>"; };
 		B25652552257C475006D9550 /* AIRGoogleMapPolygon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIRGoogleMapPolygon.m; sourceTree = "<group>"; };
 		B25652562257C475006D9550 /* AIRGMSMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIRGMSMarker.m; sourceTree = "<group>"; };
+		B299C08122741E8800D45F18 /* RNFetchBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNFetchBlob.xcodeproj; path = "../node_modules/rn-fetch-blob/ios/RNFetchBlob.xcodeproj"; sourceTree = "<group>"; };
 		B2D4AE78226F7C2C00A8AA75 /* RNCamera.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNCamera.xcodeproj; path = "../node_modules/react-native-camera/ios/RNCamera.xcodeproj"; sourceTree = "<group>"; };
 		C22D2467975648BBA95FDDC3 /* libAirMaps.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAirMaps.a; sourceTree = "<group>"; };
 		C3884BA3FB2245BC98D48785 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
@@ -560,6 +569,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B299C0B522741E9B00D45F18 /* libRNFetchBlob.a in Frameworks */,
 				B2D4AEAB226F7C4A00A8AA75 /* libRNCamera.a in Frameworks */,
 				B20B0B802267843000ECE721 /* libRNCAsyncStorage.a in Frameworks */,
 				B20B0B772267839300ECE721 /* libSplashScreen.a in Frameworks */,
@@ -783,6 +793,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				B299C08122741E8800D45F18 /* RNFetchBlob.xcodeproj */,
 				B2D4AE78226F7C2C00A8AA75 /* RNCamera.xcodeproj */,
 				B20B0B78226783F000ECE721 /* RNCAsyncStorage.xcodeproj */,
 				B20B0B712267838300ECE721 /* SplashScreen.xcodeproj */,
@@ -953,6 +964,14 @@
 			);
 			name = AirGoogleMaps;
 			path = "../node_modules/react-native-maps/lib/ios/AirGoogleMaps";
+			sourceTree = "<group>";
+		};
+		B299C08222741E8800D45F18 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B299C0B122741E8800D45F18 /* libRNFetchBlob.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		B2A2397A224B7CED003D3660 /* Recovered References */ = {
@@ -1204,6 +1223,10 @@
 				{
 					ProductGroup = B20B0B392266350D00ECE721 /* Products */;
 					ProjectRef = B20B0B382266350D00ECE721 /* RNCWebView.xcodeproj */;
+				},
+				{
+					ProductGroup = B299C08222741E8800D45F18 /* Products */;
+					ProjectRef = B299C08122741E8800D45F18 /* RNFetchBlob.xcodeproj */;
 				},
 				{
 					ProductGroup = B2A239AD224B7CEE003D3660 /* Products */;
@@ -1489,6 +1512,13 @@
 			fileType = archive.ar;
 			path = libReactNativePermissions.a;
 			remoteRef = B250040F2263915E000030E9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B299C0B122741E8800D45F18 /* libRNFetchBlob.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNFetchBlob.a;
+			remoteRef = B299C0B022741E8800D45F18 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		B2A239A1224B7CED003D3660 /* libjsi.a */ = {

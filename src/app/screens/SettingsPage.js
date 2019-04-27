@@ -17,25 +17,46 @@ import {Button} from "react-native-elements";
 import {Actions} from "react-native-router-flux";
 import AsyncStorage from '@react-native-community/async-storage';
 
+let ApiService = require('../utils/APIService');
 
 export default class SettingsPage extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            username: '',
+            email: ''
+        }
+    }
+
+    componentDidMount(): void {
+        this._getProfile();
+    }
+
+    _getProfile = () => {
+        ApiService.getProfile().then((resp) => {
+            this.setState({
+                username: resp.data.name,
+                email: resp.data.email
+            })
+        }).catch((error) => {
+            console.log('get profile error: ', error);
+        })
+    };
+
+
     _signOut = () => {
+        let yes = {
+            text: 'Yes', onPress: () => {
+                AsyncStorage.clear().then(() => {
+                    Actions.reset('registerScene');
+                })
+            }
+        };
+        let no = {text: 'No', style: 'cancel'};
 
         Alert.alert('Sign Out', 'Do you want to sign out ?',
-            [
-                {
-                    text: 'Yes', onPress: () => {
-                        AsyncStorage.clear().then(() => {
-                            Actions.reset('registerScene');
-                        })
-                    }
-                },
-                {
-                    text: 'No',
-                    style: 'cancel'
-                }
-            ],
+            [yes, no],
             {cancelable: false}
         );
     };
@@ -48,8 +69,8 @@ export default class SettingsPage extends Component {
                     onPress={() => {
                         Actions.pop();
                     }}
-                    style={{marginLeft: scale(24), marginTop: scale(16)}}>
-                    <Icon name={'arrowleft'} size={scale(30)} style={{color: colors.whiteColor}}/>
+                    style={{marginLeft: scale(16), marginTop: scale(16)}}>
+                    <Icon name={'arrowleft'} size={scale(30)} style={{color: colors.blackColor}}/>
                 </TouchableOpacity>
 
                 <View style={styles.view1}>
@@ -62,20 +83,25 @@ export default class SettingsPage extends Component {
                         <View style={styles.body}>
                             <Text style={{color: colors.lightColor}}>Name</Text>
                             <TextInput
-                                style={{borderBottomColor: colors.greyColor, borderBottomWidth: 1, height: scale(30),}}>Alison
-                                Cooper</TextInput>
+                                editable={false}
+                                style={{
+                                    borderBottomColor: colors.greyColor,
+                                    borderBottomWidth: 1,
+                                    height: scale(30),
+                                }}>{this.state.username}</TextInput>
                         </View>
 
                         {/* Account Field */}
                         <View style={styles.body}>
                             <Text style={{color: colors.lightColor}}>Account</Text>
                             <TextInput
+                                editable={false}
                                 textContentType={'emailAddress'}
                                 style={{
                                     borderBottomColor: colors.greyColor,
                                     borderBottomWidth: 1,
                                     height: scale(30),
-                                }}>petrack@petrack.com</TextInput>
+                                }}>{this.state.email}</TextInput>
                         </View>
 
                         {/* Version Field */}

@@ -8,6 +8,7 @@ import * as images from '../constants/images';
 import {Button} from "react-native-elements";
 import {Styles} from '../constants/styles';
 import {Actions} from "react-native-router-flux";
+import RNFetchBlob from 'rn-fetch-blob'
 
 let ApiService = require('../utils/APIService');
 
@@ -26,27 +27,44 @@ export default class ProfilePage extends Component {
         this._getPets();
     }
 
-    _getProfile() {
+    _getProfile = () => {
         ApiService.getProfile().then((resp) => {
             console.log(resp);
             this.setState({
-                profileImage: resp.data.avatar + '.jepg',
+                profileImage: resp.data.avatar,
                 username: resp.data.name,
+            }, () => {
+                this._setupProfile()
             })
         }).catch((error) => {
             console.log('get profile error ', error);
         });
-    }
+    };
 
-    _getPets() {
+    _getPets = () => {
         ApiService.getPets().then(function (resp) {
             console.log('resp: ', resp)
         }).catch((error) => {
             console.log('get pets error: ', error);
         })
-    }
+    };
 
-    _settingOnPress() {
+    _setupProfile = (url) => {
+        RNFetchBlob
+            .config({
+                fileCache: true,
+                appendExt: 'jpeg'
+            })
+            .fetch('GET', url, {})
+            .then((res) => {
+                console.log('The file saved to ', res.path());
+                this.setState({
+                    profileImage: Platform.OS === 'android' ? 'file://' + res.path() : '' + res.path()
+                })
+            });
+    };
+
+    _settingOnPress = () => {
         Actions.settingScene();
     };
 
@@ -70,7 +88,7 @@ export default class ProfilePage extends Component {
 
                     <View style={styles.view2}>
                         <Image
-                            style={{width: 100, height: 100}}
+                            style={{width: scale(100), height: scale(100), borderRadius: scale(100) / 2}}
                             source={{uri: this.state.profileImage}}
                         />
                         <Text style={styles.username}>{this.state.username}</Text>
@@ -148,7 +166,7 @@ const styles = StyleSheet.create({
     },
     username: {
         color: colors.whiteColor,
-        marginTop: scale(16),
+        marginTop: scale(12),
         fontSize: scale(20)
     },
     buttonView: {
