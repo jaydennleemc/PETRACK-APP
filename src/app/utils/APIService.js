@@ -4,6 +4,7 @@ const base_url = 'http://api.petrack.app';
 fly.config.timeout = 3000;
 fly.config.baseURL = base_url;
 var cloudVersion = '';
+var jwtToken = '';
 
 const APIs = {
 //basic
@@ -32,12 +33,19 @@ const APIs = {
 class APIService {
 
     static setupJWTToken(token) {
-        const bearer = "Bearer " + token;
-        fly.config.headers = {"Authorization": bearer};
+        jwtToken = token;
     }
 
     static setupCloudVersion(version) {
         cloudVersion = version;
+    }
+
+    static getRequest(url) {
+        return fly.get(url);
+    }
+
+    static postRequest(url, body) {
+        return fly.post(url, body);
     }
 
     static checkVersion() {
@@ -77,23 +85,32 @@ class APIService {
 
     static getProfile() {
         const url = base_url + cloudVersion + APIs.getProfile;
-        return fly.get(url);
+        const bearer = "Bearer " + jwtToken;
+        return fly.get(url, {}, {
+            headers: {"Authorization": bearer}
+        });
     }
 
     static updateProfile(nickname, mobile, email, country, city) {
         const url = base_url + cloudVersion + APIs.updateProfile;
+        const bearer = "Bearer " + jwtToken;
         return fly.post(url, {
             'nickname': nickname,
             'mobile': mobile,
             'email': email,
             'country': country,
             'city': city
+        }, {
+            headers: {"Authorization": bearer}
         });
     }
 
     static getPets() {
         const url = base_url + cloudVersion + APIs.getProfile;
-        return fly.get(url);
+        const bearer = "Bearer " + jwtToken;
+        return fly.get(url, {}, {
+            headers: {"Authorization": bearer}
+        });
     }
 
     static getPet(id) {
@@ -103,12 +120,15 @@ class APIService {
 
     static addPet(name, gender, type, birthdate, weight) {
         const url = base_url + cloudVersion + APIs.addPet;
+        const bearer = "Bearer " + jwtToken;
         return fly.post(url, {
             'name': name,
             'gender': gender,
             'type': type,
             'birthdate': birthdate,
             'weight': weight
+        }, {
+            headers: {"Authorization": bearer}
         });
     }
 

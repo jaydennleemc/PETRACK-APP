@@ -14,10 +14,31 @@ let ApiService = require('../utils/APIService');
 export default class ProfilePage extends Component {
 
     constructor(props) {
-        super(props)
+        super(props);
+        this.state = {
+            profileImage: '',
+            username: ''
+        }
     }
 
     componentDidMount() {
+        this._getProfile();
+        this._getPets();
+    }
+
+    _getProfile() {
+        ApiService.getProfile().then((resp) => {
+            console.log(resp);
+            this.setState({
+                profileImage: resp.data.avatar + '.jepg',
+                username: resp.data.name,
+            })
+        }).catch((error) => {
+            console.log('get profile error ', error);
+        });
+    }
+
+    _getPets() {
         ApiService.getPets().then(function (resp) {
             console.log('resp: ', resp)
         }).catch((error) => {
@@ -25,7 +46,7 @@ export default class ProfilePage extends Component {
         })
     }
 
-    _settingOnPress = () => {
+    _settingOnPress() {
         Actions.settingScene();
     };
 
@@ -48,8 +69,11 @@ export default class ProfilePage extends Component {
                     </View>
 
                     <View style={styles.view2}>
-                        <Image source={images.UserProfile}/>
-                        <Text style={styles.username}>Alison Cooper</Text>
+                        <Image
+                            style={{width: 100, height: 100}}
+                            source={{uri: this.state.profileImage}}
+                        />
+                        <Text style={styles.username}>{this.state.username}</Text>
                     </View>
 
                 </View>
