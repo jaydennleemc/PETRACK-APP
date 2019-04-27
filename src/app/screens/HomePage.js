@@ -40,7 +40,7 @@ export default class HomePage extends Component {
                     <TouchableOpacity onPress={()=>{
                         Actions.push("scanScene")
                     }}>
-                        <Image source={images.Scan_btn}/>
+                        <Image source={images.scan_btn}/>
                     </TouchableOpacity>
                     <Text style={styles.scanText}>Scan the QR code</Text>
                 </View>

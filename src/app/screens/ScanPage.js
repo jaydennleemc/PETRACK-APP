@@ -41,9 +41,9 @@ export default class ScanPage extends Component {
                         onRead={this.onSuccess.bind(this)}/>
 
                     <View style={styles.scannerView}>
-                        <ImageBackground source={images.Scan_square} style={{width: scale(200), height: scale(200),}}>
+                        <ImageBackground source={images.scan_square} style={{width: scale(200), height: scale(200),}}>
                             <Animatable.View animation="fadeInDown" duration={1000} iterationCount={100}>
-                                <Image source={images.Scan_line} style={{width: scale(200), marginTop: scale(120)}}
+                                <Image source={images.scan_line} style={{width: scale(200), marginTop: scale(120)}}
                                        resizeMode={'stretch'}/>
                             </Animatable.View>
                         </ImageBackground>

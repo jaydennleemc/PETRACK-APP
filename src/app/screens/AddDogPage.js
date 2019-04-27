@@ -18,14 +18,40 @@ import {Button} from "react-native-elements";
 import {Styles} from '../constants/styles';
 import {Actions} from "react-native-router-flux";
 
+let ApiService = require('../utils/APIService');
 
-export default class ProfileDetailsPage extends Component {
+export default class AddDogPage extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            dogName: '',
+            birthday: '',
+        }
+    }
+
+    _addDog = () => {
+        const name = '';
+        const gender = '';
+        const type = '';
+        const birthday = '';
+        const weight = '';
+        ApiService.addPet(name, gender, type, birthday, weight)
+            .then(function (resp) {
+
+                console.log(resp)
+
+            }).catch((error) => {
+            console.log(('cannot add dog error: ', error));
+        })
+    };
+
     render() {
         return (
             <View style={Styles.container}>
                 {/* ImageBackground with buttons */}
                 <View style={styles.view1}>
-                    <ImageBackground source={images.dog2} style={{width: '100%', height: scale(200)}}>
+                    <ImageBackground source={images.add_dog_bg} style={{width: '100%', height: scale(200)}}>
                         <SafeAreaView/>
                         <View style={{flexDirection: 'row', marginHorizontal: scale(16)}}>
                             <TouchableOpacity style={{flex: 1,}} onPress={() => {
@@ -128,7 +154,10 @@ export default class ProfileDetailsPage extends Component {
 
 
                 <View style={styles.buttonView}>
-                    <Button title={'Delete'}
+                    <Button title={'Add'}
+                            onPress={()=> {
+                                this._addDog();
+                            }}
                             buttonStyle={styles.petButtonStyle}
                             containerStyle={styles.petButtonContainer}/>
                 </View>

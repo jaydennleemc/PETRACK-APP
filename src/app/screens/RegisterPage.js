@@ -104,7 +104,7 @@ export default class RegisterPage extends Component {
                     <Image
                         resizeMode={"contain"}
                         style={{width:scale(250), height:scale(200)}}
-                        source={images.Logo}/>
+                        source={images.logo}/>
                 </View>
 
                 <View style={{flex: 1}}/>
@@ -119,7 +119,7 @@ export default class RegisterPage extends Component {
                             <Image
                                 resizeMode={"contain"}
                                 style={styles.image}
-                                source={images.Register_Facebook}/>
+                                source={images.register_facebook}/>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.image}>
@@ -129,7 +129,7 @@ export default class RegisterPage extends Component {
                             <Image
                                 resizeMode={'contain'}
                                 style={styles.image}
-                                source={images.Register_Phone}/>
+                                source={images.register_phone}/>
                         </TouchableOpacity>
                     </View>
 

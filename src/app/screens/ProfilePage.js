@@ -106,6 +106,9 @@ export default class ProfilePage extends Component {
 
                 <View style={styles.buttonView}>
                     <Button title={'Get a new pet'}
+                            onPress={() => {
+                                Actions.addDogScene();
+                            }}
                             buttonStyle={styles.petButtonStyle}
                             containerStyle={styles.petButtonContainer}/>
                 </View>
@@ -129,7 +132,7 @@ class DogListItem extends PureComponent {
                 <Text style={{color: colors.greyColor, marginTop: scale(16)}}>{value2}</Text>
             </View>
         );
-    }
+    };
 
     render() {
         return (
@@ -137,7 +140,7 @@ class DogListItem extends PureComponent {
                 Actions.profileDetailScene();
             }}>
                 <View style={listStyles.container}>
-                    <Image source={images.Dog1}/>
+                    <Image source={images.dog1}/>
                     <View style={listStyles.view}>
                         <Text style={listStyles.dogName}>DogName</Text>
 
