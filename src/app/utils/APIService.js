@@ -7,25 +7,39 @@ var cloudVersion = '';
 var jwtToken = '';
 
 const APIs = {
-//basic
+//    Basic API
     agreement: '/agreement',
     privacy: '/privacy',
     version: '/basic/versions',
     breeds: '/basic/breeds',
-//auth
+//     Auth API
     sendSMS: '/auth/mobile/sendSMS',
     validateSMS: '/auth/mobile/validate',
     facebookAuth: '/auth/facebook',
 
-//Profile
+//    Profile API
     getProfile: '/me/profile',
     updateProfile: '/me/profile/update',
-//Pet
+//    Pet API
     getPets: '/me/pets',
     getPet: '/me/pet/',
     addPet: '/me/pet/add',
     deletePet: '/me/pet/remove/',
-    updatePet: '/me/pet/update/'
+    updatePet: '/me/pet/update/',
+//    Clips API
+    getClips: '/me/clips',
+    getClip: '/me/clip/',
+    addClip: '/me/clip/add',
+    removeClip: '/me/clip/remove/',
+    updateClip: '/me/clip/update/',
+//    Dispenser API
+    findNearby: '/dispensers/findNearby',
+    findDispenser: '/dispenser/',
+    addDispenser: '/dispenser/add',
+    removeDispenser: '/dispenser/remove/',
+    updateDispenser: '/dispenser/update/',
+    activateDispenser: '/dispenser/activate/',
+    deactivateDispenser: 'dispenser/deactivate/'
 
 };
 
@@ -141,6 +155,59 @@ class APIService {
         const url = base_url + cloudVersion + APIs.updatePet;
         return fly.post(url + id)
     }
+
+    // Clips
+    static getClips() {
+
+    }
+
+    static getClip(id) {
+
+    }
+
+    static addClip() {
+
+    }
+
+    static removeClip(id) {
+
+    }
+
+    static updateClip(id) {
+
+    }
+
+
+    // Dispenser
+    static findNearBy() {
+
+    }
+
+    static findDispenser(id) {
+
+    }
+
+    static addDispenser() {
+
+    }
+
+    static removeDispenser(id) {
+
+    }
+
+    static updateDispenser(id) {
+
+    }
+
+    static activateDispenser(id) {
+
+    }
+
+    static deactivateDispenser(id) {
+
+    }
+
+
 }
 
 module.exports = APIService;

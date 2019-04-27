@@ -8,3 +8,4 @@ export const scan_btn = require('../../res/images/scan_btn.png');
 export const scan_square = require('../../res/images/scan_square.png');
 export const scan_line = require('../../res/images/scan_line.png');
 export const add_dog_bg = require('../../res/images/add_dog_bg.png');
+export const point = require('../../res/images/point.png');

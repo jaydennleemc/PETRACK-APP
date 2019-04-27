@@ -57,8 +57,6 @@
 			</dict>
 		</dict>
 	</dict>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string/>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>
@@ -95,5 +93,7 @@
 	<string/>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string/>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string/>
 </dict>
 </plist>
