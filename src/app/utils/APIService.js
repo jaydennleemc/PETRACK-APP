@@ -63,42 +63,42 @@ class APIService {
     }
 
     static checkVersion() {
-        const url = base_url + APIs.version;
+        const url = APIs.version;
         return fly.get(url);
     }
 
     static getAgreement() {
-        const url = base_url + APIs.agreement;
+        const url = APIs.agreement;
         return fly.get(url);
     }
 
     static getPrivacy() {
-        const url = base_url + APIs.privacy;
+        const url = APIs.privacy;
         return fly.get(url);
     }
 
     static getBreeds() {
-        const url = base_url + APIs.breeds;
+        const url = APIs.breeds;
         return fly.get(url);
     }
 
     static sendSMS(mobile) {
-        const url = base_url + cloudVersion + APIs.sendSMS;
+        const url = cloudVersion + APIs.sendSMS;
         return fly.post(url, {'mobile': mobile});
     }
 
     static validateSMS(mobile, sms) {
-        const url = base_url + cloudVersion + APIs.validateSMS;
+        const url = cloudVersion + APIs.validateSMS;
         return fly.post(url, {'mobile': mobile, 'code': sms});
     }
 
     static facebookAuth(access_token) {
-        const url = base_url + cloudVersion + APIs.facebookAuth;
+        const url = cloudVersion + APIs.facebookAuth;
         return fly.post(url, {'access_token': access_token});
     }
 
     static getProfile() {
-        const url = base_url + cloudVersion + APIs.getProfile;
+        const url = cloudVersion + APIs.getProfile;
         const bearer = "Bearer " + jwtToken;
         return fly.get(url, {}, {
             headers: {"Authorization": bearer}
@@ -106,7 +106,7 @@ class APIService {
     }
 
     static updateProfile(nickname, mobile, email, country, city) {
-        const url = base_url + cloudVersion + APIs.updateProfile;
+        const url = cloudVersion + APIs.updateProfile;
         const bearer = "Bearer " + jwtToken;
         return fly.post(url, {
             'nickname': nickname,
@@ -120,7 +120,7 @@ class APIService {
     }
 
     static getPets() {
-        const url = base_url + cloudVersion + APIs.getProfile;
+        const url = cloudVersion + APIs.getPets;
         const bearer = "Bearer " + jwtToken;
         return fly.get(url, {}, {
             headers: {"Authorization": bearer}
@@ -128,12 +128,12 @@ class APIService {
     }
 
     static getPet(id) {
-        const url = base_url + cloudVersion + APIs.getPet;
+        const url = cloudVersion + APIs.getPet;
         return fly.get(url + id);
     }
 
     static addPet(name, gender, type, birthdate, weight) {
-        const url = base_url + cloudVersion + APIs.addPet;
+        const url = cloudVersion + APIs.addPet;
         const bearer = "Bearer " + jwtToken;
         return fly.post(url, {
             'name': name,
@@ -147,64 +147,102 @@ class APIService {
     }
 
     static deletePet(id) {
-        const url = base_url + cloudVersion + APIs.deletePet;
-        return fly.delete(url + id);
+        const url = cloudVersion + APIs.deletePet;
+        const bearer = "Bearer " + jwtToken;
+        return fly.delete(url + id, {}, {headers: {"Authorization": bearer}});
     }
 
     static updatePet(id) {
-        const url = base_url + cloudVersion + APIs.updatePet;
+        const url = cloudVersion + APIs.updatePet;
         return fly.post(url + id)
     }
 
     // Clips
     static getClips() {
-
+        const url = cloudVersion + APIs.getClips;
+        return fly.get(url);
     }
 
     static getClip(id) {
-
+        const url = cloudVersion + APIs.getClip + id;
+        return fly.get(url);
     }
 
-    static addClip() {
-
+    static addClip(pet, deviceName, deviceAddr, battery) {
+        const url = cloudVersion + APIs.addClip;
+        const bearer = "Bearer " + jwtToken;
+        return fly.post(url, {
+            'pet': pet,
+            'deviceName': deviceName,
+            'deviceAddr': deviceAddr,
+            'battery': battery,
+        }, {
+            headers: {"Authorization": bearer}
+        });
     }
 
     static removeClip(id) {
-
+        const url = cloudVersion + APIs.removeClip + id;
+        return fly.delete(url);
     }
 
-    static updateClip(id) {
-
+    static updateClip(id, dailySteps, lost, battery) {
+        const url = cloudVersion + APIs.updateClip + id;
+        const bearer = "Bearer " + jwtToken;
+        return fly.put(url, {
+            'dailySteps': dailySteps,
+            'lost': lost,
+            'battery': battery,
+        }, {
+            headers: {"Authorization": bearer}
+        })
     }
 
 
     // Dispenser
-    static findNearBy() {
-
+    static findNearBy(lat, long, radius) {
+        const url = cloudVersion + APIs.findNearby;
+        const bearer = "Bearer " + jwtToken;
+        return fly.get(url, {})
     }
 
     static findDispenser(id) {
-
+        const url = cloudVersion + APIs.findDispenser + id;
+        const bearer = "Bearer " + jwtToken;
+        return fly.get(url);
     }
 
     static addDispenser() {
-
+        const url = cloudVersion + APIs.addDispenser;
+        const bearer = "Bearer " + jwtToken;
+        return fly.put(url, {
+            'dailySteps': dailySteps,
+            'lost': lost,
+            'battery': battery,
+        }, {
+            headers: {"Authorization": bearer}
+        })
     }
 
     static removeDispenser(id) {
-
+        const url = cloudVersion + APIs.removeDispenser + id;
+        const bearer = "Bearer " + jwtToken;
+        return fly.delete(url);
     }
 
     static updateDispenser(id) {
-
+        const url = cloudVersion + APIs.updateDispenser + id;
+        const bearer = "Bearer " + jwtToken;
     }
 
     static activateDispenser(id) {
-
+        const url = cloudVersion + APIs.activateDispenser + id;
+        const bearer = "Bearer " + jwtToken;
     }
 
     static deactivateDispenser(id) {
-
+        const url = cloudVersion + APIs.deactivateDispenser + id;
+        const bearer = "Bearer " + jwtToken;
     }
 
 

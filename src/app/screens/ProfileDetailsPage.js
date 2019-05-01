@@ -1,14 +1,15 @@
 import React, {Component} from 'react';
 
 import {
-    View,
-    StyleSheet,
-    SafeAreaView,
-    Text,
-    TouchableOpacity,
+    Alert,
     ImageBackground,
+    SafeAreaView,
     ScrollView,
-    Alert, TextInput
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View
 } from 'react-native';
 import {scale} from "react-native-size-matters";
 import * as colors from '../constants/colors';
@@ -18,8 +19,30 @@ import {Button} from "react-native-elements";
 import {Styles} from '../constants/styles';
 import {Actions} from "react-native-router-flux";
 
+let ApiService = require('../utils/APIService');
 
 export default class ProfileDetailsPage extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            pet: this.props.pet
+        }
+    }
+
+    componentDidMount(): void {
+        console.log('pet information:', this.state.pet);
+    }
+
+    _deletePet = () => {
+        ApiService.deletePet(this.state.pet.id).then(function (resp) {
+            console.log('delete pet resp: ', resp.data);
+            Actions.pop({refresh: {reloadList: false, username:'7781292'}})
+        }).catch((error) => {
+            console.log('delete pet error: ', error);
+        });
+    };
+
     render() {
         return (
             <View style={Styles.container}>
@@ -29,7 +52,7 @@ export default class ProfileDetailsPage extends Component {
                         <SafeAreaView/>
                         <View style={{flexDirection: 'row', marginHorizontal: scale(16)}}>
                             <TouchableOpacity style={{flex: 1,}} onPress={() => {
-                                Actions.pop();
+                                Actions.pop({refresh: {reloadList: false, username:'7781292'}})
                             }}>
                                 <Icon name={'arrowleft'} size={scale(30)} style={{color: colors.whiteColor}}/>
                             </TouchableOpacity>
@@ -52,14 +75,14 @@ export default class ProfileDetailsPage extends Component {
                                     borderBottomColor: colors.greyColor,
                                     borderBottomWidth: 1,
                                     height: scale(30),
-                                }}>Dog Name</TextInput>
+                                }}>{this.state.pet.name}</TextInput>
                         </View>
 
                         {/* Birthday Field */}
                         <View style={styles.body}>
                             <Text style={{color: colors.lightColor}}>Birthday</Text>
                             <TouchableOpacity onPress={() => {
-                                Alert.alert('Birthday was click!!!');
+                                // Alert.alert('Birthday was click!!!');
                             }}>
                                 <TextInput
                                     pointerEvents="none"
@@ -68,7 +91,7 @@ export default class ProfileDetailsPage extends Component {
                                         borderBottomColor: colors.greyColor,
                                         borderBottomWidth: 1,
                                         height: scale(30),
-                                    }}>02-02-2018</TextInput>
+                                    }}>{this.state.pet.birthdate}</TextInput>
                             </TouchableOpacity>
                         </View>
 
@@ -76,7 +99,7 @@ export default class ProfileDetailsPage extends Component {
                         <View style={styles.body}>
                             <Text style={{color: colors.lightColor}}>Today Steps</Text>
                             <TouchableOpacity onPress={() => {
-                                Alert.alert('Today Steps was click!!!');
+                                // Alert.alert('Today Steps was click!!!');
                             }}>
                                 <TextInput
                                     pointerEvents="none"
@@ -85,7 +108,7 @@ export default class ProfileDetailsPage extends Component {
                                         borderBottomColor: colors.greyColor,
                                         borderBottomWidth: 1,
                                         height: scale(30),
-                                    }}>999</TextInput>
+                                    }}>99</TextInput>
                             </TouchableOpacity>
                         </View>
 
@@ -102,7 +125,7 @@ export default class ProfileDetailsPage extends Component {
                                         borderBottomColor: colors.greyColor,
                                         borderBottomWidth: 1,
                                         height: scale(30),
-                                    }}>9</TextInput>
+                                    }}>{this.state.pet.bagsUsed}</TextInput>
                             </TouchableOpacity>
                         </View>
 
@@ -110,7 +133,7 @@ export default class ProfileDetailsPage extends Component {
                         <View style={styles.body}>
                             <Text style={{color: colors.lightColor}}>Chips</Text>
                             <TouchableOpacity onPress={() => {
-                                Alert.alert('Chips was click!!!');
+                                // Alert.alert('Chips was click!!!');
                             }}>
                                 <TextInput
                                     pointerEvents="none"
@@ -119,7 +142,7 @@ export default class ProfileDetailsPage extends Component {
                                         borderBottomColor: colors.greyColor,
                                         borderBottomWidth: 1,
                                         height: scale(30),
-                                    }}>Working</TextInput>
+                                    }}>{this.state.pet.clip === null ? 'N/A' : this.state.pet.clip}</TextInput>
                             </TouchableOpacity>
                         </View>
 
@@ -129,6 +152,9 @@ export default class ProfileDetailsPage extends Component {
 
                 <View style={styles.buttonView}>
                     <Button title={'Delete'}
+                            onPress={() => {
+                                this._deletePet();
+                            }}
                             buttonStyle={styles.petButtonStyle}
                             containerStyle={styles.petButtonContainer}/>
                 </View>

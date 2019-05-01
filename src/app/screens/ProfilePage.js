@@ -1,6 +1,6 @@
 import React, {Component, PureComponent} from 'react';
 
-import {View, StyleSheet, SafeAreaView, Image, Text, TouchableOpacity, FlatList, Alert} from 'react-native';
+import {FlatList, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {scale} from "react-native-size-matters";
 import * as colors from '../constants/colors';
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -18,13 +18,18 @@ export default class ProfilePage extends Component {
         super(props);
         this.state = {
             profileImage: '',
-            username: ''
+            username: '',
+            pets: [],
         }
     }
 
-    componentDidMount() {
+    componentWillMount(): void {
         this._getProfile();
         this._getPets();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        console.log("componentWillReceiveProps");
     }
 
     _getProfile = () => {
@@ -42,8 +47,11 @@ export default class ProfilePage extends Component {
     };
 
     _getPets = () => {
-        ApiService.getPets().then(function (resp) {
-            console.log('resp: ', resp)
+        ApiService.getPets().then((resp) => {
+            console.log('get pets resp: ', resp);
+            this.setState({
+                pets: resp.data.pets
+            });
         }).catch((error) => {
             console.log('get pets error: ', error);
         })
@@ -100,8 +108,8 @@ export default class ProfilePage extends Component {
                 <FlatList
                     bounces={false}
                     contentContainerStyle={{paddingBottom: scale(60)}}
-                    data={[{key: 'a'}, {key: 'b'}, {key: 'a'}, {key: 'b'}, {key: 'a'}, {key: 'b'}, {key: 'a'}, {key: 'b'}]}
-                    renderItem={({item}) => <DogListItem/>}/>
+                    data={this.state.pets}
+                    renderItem={({item}) => <DogListItem data={item}/>}/>
 
 
                 <View style={styles.buttonView}>
@@ -120,6 +128,13 @@ export default class ProfilePage extends Component {
 
 class DogListItem extends PureComponent {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            pet: this.props.data
+        }
+    }
+
     _onPress = () => {
         this.props.onPressItem(this.props.id);
     };
@@ -137,17 +152,17 @@ class DogListItem extends PureComponent {
     render() {
         return (
             <TouchableOpacity onPress={() => {
-                Actions.profileDetailScene();
+                Actions.profileDetailScene({pet: this.state.pet});
             }}>
                 <View style={listStyles.container}>
                     <Image source={images.dog1}/>
                     <View style={listStyles.view}>
-                        <Text style={listStyles.dogName}>DogName</Text>
+                        <Text style={listStyles.dogName}>{this.state.pet.name}</Text>
 
                         <View style={listStyles.gridView}>
-                            {this._renderGridViewItem('345', 'steps')}
-                            {this._renderGridViewItem('345', 'steps')}
-                            {this._renderGridViewItem('345', 'steps')}
+                            {this._renderGridViewItem('345', 'Steps')}
+                            {this._renderGridViewItem('345', 'Bags')}
+                            {this._renderGridViewItem('345', 'Clip')}
                         </View>
 
                     </View>

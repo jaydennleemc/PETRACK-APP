@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import {StyleSheet, View, SafeAreaView, Text, Image, TouchableOpacity, Dimensions} from 'react-native';
+import {Dimensions, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {scale} from "react-native-size-matters";
 import * as colors from '../constants/colors';
 import * as images from '../constants/images';
@@ -25,8 +25,8 @@ export default class HomePage extends Component {
             markers: [
                 {
                     coordinate: {
-                        latitude: 45.524548,
-                        longitude: -122.6749817,
+                        latitude: 48.1804069,
+                        longitude: -65.8716805,
                     },
                     title: "Best Place",
                     description: "This is the best place in Portland",
@@ -61,8 +61,8 @@ export default class HomePage extends Component {
                 },
             ],
             region: {
-                latitude: 45.52220671242907,
-                longitude: -122.6653281029795,
+                latitude: 48.1804069,
+                longitude: -65.8716805,
                 latitudeDelta: 0.04864195044303443,
                 longitudeDelta: 0.040142817690068,
             },
@@ -84,9 +84,9 @@ export default class HomePage extends Component {
                 latitudeDelta: LATITUDE_DELTA,
                 longitudeDelta: LONGITUDE_DELTA,
             };
-            this.setState({
-                region: initialRegion
-            })
+            // this.setState({
+            //     region: initialRegion
+            // })
         })
     };
 

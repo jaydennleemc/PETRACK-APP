@@ -1,14 +1,15 @@
 import React, {Component} from 'react';
 
 import {
-    View,
-    StyleSheet,
-    SafeAreaView,
-    Text,
-    TouchableOpacity,
+    Alert,
     ImageBackground,
+    SafeAreaView,
     ScrollView,
-    Alert, TextInput
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View
 } from 'react-native';
 import {scale} from "react-native-size-matters";
 import * as colors from '../constants/colors';
@@ -25,21 +26,20 @@ export default class AddDogPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            dogName: '',
-            birthday: '',
+            name: 'bibian',
+            gender: 'M',
+            type: 'dog',
+            birthday: '11-02-1997',
+            weight: '3.4',
         }
     }
 
     _addDog = () => {
-        const name = '';
-        const gender = '';
-        const type = '';
-        const birthday = '';
-        const weight = '';
+        const {name, gender, type, birthday, weight,} = this.state;
+
         ApiService.addPet(name, gender, type, birthday, weight)
             .then(function (resp) {
-
-                console.log(resp)
+                console.log('add pet resp', resp);
 
             }).catch((error) => {
             console.log(('cannot add dog error: ', error));
@@ -155,7 +155,7 @@ export default class AddDogPage extends Component {
 
                 <View style={styles.buttonView}>
                     <Button title={'Add'}
-                            onPress={()=> {
+                            onPress={() => {
                                 this._addDog();
                             }}
                             buttonStyle={styles.petButtonStyle}
