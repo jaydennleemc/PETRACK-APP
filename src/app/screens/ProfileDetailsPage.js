@@ -35,12 +35,21 @@ export default class ProfileDetailsPage extends Component {
     }
 
     _deletePet = () => {
-        ApiService.deletePet(this.state.pet.id).then(function (resp) {
+        ApiService.deletePet(this.state.pet.id).then((resp) => {
             console.log('delete pet resp: ', resp.data);
-            Actions.pop({refresh: {reloadList: false, username:'7781292'}})
+            this._backToPrevious({
+                refresh: true
+            })
         }).catch((error) => {
             console.log('delete pet error: ', error);
         });
+    };
+
+    _backToPrevious = (props) => {
+        setTimeout(() => {
+            Actions.refresh(props)
+        }, 50);
+        Actions.pop();
     };
 
     render() {
@@ -52,7 +61,9 @@ export default class ProfileDetailsPage extends Component {
                         <SafeAreaView/>
                         <View style={{flexDirection: 'row', marginHorizontal: scale(16)}}>
                             <TouchableOpacity style={{flex: 1,}} onPress={() => {
-                                Actions.pop({refresh: {reloadList: false, username:'7781292'}})
+                                this._backToPrevious({
+                                    refresh: true
+                                });
                             }}>
                                 <Icon name={'arrowleft'} size={scale(30)} style={{color: colors.whiteColor}}/>
                             </TouchableOpacity>

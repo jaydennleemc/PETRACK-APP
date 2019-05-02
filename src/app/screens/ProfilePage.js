@@ -16,6 +16,7 @@ export default class ProfilePage extends Component {
 
     constructor(props) {
         super(props);
+        console.log(props);
         this.state = {
             profileImage: '',
             username: '',
@@ -28,8 +29,8 @@ export default class ProfilePage extends Component {
         this._getPets();
     }
 
-    componentWillReceiveProps(nextProps) {
-        console.log("componentWillReceiveProps");
+    componentWillReceiveProps(nextProps: Readonly<P>, nextContext: any): void {
+        console.log('should refresh ', nextProps.refresh);
     }
 
     _getProfile = () => {
