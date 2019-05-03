@@ -1,4 +1,3 @@
-
 export const logo = require('../../res/images/logo.png');
 export const register_facebook = require('../../res/images/facebook.png');
 export const register_phone = require('../../res/images/phone.png');
@@ -8,4 +7,11 @@ export const scan_btn = require('../../res/images/scan_btn.png');
 export const scan_square = require('../../res/images/scan_square.png');
 export const scan_line = require('../../res/images/scan_line.png');
 export const add_dog_bg = require('../../res/images/add_dog_bg.png');
-export const point = require('../../res/images/point.png');
+export const ic_point = require('../../res/images/point.png');
+export const ic_lock = require('../../res/images/ic_lock.png');
+export const ic_unlock = require('../../res/images/ic_unlock.png');
+export const ic_lock_bg = require('../../res/images/ic_circle_lock.png');
+export const ic_unlock_bg = require('../../res/images/ic_circle_unlock.png');
+export const ic_lock_round = require('../../res/images/ic_lock_bg.png');
+export const ic_unlock_round = require('../../res/images/ic_unlock_bg.png');
+export const ic_unlocking = require('../../res/images/ic_unlocking.png');

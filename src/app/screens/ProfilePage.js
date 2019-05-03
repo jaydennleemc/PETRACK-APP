@@ -31,6 +31,9 @@ export default class ProfilePage extends Component {
 
     componentWillReceiveProps(nextProps: Readonly<P>, nextContext: any): void {
         console.log('should refresh ', nextProps.refresh);
+        if (nextProps.refresh === true) {
+            this._getPets();
+        }
     }
 
     _getProfile = () => {

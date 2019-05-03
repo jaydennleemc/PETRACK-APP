@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React from 'react';
 
-import {Text, View, TouchableOpacity} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {scale} from "react-native-size-matters";
@@ -13,6 +13,8 @@ class Toolbar extends React.PureComponent {
         this.state = {
             leftIcon: this.props.disableLeft,
             rightIcon: this.props.disableRight,
+            leftIconColor: this.props.leftIconColor,
+            rightIconColor: this.props.rightIconColor,
             title: this.props.title
         }
     }
@@ -23,7 +25,7 @@ class Toolbar extends React.PureComponent {
             return (
                 <TouchableOpacity style={{alignSelf: 'center'}} onPress={this.props.leftIconOnPress}>
                     {this.props.leftIcon != null ? this.props.leftIcon :
-                        <Icon name={"arrowleft"} size={scale(24)} style={{color: colors.lightColor}}/>}
+                        <Icon name={"arrowleft"} size={scale(24)} style={{color: this.state.rightIconColor === null ? colors.lightColor : this.state.leftIconColor}}/>}
                 </TouchableOpacity>
             );
         } else {
@@ -36,7 +38,8 @@ class Toolbar extends React.PureComponent {
         if (this.state.rightIcon !== true) {
             return (
                 <TouchableOpacity style={{alignSelf: 'center'}} onPress={this.props.rightIconOnPress}>
-                    <Ionicons name={'ios-person'} size={scale(24)} style={{color: colors.lightColor}}/>
+                    <Ionicons name={'ios-person'} size={scale(24)}
+                              style={{color: this.state.rightIconColor === null ? colors.lightColor : this.state.rightIconColor}}/>
                 </TouchableOpacity>);
         } else {
             return (<View style={{width: scale(24)}}/>)

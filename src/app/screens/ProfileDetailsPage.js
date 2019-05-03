@@ -62,7 +62,7 @@ export default class ProfileDetailsPage extends Component {
                         <View style={{flexDirection: 'row', marginHorizontal: scale(16)}}>
                             <TouchableOpacity style={{flex: 1,}} onPress={() => {
                                 this._backToPrevious({
-                                    refresh: true
+                                    refresh: false
                                 });
                             }}>
                                 <Icon name={'arrowleft'} size={scale(30)} style={{color: colors.whiteColor}}/>

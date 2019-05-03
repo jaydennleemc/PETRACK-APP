@@ -38,12 +38,22 @@ export default class AddDogPage extends Component {
         const {name, gender, type, birthday, weight,} = this.state;
 
         ApiService.addPet(name, gender, type, birthday, weight)
-            .then(function (resp) {
+            .then((resp) => {
                 console.log('add pet resp', resp);
+                this._backToPrevious({
+                    refresh: true
+                })
 
             }).catch((error) => {
             console.log(('cannot add dog error: ', error));
         })
+    };
+
+    _backToPrevious = (props) => {
+        setTimeout(() => {
+            Actions.refresh(props)
+        }, 50);
+        Actions.pop();
     };
 
     render() {

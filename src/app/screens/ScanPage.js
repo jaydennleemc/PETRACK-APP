@@ -16,7 +16,7 @@ export default class ScanPage extends Component {
 
     //  handle QR Code Scanner
     onSuccess(e) {
-
+        Actions.push("deviceControlScene");
     }
 
     render() {

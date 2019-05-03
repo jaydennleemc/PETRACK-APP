@@ -11,6 +11,7 @@ import ScanPage from "./screens/ScanPage";
 import SettingsPage from "./screens/SettingsPage";
 import AgreementPage from "./screens/AgreementPage";
 import AddDogPage from "./screens/AddDogPage";
+import DeviceControlPage from "./screens/DeviceControlPage";
 
 export default class extends Component {
 
@@ -28,6 +29,7 @@ export default class extends Component {
                     <Scene key={"addDogScene"} component={AddDogPage} hideNavBar={true}/>
                     <Scene key={"profileDetailScene"} component={ProfileDetailsPage} hideNavBar={true}/>
                     <Scene key={"scanScene"} component={ScanPage} hideNavBar={true}/>
+                    <Scene key={"deviceControlScene"} component={DeviceControlPage} hideNavBar={true}/>
                     <Scene key={"settingScene"} component={SettingsPage} hideNavBar={true}/>
 
                 </Scene>

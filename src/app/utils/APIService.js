@@ -58,8 +58,12 @@ class APIService {
         return fly.get(url);
     }
 
-    static postRequest(url, body) {
-        return fly.post(url, body);
+    static getRequest(url, query, config) {
+        return fly.get(url, query, config);
+    }
+
+    static postRequest(url, body, config) {
+        return fly.post(url, body, config);
     }
 
     static checkVersion() {
@@ -203,7 +207,9 @@ class APIService {
     static findNearBy(lat, long, radius) {
         const url = cloudVersion + APIs.findNearby;
         const bearer = "Bearer " + jwtToken;
-        return fly.get(url, {})
+        return fly.get(url, `lat=${lat}&long=${long}&radius=${radius}`, {
+            headers: {"Authorization": bearer}
+        })
     }
 
     static findDispenser(id) {
