@@ -1979,7 +1979,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.petrack.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.petrack.petrackApp;
 				PRODUCT_NAME = petrack;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -2015,7 +2015,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.petrack.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.petrack.petrackApp;
 				PRODUCT_NAME = petrack;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

@@ -1,26 +1,25 @@
-package com.petrack;
+package com.petrack.petrackApp;
 
 import android.app.Application;
 
-import com.facebook.react.ReactApplication;
-import com.henninghall.date_picker.DatePickerPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
-import org.reactnative.camera.RNCameraPackage;
+import com.airbnb.android.react.maps.MapsPackage;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+import com.facebook.react.ReactApplication;
+import com.facebook.react.ReactNativeHost;
+import com.facebook.react.ReactPackage;
+import com.facebook.react.shell.MainReactPackage;
+import com.facebook.reactnative.androidsdk.FBSDKPackage;
+import com.facebook.soloader.SoLoader;
+import com.henninghall.date_picker.DatePickerPackage;
+import com.oblador.vectoricons.VectorIconsPackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.reactnativecommunity.webview.RNCWebViewPackage;
 
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
-
-import com.airbnb.android.react.maps.MapsPackage;
-import com.oblador.vectoricons.VectorIconsPackage;
-import com.facebook.react.ReactNativeHost;
-import com.facebook.react.ReactPackage;
-import com.facebook.react.shell.MainReactPackage;
-import com.facebook.soloader.SoLoader;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookSdk;
-import com.facebook.reactnative.androidsdk.FBSDKPackage;
-import com.facebook.appevents.AppEventsLogger;
+import org.reactnative.camera.RNCameraPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -43,11 +42,11 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
-            new DatePickerPackage(),
-            new RNFetchBlobPackage(),
-            new RNCameraPackage(),
-            new AsyncStoragePackage(),
-            new RNCWebViewPackage(),
+                    new DatePickerPackage(),
+                    new RNFetchBlobPackage(),
+                    new RNCameraPackage(),
+                    new AsyncStoragePackage(),
+                    new RNCWebViewPackage(),
                     new FBSDKPackage(mCallbackManager),
                     new SplashScreenReactPackage(),
                     new MapsPackage(),

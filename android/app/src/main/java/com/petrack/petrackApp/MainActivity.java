@@ -1,4 +1,4 @@
-package com.petrack;
+package com.petrack.petrackApp;
 
 import android.content.Intent;
 import android.os.Bundle;
