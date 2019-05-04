@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import {
     Alert,
     ImageBackground,
+    Modal,
     SafeAreaView,
     ScrollView,
     StyleSheet,
@@ -18,6 +19,8 @@ import * as images from '../constants/images';
 import {Button} from "react-native-elements";
 import {Styles} from '../constants/styles';
 import {Actions} from "react-native-router-flux";
+import CustomDatePicker from '../components/customDatePicker';
+import moment from "moment";
 
 let ApiService = require('../utils/APIService');
 
@@ -26,10 +29,12 @@ export default class AddDogPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: 'bibian',
+            modalVisible: false,
+            birthdayDate: new Date(),
+            name: '',
             gender: 'M',
             type: 'dog',
-            birthday: '11-02-1997',
+            birthday: '',
             weight: '3.4',
         }
     }
@@ -77,52 +82,54 @@ export default class AddDogPage extends Component {
                 </View>
 
                 {/* Body View */}
-
                 <ScrollView bounces={false}>
                     <View>
                         {/* DogName Field */}
                         <View style={styles.body}>
                             <Text style={{color: colors.lightColor}}>Name</Text>
                             <TextInput
+                                onChangeText={(text) => {
+                                    this.setState({
+                                        name: text
+                                    })
+                                }}
                                 style={{
                                     borderBottomColor: colors.greyColor,
                                     borderBottomWidth: 1,
                                     height: scale(30),
-                                }}>Dog Name</TextInput>
+                                }}>{this.state.name}</TextInput>
                         </View>
 
                         {/* Birthday Field */}
                         <View style={styles.body}>
                             <Text style={{color: colors.lightColor}}>Birthday</Text>
                             <TouchableOpacity onPress={() => {
-                                Alert.alert('Birthday was click!!!');
+                                this.setState({
+                                    modalVisible: true
+                                })
                             }}>
                                 <TextInput
-                                    pointerEvents="none"
                                     editable={false}
+                                    pointerEvents="none"
                                     style={{
                                         borderBottomColor: colors.greyColor,
                                         borderBottomWidth: 1,
                                         height: scale(30),
-                                    }}>02-02-2018</TextInput>
+                                    }}> {this.state.birthday}</TextInput>
                             </TouchableOpacity>
                         </View>
 
                         {/* Today steps  */}
                         <View style={styles.body}>
                             <Text style={{color: colors.lightColor}}>Today Steps</Text>
-                            <TouchableOpacity onPress={() => {
-                                Alert.alert('Today Steps was click!!!');
-                            }}>
-                                <TextInput
-                                    pointerEvents="none"
-                                    editable={false}
-                                    style={{
-                                        borderBottomColor: colors.greyColor,
-                                        borderBottomWidth: 1,
-                                        height: scale(30),
-                                    }}>999</TextInput>
-                            </TouchableOpacity>
+                            <TextInput
+                                pointerEvents="none"
+                                editable={false}
+                                style={{
+                                    borderBottomColor: colors.greyColor,
+                                    borderBottomWidth: 1,
+                                    height: scale(30),
+                                }}/>
                         </View>
 
                         {/* Bags */}
@@ -146,7 +153,7 @@ export default class AddDogPage extends Component {
                         <View style={styles.body}>
                             <Text style={{color: colors.lightColor}}>Chips</Text>
                             <TouchableOpacity onPress={() => {
-                                Alert.alert('Chips was click!!!');
+                                Alert.alert('Setup Clip not available');
                             }}>
                                 <TextInput
                                     pointerEvents="none"
@@ -155,7 +162,7 @@ export default class AddDogPage extends Component {
                                         borderBottomColor: colors.greyColor,
                                         borderBottomWidth: 1,
                                         height: scale(30),
-                                    }}>Working</TextInput>
+                                    }}>Set Clip</TextInput>
                             </TouchableOpacity>
                         </View>
 
@@ -172,7 +179,26 @@ export default class AddDogPage extends Component {
                             containerStyle={styles.petButtonContainer}/>
                 </View>
 
-
+                {/* Popup birthday picker */}
+                <Modal
+                    animationType="node"
+                    transparent={true}
+                    visible={this.state.modalVisible}>
+                    <View style={{position: 'absolute', top: '30%', alignSelf: 'center'}}>
+                        <CustomDatePicker
+                            confirmPress={(date) => {
+                                this.setState({
+                                    modalVisible: false,
+                                    birthdayDate: date,
+                                    birthday: moment(date).format('DD-MM-YYYY')
+                                })
+                            }}
+                            cancelPress={() => {
+                                this.setState({modalVisible: false})
+                            }}
+                        />
+                    </View>
+                </Modal>
             </View>
         );
     }

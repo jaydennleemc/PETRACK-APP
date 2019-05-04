@@ -6,7 +6,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {scale} from "react-native-size-matters";
 import * as colors from '../constants/colors.js';
 
-class Toolbar extends React.PureComponent {
+class CustomToolbar extends React.PureComponent {
 
     constructor(props) {
         super(props);
@@ -74,4 +74,4 @@ class Toolbar extends React.PureComponent {
     }
 }
 
-export default Toolbar;
+export default CustomToolbar;

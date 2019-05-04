@@ -56,6 +56,7 @@
 		B20B0B682266352500ECE721 /* libRNCWebView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B20B0B652266350E00ECE721 /* libRNCWebView.a */; };
 		B20B0B772267839300ECE721 /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B20B0B762267838300ECE721 /* libSplashScreen.a */; };
 		B20B0B802267843000ECE721 /* libRNCAsyncStorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B20B0B7F226783F000ECE721 /* libRNCAsyncStorage.a */; };
+		B20F073A227D3B940061EFB4 /* libRNDatePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B20F0735227D3B110061EFB4 /* libRNDatePicker.a */; };
 		B21F37F22258B3F100117989 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B21F37EE2258B3F100117989 /* FBSDKLoginKit.framework */; };
 		B21F37F32258B3F100117989 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B21F37EF2258B3F100117989 /* FBSDKShareKit.framework */; };
 		B21F37F42258B3F100117989 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B21F37F02258B3F100117989 /* FBSDKCoreKit.framework */; };
@@ -361,6 +362,13 @@
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = RNCAsyncStorage;
 		};
+		B20F0734227D3B110061EFB4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B20F0705227D3B110061EFB4 /* RNDatePicker.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DA5891D81BA9A9FC002B4DB2;
+			remoteInfo = RNDatePicker;
+		};
 		B21F37FA2258B48000117989 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B21F37F62258B48000117989 /* RCTFBSDK.xcodeproj */;
@@ -492,6 +500,7 @@
 		B20B0B382266350D00ECE721 /* RNCWebView.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNCWebView.xcodeproj; path = "../node_modules/react-native-webview/ios/RNCWebView.xcodeproj"; sourceTree = "<group>"; };
 		B20B0B712267838300ECE721 /* SplashScreen.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SplashScreen.xcodeproj; path = "../node_modules/react-native-splash-screen/ios/SplashScreen.xcodeproj"; sourceTree = "<group>"; };
 		B20B0B78226783F000ECE721 /* RNCAsyncStorage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNCAsyncStorage.xcodeproj; path = "../node_modules/@react-native-community/async-storage/ios/RNCAsyncStorage.xcodeproj"; sourceTree = "<group>"; };
+		B20F0705227D3B110061EFB4 /* RNDatePicker.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNDatePicker.xcodeproj; path = "../node_modules/react-native-date-picker/ios/RNDatePicker.xcodeproj"; sourceTree = "<group>"; };
 		B21F37EE2258B3F100117989 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		B21F37EF2258B3F100117989 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		B21F37F02258B3F100117989 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
@@ -569,6 +578,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B20F073A227D3B940061EFB4 /* libRNDatePicker.a in Frameworks */,
 				B299C0B522741E9B00D45F18 /* libRNFetchBlob.a in Frameworks */,
 				B2D4AEAB226F7C4A00A8AA75 /* libRNCamera.a in Frameworks */,
 				B20B0B802267843000ECE721 /* libRNCAsyncStorage.a in Frameworks */,
@@ -793,6 +803,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				B20F0705227D3B110061EFB4 /* RNDatePicker.xcodeproj */,
 				B299C08122741E8800D45F18 /* RNFetchBlob.xcodeproj */,
 				B2D4AE78226F7C2C00A8AA75 /* RNCamera.xcodeproj */,
 				B20B0B78226783F000ECE721 /* RNCAsyncStorage.xcodeproj */,
@@ -885,6 +896,14 @@
 			isa = PBXGroup;
 			children = (
 				B20B0B7F226783F000ECE721 /* libRNCAsyncStorage.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B20F0706227D3B110061EFB4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B20F0735227D3B110061EFB4 /* libRNDatePicker.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1225,6 +1244,10 @@
 					ProjectRef = B20B0B382266350D00ECE721 /* RNCWebView.xcodeproj */;
 				},
 				{
+					ProductGroup = B20F0706227D3B110061EFB4 /* Products */;
+					ProjectRef = B20F0705227D3B110061EFB4 /* RNDatePicker.xcodeproj */;
+				},
+				{
 					ProductGroup = B299C08222741E8800D45F18 /* Products */;
 					ProjectRef = B299C08122741E8800D45F18 /* RNFetchBlob.xcodeproj */;
 				},
@@ -1498,6 +1521,13 @@
 			fileType = archive.ar;
 			path = libRNCAsyncStorage.a;
 			remoteRef = B20B0B7E226783F000ECE721 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B20F0735227D3B110061EFB4 /* libRNDatePicker.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNDatePicker.a;
+			remoteRef = B20F0734227D3B110061EFB4 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		B21F37FB2258B48000117989 /* libRCTFBSDK.a */ = {

@@ -1,14 +1,7 @@
 import React, {Component} from 'react';
-import {
-    View,
-    Text,
-    StyleSheet,
-    SafeAreaView,
-    TextInput,
-    TouchableOpacity
-} from 'react-native';
+import {SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
-import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
+import {scale} from 'react-native-size-matters';
 import * as colors from '../constants/colors';
 import {Button} from 'react-native-elements';
 import {Actions} from "react-native-router-flux";
@@ -55,7 +48,10 @@ export default class RegisterPhonePage extends Component {
         if (this.state.canSendSMS === true) {
             return (
                 <TouchableOpacity style={styles.sendPIN} onPress={() => {
-                    this._requestSMSCodeTimer();
+                    if (this.state.phoneNumText.length === 8) {
+                        this._requestSMSCode();
+                        this._requestSMSCodeTimer();
+                    }
                 }}>
                     <Text style={styles.sendPINText}>Send PIN</Text>
                 </TouchableOpacity>
@@ -85,8 +81,8 @@ export default class RegisterPhonePage extends Component {
     };
 
     _requestSMSCode = () => {
-        ApiService.sendSMS(this.state.phoneNumText).then(function (resp) {
-
+        ApiService.sendSMS('+852' + this.state.phoneNumText).then(function (resp) {
+            console.log('RegisterPhonePage requestSMSCode ', resp);
         }).catch((error) => {
             console.log('Request SMS Code Error: ', error)
         });
@@ -95,7 +91,7 @@ export default class RegisterPhonePage extends Component {
 
     _phoneLogin = () => {
         ApiService.validateSMS(this.state.phoneNumText, this.state.smsCodeText).then(function (resp) {
-
+            console.log('RegisterPhonePage phoneLogin ', resp)
         }).catch((error) => {
             console.log('Mobile Phone Login Error: ', error);
         })
@@ -163,7 +159,7 @@ export default class RegisterPhonePage extends Component {
                     {/*   Login Button     */}
                     <Button title={'LOGIN'}
                             onPress={() => {
-                                Actions.reset("homeScene")
+                                this._phoneLogin();
                             }}
                             disabled={this.state.loginButton}
                             buttonStyle={styles.loginButton}/>

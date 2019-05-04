@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {SafeAreaView, Text, View} from 'react-native';
 import {WebView} from 'react-native-webview';
-import Toolbar from "../components/toolbar";
+import CustomToolbar from "../components/customToolbar";
 import {Actions} from "react-native-router-flux";
 import * as colors from '../constants/colors';
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
@@ -38,7 +38,7 @@ export default class AgreementPage extends Component {
         return (
             <View style={{backgroundColor: colors.white}}>
                 <SafeAreaView>
-                    <Toolbar
+                    <CustomToolbar
                         leftIconOnPress={() => {
                             Actions.pop();
                         }}

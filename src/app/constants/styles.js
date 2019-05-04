@@ -10,10 +10,14 @@ export const Styles = StyleSheet.create({
         flex: 1,
         backgroundColor: colors.themeColor,
     },
-    underLine: {
-        marginTop:scale(16),
-        marginHorizontal:scale(8),
-        height:1,
-        backgroundColor:colors.greyColor
+    horizontalLine: {
+        marginTop: scale(16),
+        marginHorizontal: scale(8),
+        height: 1,
+        backgroundColor: colors.greyColor
+    },
+    verticalLine: {
+        borderLeftWidth: 1,
+        borderLeftColor: colors.lightColor,
     }
 });

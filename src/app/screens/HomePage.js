@@ -5,7 +5,7 @@ import {scale} from "react-native-size-matters";
 import * as colors from '../constants/colors';
 import * as images from '../constants/images';
 import {Styles} from '../constants/styles';
-import Toolbar from "../components/toolbar";
+import CustomToolbar from "../components/customToolbar";
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps'
 import {Actions} from "react-native-router-flux";
 import * as Animatable from 'react-native-animatable';
@@ -125,25 +125,25 @@ export default class HomePage extends Component {
                             <Text style={styles.deviceTitle}>Dispenser Number</Text>
                             <Text style={styles.deviceContent}>Dispenser Number</Text>
                         </View>
-                        <View style={Styles.underLine}/>
+                        <View style={Styles.horizontalLine}/>
 
                         <View style={{flexDirection: 'row'}}>
                             <Text style={styles.deviceTitle}>Distance</Text>
                             <Text style={styles.deviceContent}>Dispenser Number</Text>
                         </View>
-                        <View style={Styles.underLine}/>
+                        <View style={Styles.horizontalLine}/>
 
                         <View style={{flexDirection: 'row'}}>
                             <Text style={styles.deviceTitle}>Surplus bags</Text>
                             <Text style={styles.deviceContent}>Dispenser Number</Text>
                         </View>
-                        <View style={Styles.underLine}/>
+                        <View style={Styles.horizontalLine}/>
 
                         <View style={{flexDirection: 'row'}}>
                             <Text style={styles.deviceTitle}>Last used time</Text>
                             <Text style={styles.deviceContent}>Dispenser Number</Text>
                         </View>
-                        <View style={Styles.underLine}/>
+                        <View style={Styles.horizontalLine}/>
                     </View>
                 </Animatable.View>
             )
@@ -168,12 +168,12 @@ export default class HomePage extends Component {
             <View style={Styles.container}>
                 <SafeAreaView/>
                 {/* App bar */}
-                <Toolbar title={'PETRACK'}
-                         rightIconOnPress={() => {
+                <CustomToolbar title={'PETRACK'}
+                               rightIconOnPress={() => {
                              Actions.push("profileScene")
                          }}
-                         rightIconColor={colors.themeColor}
-                         disableLeft={true}/>
+                               rightIconColor={colors.themeColor}
+                               disableLeft={true}/>
 
                 {/* Map View */}
                 <MapView
