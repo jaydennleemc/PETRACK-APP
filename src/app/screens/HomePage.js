@@ -9,6 +9,7 @@ import CustomToolbar from "../components/customToolbar";
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps'
 import {Actions} from "react-native-router-flux";
 import * as Animatable from 'react-native-animatable';
+import SlidingUpPanel from "rn-sliding-up-panel";
 
 const {width, height} = Dimensions.get('window');
 const SCREEN_HEIGHT = height;
@@ -20,7 +21,6 @@ const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 let ApiService = require('../utils/APIService');
 
 export default class HomePage extends Component {
-
 
     constructor(props) {
         super(props);
@@ -139,43 +139,44 @@ export default class HomePage extends Component {
                                 coordinate={marker.coordinate}
                                 key={`marker-${index}`}
                                 onPress={(e) => {
+                                    this._panel.show(200);
                                     console.log('point clicked');
                                 }}>
                                 <Image source={images.ic_point}
                                        resizeMode="contain"
                                        style={{width: scale(20), height: scale(20)}}/>
-                                <MapView.Callout
-                                    tooltip={true}>
-                                    <View style={{
-                                        width: scale(200),
-                                        height: scale(120),
-                                        backgroundColor: 'white',
-                                        borderRadius: scale(20),
-                                        marginBottom: scale(10)
-                                    }}>
-                                        <View style={{flexDirection: 'row'}}>
-                                            <Text style={styles.deviceTitle}>Dispenser:</Text>
-                                            <Text style={styles.deviceContent}>0013</Text>
-                                        </View>
-                                        <View style={[Styles.horizontalLine, {marginTop: scale(4)}]}/>
-                                        <View style={{flexDirection: 'row'}}>
-                                            <Text style={styles.deviceTitle}>Distance:</Text>
-                                            <Text style={styles.deviceContent}>231m</Text>
-                                        </View>
-                                        <View style={[Styles.horizontalLine, {marginTop: scale(4)}]}/>
+                                {/*<MapView.Callout*/}
+                                {/*    tooltip={true}>*/}
+                                {/*    <View style={{*/}
+                                {/*        width: scale(200),*/}
+                                {/*        height: scale(120),*/}
+                                {/*        backgroundColor: 'white',*/}
+                                {/*        borderRadius: scale(20),*/}
+                                {/*        marginBottom: scale(10)*/}
+                                {/*    }}>*/}
+                                {/*        <View style={{flexDirection: 'row'}}>*/}
+                                {/*            <Text style={styles.deviceTitle}>Dispenser:</Text>*/}
+                                {/*            <Text style={styles.deviceContent}>0013</Text>*/}
+                                {/*        </View>*/}
+                                {/*        <View style={[Styles.horizontalLine, {marginTop: scale(4)}]}/>*/}
+                                {/*        <View style={{flexDirection: 'row'}}>*/}
+                                {/*            <Text style={styles.deviceTitle}>Distance:</Text>*/}
+                                {/*            <Text style={styles.deviceContent}>231m</Text>*/}
+                                {/*        </View>*/}
+                                {/*        <View style={[Styles.horizontalLine, {marginTop: scale(4)}]}/>*/}
 
-                                        <View style={{flexDirection: 'row'}}>
-                                            <Text style={styles.deviceTitle}>Surplus bags:</Text>
-                                            <Text style={styles.deviceContent}>345</Text>
-                                        </View>
-                                        <View style={[Styles.horizontalLine, {marginTop: scale(4)}]}/>
-                                        <View style={{flexDirection: 'row'}}>
-                                            <Text style={styles.deviceTitle}>Last used time:</Text>
-                                            <Text style={styles.deviceContent}>3 days</Text>
-                                        </View>
-                                        <View style={[Styles.horizontalLine, {marginTop: scale(4)}]}/>
-                                    </View>
-                                </MapView.Callout>
+                                {/*        <View style={{flexDirection: 'row'}}>*/}
+                                {/*            <Text style={styles.deviceTitle}>Surplus bags:</Text>*/}
+                                {/*            <Text style={styles.deviceContent}>345</Text>*/}
+                                {/*        </View>*/}
+                                {/*        <View style={[Styles.horizontalLine, {marginTop: scale(4)}]}/>*/}
+                                {/*        <View style={{flexDirection: 'row'}}>*/}
+                                {/*            <Text style={styles.deviceTitle}>Last used time:</Text>*/}
+                                {/*            <Text style={styles.deviceContent}>3 days</Text>*/}
+                                {/*        </View>*/}
+                                {/*        <View style={[Styles.horizontalLine, {marginTop: scale(4)}]}/>*/}
+                                {/*    </View>*/}
+                                {/*</MapView.Callout>*/}
                             </MapView.Marker>
                         );
                     })}
@@ -192,12 +193,46 @@ export default class HomePage extends Component {
                     </View>
                 </Animatable.View>
 
+                <SlidingUpPanel
+                    draggableRange={{top: 700, bottom: 0.5}}
+                    ref={c => this._panel = c}>
+                    <View style={styles.container}>
+                        <View style={{flexDirection: 'row'}}>
+                            <Text style={styles.deviceTitle}>Dispenser:</Text>
+                            <Text style={styles.deviceContent}>0013</Text>
+                        </View>
+                        <View style={Styles.horizontalLine}/>
+                        <View style={{flexDirection: 'row'}}>
+                            <Text style={styles.deviceTitle}>Distance:</Text>
+                            <Text style={styles.deviceContent}>231m</Text>
+                        </View>
+                        <View style={Styles.horizontalLine}/>
+
+                        <View style={{flexDirection: 'row'}}>
+                            <Text style={styles.deviceTitle}>Surplus bags:</Text>
+                            <Text style={styles.deviceContent}>345</Text>
+                        </View>
+                        <View style={Styles.horizontalLine}/>
+                        <View style={{flexDirection: 'row'}}>
+                            <Text style={styles.deviceTitle}>Last used time:</Text>
+                            <Text style={styles.deviceContent}>3 days</Text>
+                        </View>
+                        <View style={Styles.horizontalLine}/>
+                    </View>
+                </SlidingUpPanel>
+
             </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        shadowOpacity: 0.25,
+        backgroundColor: 'white',
+        // alignItems: 'center',
+    },
     scanButtonView: {
         position: 'absolute',
         bottom: scale(40),

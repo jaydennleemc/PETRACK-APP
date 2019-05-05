@@ -14,7 +14,7 @@ export const Styles = StyleSheet.create({
         marginTop: scale(16),
         marginHorizontal: scale(8),
         height: 1,
-        backgroundColor: colors.greyColor
+        backgroundColor: colors.lightColor
     },
     verticalLine: {
         borderLeftWidth: 1,
