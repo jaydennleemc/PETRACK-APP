@@ -16,6 +16,7 @@ const APIs = {
     sendSMS: '/auth/mobile/sendSMS',
     validateSMS: '/auth/mobile/validate',
     facebookAuth: '/auth/facebook',
+    signOut: '/auth/logout',
 
 //    Profile API
     getProfile: '/me/profile',
@@ -158,7 +159,13 @@ class APIService {
 
     static updatePet(id) {
         const url = cloudVersion + APIs.updatePet;
-        return fly.post(url + id)
+        return fly.post(url + id);
+    }
+
+    static signOut() {
+        const url = cloudVersion + APIs.signOut;
+        const bearer = "Bearer " + jwtToken;
+        return fly.post(url);
     }
 
     // Clips
@@ -244,11 +251,17 @@ class APIService {
     static activateDispenser(id) {
         const url = cloudVersion + APIs.activateDispenser + id;
         const bearer = "Bearer " + jwtToken;
+        return fly.put(url, {}, {
+            headers: {"Authorization": bearer}
+        });
     }
 
     static deactivateDispenser(id) {
         const url = cloudVersion + APIs.deactivateDispenser + id;
         const bearer = "Bearer " + jwtToken;
+        return fly.put(url, {}, {
+            headers: {"Authorization": bearer}
+        });
     }
 
 

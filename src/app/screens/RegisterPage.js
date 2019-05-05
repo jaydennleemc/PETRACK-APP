@@ -1,18 +1,11 @@
 import React, {Component} from 'react';
-import {
-    View,
-    Text,
-    StyleSheet,
-    SafeAreaView,
-    Image,
-    TouchableOpacity
-} from 'react-native';
+import {Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import * as colors from '../constants/colors';
 import * as images from '../constants/images';
 import {Styles} from "../constants/styles";
 import {Actions} from "react-native-router-flux";
-import {LoginManager, LoginButton, AccessToken} from "react-native-fbsdk";
-import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
+import {AccessToken, LoginManager} from "react-native-fbsdk";
+import {scale} from 'react-native-size-matters';
 import Permissions from 'react-native-permissions'
 import AsyncStorage from "@react-native-community/async-storage";
 
@@ -68,12 +61,15 @@ export default class RegisterPage extends Component {
                             console.log('Facebook Token: ', token);
                             // send facebook token to server
                             ApiService.facebookAuth(token).then(async function (resp) {
+                                console.log(resp.data);
                                 let jwtToken = resp.data.jwt_token;
-                                ApiService.jwtToken = jwtToken;
+                                ApiService.setupJWTToken(jwtToken);
                                 console.log('JWT Token: ', jwtToken);
                                 // store jwt token to AsyncStorage
                                 await AsyncStorage.setItem('jwtToken', jwtToken).then(() => {
-                                    Actions.reset('homeScene');
+                                    setTimeout(() => {
+                                        Actions.reset('homeScene');
+                                    }, 1000)
                                 })
                             }).catch((error) => {
                                 console.log('Request JWT Token Error: ', error)
@@ -103,7 +99,7 @@ export default class RegisterPage extends Component {
                 <View style={styles.logoContainer}>
                     <Image
                         resizeMode={"contain"}
-                        style={{width:scale(250), height:scale(200)}}
+                        style={{width: scale(250), height: scale(200)}}
                         source={images.logo}/>
                 </View>
 
@@ -152,15 +148,15 @@ const styles = StyleSheet.create({
         marginTop: '30%'
     },
     bottomContainer: {
-        marginHorizontal:scale(16),
+        marginHorizontal: scale(16),
         flexDirection: 'column',
         marginBottom: scale(30),
         alignItems: 'center',
 
     },
     image: {
-        marginTop:scale(8),
-        width:'100%',
+        marginTop: scale(8),
+        width: '100%',
         height: scale(60),
     },
     termsText: {

@@ -1,6 +1,6 @@
 import React, {Component, PureComponent} from 'react';
 
-import {FlatList, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {ActivityIndicator, FlatList, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {scale} from "react-native-size-matters";
 import * as colors from '../constants/colors';
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -18,6 +18,7 @@ export default class ProfilePage extends Component {
         super(props);
         console.log(props);
         this.state = {
+            loading: true,
             profileImage: '',
             username: '',
             pets: [],
@@ -38,8 +39,9 @@ export default class ProfilePage extends Component {
 
     _getProfile = () => {
         ApiService.getProfile().then((resp) => {
-            console.log(resp);
+            console.log(resp.data);
             this.setState({
+                loading: false,
                 profileImage: resp.data.avatar,
                 username: resp.data.name,
             }, () => {
@@ -82,51 +84,61 @@ export default class ProfilePage extends Component {
 
 
     render() {
-        return (
-            <View style={Styles.container}>
-                <View style={[styles.view1, {paddingTop: scale(30)}]}>
-                    <View style={{flexDirection: 'row'}}>
-                        <TouchableOpacity style={{flex: 1,}} onPress={() => {
-                            Actions.pop();
-                        }}>
-                            <Icon name={'arrowleft'} size={scale(30)} style={{color: colors.whiteColor}}/>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() => {
-                            this._settingOnPress()
-                        }}>
-                            <Icon name={'setting'} size={scale(30)} style={{color: colors.whiteColor}}/>
-                        </TouchableOpacity>
+        if (!this.state.loading) {
+            return (
+                <View style={Styles.container}>
+                    <View style={[styles.view1, {paddingTop: scale(30)}]}>
+                        <View style={{flexDirection: 'row'}}>
+                            <TouchableOpacity style={{flex: 1,}} onPress={() => {
+                                Actions.pop();
+                            }}>
+                                <Icon name={'arrowleft'} size={scale(30)} style={{color: colors.whiteColor}}/>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => {
+                                this._settingOnPress()
+                            }}>
+                                <Icon name={'setting'} size={scale(30)} style={{color: colors.whiteColor}}/>
+                            </TouchableOpacity>
+                        </View>
+
+                        <View style={styles.view2}>
+                            <Image
+                                style={{width: scale(100), height: scale(100), borderRadius: scale(100) / 2}}
+                                source={{uri: this.state.profileImage}}
+                            />
+                            <Text style={styles.username}>{this.state.username}</Text>
+                        </View>
                     </View>
 
-                    <View style={styles.view2}>
-                        <Image
-                            style={{width: scale(100), height: scale(100), borderRadius: scale(100) / 2}}
-                            source={{uri: this.state.profileImage}}
-                        />
-                        <Text style={styles.username}>{this.state.username}</Text>
+
+                    <FlatList
+                        bounces={false}
+                        contentContainerStyle={{paddingBottom: scale(60)}}
+                        data={this.state.pets}
+                        renderItem={({item}) => <DogListItem data={item}/>}/>
+
+                    <View style={styles.buttonView}>
+                        <Button title={'Get a new pet'}
+                                onPress={() => {
+                                    Actions.addDogScene();
+                                }}
+                                buttonStyle={styles.petButtonStyle}
+                                containerStyle={styles.petButtonContainer}/>
                     </View>
 
                 </View>
-
-
-                <FlatList
-                    bounces={false}
-                    contentContainerStyle={{paddingBottom: scale(60)}}
-                    data={this.state.pets}
-                    renderItem={({item}) => <DogListItem data={item}/>}/>
-
-
-                <View style={styles.buttonView}>
-                    <Button title={'Get a new pet'}
-                            onPress={() => {
-                                Actions.addDogScene();
-                            }}
-                            buttonStyle={styles.petButtonStyle}
-                            containerStyle={styles.petButtonContainer}/>
+            );
+        } else {
+            return (
+                <View style={{
+                    position: 'absolute',
+                    top: '50%',
+                    right: '45%'
+                }}>
+                    <ActivityIndicator size="large" color={colors.lightColor}/>
                 </View>
-
-            </View>
-        );
+            )
+        }
     }
 }
 

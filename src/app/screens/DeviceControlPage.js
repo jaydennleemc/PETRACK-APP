@@ -6,6 +6,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import * as colors from "../constants/colors";
 import * as images from '../constants/images';
 import {Styles} from "../constants/styles";
+import {Actions} from "react-native-router-flux";
 
 let ApiService = require('../utils/APIService');
 
@@ -20,8 +21,9 @@ export default class DeviceControlPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            deviceId: this.props.deviceId,
             lock: true,
-            unlocking: true,
+            unlocking: false,
         }
     }
 
@@ -29,8 +31,34 @@ export default class DeviceControlPage extends Component {
 
     }
 
-    _unlockDispenser = () => {
+    _unlockDispenser = (id) => {
+        this.setState({
+            unlocking: true
+        });
+        ApiService.activateDispenser(id).then((resp) => {
+            console.log(resp.data);
+            this.setState({
+                lock: false,
+            })
 
+        }).catch((error) => {
+            console.log('unlock Dispenser error: ', error);
+        })
+    };
+
+    _lockDispenser = (id) => {
+        this.setState({
+            unlocking: false
+        });
+        ApiService.deactivateDispenser(id).then((resp) => {
+            console.log(resp.data);
+            this.setState({
+                lock: true,
+            })
+
+        }).catch((error) => {
+            console.log('unlock Dispenser error: ', error);
+        })
     };
 
     _renderLockerStatus = () => {
@@ -50,7 +78,9 @@ export default class DeviceControlPage extends Component {
                     <View style={{alignSelf: 'center'}}>
                         <ImageBackground resizeMode={"contain"} source={images.ic_lock_bg}
                                          style={{width: scale(150), height: scale(150)}}>
-                            <TouchableOpacity style={styles.lockImage}>
+                            <TouchableOpacity style={styles.lockImage} onPress={() => {
+                                this._unlockDispenser(this.state.deviceId);
+                            }}>
                                 <Image source={images.ic_lock} resizeMode={"contain"}
                                        style={{width: scale(50), height: scale(50),}}/>
                             </TouchableOpacity>
@@ -76,10 +106,10 @@ export default class DeviceControlPage extends Component {
                     <View style={{alignSelf: 'center'}}>
                         <ImageBackground resizeMode={"contain"} source={images.ic_lock_bg}
                                          style={{width: scale(150), height: scale(150)}}>
-                            <TouchableOpacity style={styles.lockImage}>
+                            <View style={styles.lockImage}>
                                 <Image source={images.ic_unlocking} resizeMode={"contain"}
                                        style={{width: scale(50), height: scale(50),}}/>
-                            </TouchableOpacity>
+                            </View>
                         </ImageBackground>
                     </View>
 
@@ -102,7 +132,9 @@ export default class DeviceControlPage extends Component {
                     <View style={{alignSelf: 'center'}}>
                         <ImageBackground resizeMode={"contain"} source={images.ic_unlock_bg}
                                          style={{width: scale(150), height: scale(150)}}>
-                            <TouchableOpacity style={styles.lockImage}>
+                            <TouchableOpacity style={styles.lockImage} onPress={() => {
+                                this._lockDispenser(this.state.id);
+                            }}>
                                 <Image source={images.ic_unlock} resizeMode={"contain"}
                                        style={{width: scale(50), height: scale(50),}}/>
                             </TouchableOpacity>
@@ -123,6 +155,7 @@ export default class DeviceControlPage extends Component {
                 <SafeAreaView/>
                 <View style={{flexDirection: 'row', marginHorizontal: scale(16)}}>
                     <TouchableOpacity style={{flex: 1,}} onPress={() => {
+                        Actions.pop();
                     }}>
                         <Icon name={'arrowleft'} size={scale(30)} style={{color: colors.lightColor}}/>
                     </TouchableOpacity>

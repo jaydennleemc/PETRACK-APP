@@ -26,7 +26,7 @@ export default class SplashScene extends Component {
             let value = await AsyncStorage.getItem('jwtToken');
             if (value !== null) {
                 ApiService.setupJWTToken(value);
-                console.log('jwt Token ', value)
+                console.log('jwt Token ', value);
                 this.setState({
                     hasToken: true
                 }, () => {

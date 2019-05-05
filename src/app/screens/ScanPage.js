@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, SafeAreaView, TouchableOpacity, Image, ImageBackground, Text} from 'react-native';
+import {Image, ImageBackground, SafeAreaView, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {scale} from "react-native-size-matters";
 import * as colors from '../constants/colors';
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -11,15 +11,24 @@ import QRCodeScanner from 'react-native-qrcode-scanner';
 export default class ScanPage extends Component {
 
     constructor(props) {
-        super(props)
+        super(props);
+        this.state = {
+            loading: true
+        }
+    }
+
+    componentDidMount(): void {
+
     }
 
     //  handle QR Code Scanner
     onSuccess(e) {
-        Actions.push("deviceControlScene");
+        console.log('scaned qr content: ', e.data);
+        Actions.deviceControlScene({deviceId: e.data});
     }
 
     render() {
+
         return (
             <View style={{backgroundColor: colors.lightColor, flex: 1}}>
                 <SafeAreaView/>
@@ -36,6 +45,8 @@ export default class ScanPage extends Component {
                     justifyContent: 'center',
                 }}>
                     <QRCodeScanner
+                        reactivateTimeout={3000}
+                        reactivate={true}
                         cameraStyle={{width: '100%', height: '100%'}}
                         fadeIn={true}
                         onRead={this.onSuccess.bind(this)}/>

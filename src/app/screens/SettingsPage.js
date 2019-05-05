@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
 import {
-    StyleSheet,
-    View,
+    ActivityIndicator,
+    Alert,
     SafeAreaView,
-    TouchableOpacity,
+    ScrollView,
+    StyleSheet,
     Text,
     TextInput,
-    ScrollView,
-    Alert,
+    TouchableOpacity,
+    View,
 } from 'react-native';
 import * as colors from '../constants/colors';
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -24,6 +25,7 @@ export default class SettingsPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            loading: true,
             username: '',
             email: ''
         }
@@ -36,6 +38,7 @@ export default class SettingsPage extends Component {
     _getProfile = () => {
         ApiService.getProfile().then((resp) => {
             this.setState({
+                loading: false,
                 username: resp.data.name,
                 email: resp.data.email
             })
@@ -48,8 +51,13 @@ export default class SettingsPage extends Component {
     _signOut = () => {
         let yes = {
             text: 'Yes', onPress: () => {
-                AsyncStorage.clear().then(() => {
-                    Actions.reset('registerScene');
+                ApiService.signOut().then((resp) => {
+                    console.log(resp);
+                    AsyncStorage.clear().then(() => {
+                        Actions.reset('registerScene');
+                    })
+                }).catch((error) => {
+                    console.log('Setting page sign out error = ', error)
                 })
             }
         };
@@ -62,113 +70,126 @@ export default class SettingsPage extends Component {
     };
 
     render() {
-        return (
-            <View style={Styles.container}>
-                <SafeAreaView/>
-                <TouchableOpacity
-                    onPress={() => {
-                        Actions.pop();
-                    }}
-                    style={{marginLeft: scale(16), marginTop: scale(16)}}>
-                    <Icon name={'arrowleft'} size={scale(30)} style={{color: colors.blackColor}}/>
-                </TouchableOpacity>
 
-                <View style={styles.view1}>
-                    <Text style={styles.settingText}>Setting</Text>
-                </View>
+        if (!this.state.loading) {
+            return (
+                <View style={Styles.container}>
+                    <SafeAreaView/>
+                    <TouchableOpacity
+                        onPress={() => {
+                            Actions.pop();
+                        }}
+                        style={{marginLeft: scale(16), marginTop: scale(16)}}>
+                        <Icon name={'arrowleft'} size={scale(30)} style={{color: colors.blackColor}}/>
+                    </TouchableOpacity>
 
-                <ScrollView bounces={false}>
-                    <View>
-                        {/* Name Field */}
-                        <View style={styles.body}>
-                            <Text style={{color: colors.lightColor}}>Name</Text>
-                            <TextInput
-                                editable={false}
-                                style={{
-                                    borderBottomColor: colors.greyColor,
-                                    borderBottomWidth: 1,
-                                    height: scale(30),
-                                }}>{this.state.username}</TextInput>
-                        </View>
-
-                        {/* Account Field */}
-                        <View style={styles.body}>
-                            <Text style={{color: colors.lightColor}}>Account</Text>
-                            <TextInput
-                                editable={false}
-                                textContentType={'emailAddress'}
-                                style={{
-                                    borderBottomColor: colors.greyColor,
-                                    borderBottomWidth: 1,
-                                    height: scale(30),
-                                }}>{this.state.email}</TextInput>
-                        </View>
-
-                        {/* Version Field */}
-                        <View style={styles.body}>
-                            <Text style={{color: colors.lightColor}}>Version</Text>
-                            <TouchableOpacity onPress={() => {
-                                Alert.alert('Version was click!!!');
-                            }}>
-                                <TextInput
-                                    pointerEvents="none"
-                                    editable={false}
-                                    style={{
-                                        borderBottomColor: colors.greyColor,
-                                        borderBottomWidth: 1,
-                                        height: scale(30),
-                                    }}>0.0.1</TextInput>
-                            </TouchableOpacity>
-                        </View>
-
-                        {/* Help Filed */}
-                        <View style={styles.body}>
-                            <Text style={{color: colors.lightColor}}>Help</Text>
-                            <TouchableOpacity onPress={() => {
-                                Alert.alert('Help was click!!!')
-                            }}>
-                                <TextInput
-                                    pointerEvents="none"
-                                    editable={false}
-                                    style={{
-                                        borderBottomColor: colors.greyColor,
-                                        borderBottomWidth: 1,
-                                        height: scale(30),
-                                    }}>Report
-                                    Bug</TextInput>
-                            </TouchableOpacity>
-                        </View>
-
-                        {/* Contact Filed */}
-                        <View style={styles.body}>
-                            <Text style={{color: colors.lightColor}}>Contact</Text>
-                            <TouchableOpacity onPress={() => {
-                                Alert.alert('Contact was click!!!')
-                            }}>
-                                <TextInput
-                                    pointerEvents="none"
-                                    editable={false}
-                                    style={{
-                                        borderBottomColor: colors.greyColor,
-                                        borderBottomWidth: 1,
-                                        height: scale(30),
-                                    }}> About US</TextInput>
-                            </TouchableOpacity>
-                        </View>
+                    <View style={styles.view1}>
+                        <Text style={styles.settingText}>Setting</Text>
                     </View>
-                </ScrollView>
 
-                <View style={styles.buttonView}>
-                    <Button title={'Sign out'}
-                            onPress={() => {
-                                this._signOut();
-                            }}
-                            buttonStyle={styles.petButtonStyle}
-                            containerStyle={styles.petButtonContainer}/>
+                    <ScrollView bounces={false}>
+                        <View>
+                            {/* Name Field */}
+                            <View style={styles.body}>
+                                <Text style={{color: colors.lightColor}}>Name</Text>
+                                <TextInput
+                                    editable={false}
+                                    style={{
+                                        borderBottomColor: colors.greyColor,
+                                        borderBottomWidth: 1,
+                                        height: scale(30),
+                                    }}>{this.state.username}</TextInput>
+                            </View>
+
+                            {/* Account Field */}
+                            <View style={styles.body}>
+                                <Text style={{color: colors.lightColor}}>Account</Text>
+                                <TextInput
+                                    editable={false}
+                                    textContentType={'emailAddress'}
+                                    style={{
+                                        borderBottomColor: colors.greyColor,
+                                        borderBottomWidth: 1,
+                                        height: scale(30),
+                                    }}>{this.state.email}</TextInput>
+                            </View>
+
+                            {/* Version Field */}
+                            <View style={styles.body}>
+                                <Text style={{color: colors.lightColor}}>Version</Text>
+                                <TouchableOpacity onPress={() => {
+                                    Alert.alert('Version was click!!!');
+                                }}>
+                                    <TextInput
+                                        pointerEvents="none"
+                                        editable={false}
+                                        style={{
+                                            borderBottomColor: colors.greyColor,
+                                            borderBottomWidth: 1,
+                                            height: scale(30),
+                                        }}>0.0.1</TextInput>
+                                </TouchableOpacity>
+                            </View>
+
+                            {/* Help Filed */}
+                            <View style={styles.body}>
+                                <Text style={{color: colors.lightColor}}>Help</Text>
+                                <TouchableOpacity onPress={() => {
+                                    Alert.alert('Help was click!!!')
+                                }}>
+                                    <TextInput
+                                        pointerEvents="none"
+                                        editable={false}
+                                        style={{
+                                            borderBottomColor: colors.greyColor,
+                                            borderBottomWidth: 1,
+                                            height: scale(30),
+                                        }}>Report
+                                        Bug</TextInput>
+                                </TouchableOpacity>
+                            </View>
+
+                            {/* Contact Filed */}
+                            <View style={styles.body}>
+                                <Text style={{color: colors.lightColor}}>Contact</Text>
+                                <TouchableOpacity onPress={() => {
+                                    Alert.alert('Contact was click!!!')
+                                }}>
+                                    <TextInput
+                                        pointerEvents="none"
+                                        editable={false}
+                                        style={{
+                                            borderBottomColor: colors.greyColor,
+                                            borderBottomWidth: 1,
+                                            height: scale(30),
+                                        }}> About US</TextInput>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </ScrollView>
+
+                    <View style={styles.buttonView}>
+                        <Button title={'Sign out'}
+                                onPress={() => {
+                                    this._signOut();
+                                }}
+                                buttonStyle={styles.petButtonStyle}
+                                containerStyle={styles.petButtonContainer}/>
+                    </View>
+
                 </View>
-
-            </View>
-        );
+            );
+        } else {
+            return (
+                <View style={{
+                    position: 'absolute',
+                    top: '50%',
+                    right: '45%'
+                }}>
+                    <ActivityIndicator size="large" color={colors.lightColor}/>
+                </View>
+            )
+        }
     }
 }
 

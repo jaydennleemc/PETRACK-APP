@@ -108,60 +108,6 @@ export default class HomePage extends Component {
         })
     };
 
-    _renderScanQR = () => {
-        if (this.state.showDispenserInfo === true) {
-            return (
-                <Animatable.View animation="fadeInUp" duration={500} iterationCount={1}>
-                    <View style={{
-                        flex: 1,
-                        backgroundColor: 'white',
-                        height: scale(250),
-                        width: '100%',
-                        position: 'absolute',
-                        bottom: 0,
-                        shadowOpacity: 0.1
-                    }}>
-                        <View style={{flexDirection: 'row'}}>
-                            <Text style={styles.deviceTitle}>Dispenser Number</Text>
-                            <Text style={styles.deviceContent}>Dispenser Number</Text>
-                        </View>
-                        <View style={Styles.horizontalLine}/>
-
-                        <View style={{flexDirection: 'row'}}>
-                            <Text style={styles.deviceTitle}>Distance</Text>
-                            <Text style={styles.deviceContent}>Dispenser Number</Text>
-                        </View>
-                        <View style={Styles.horizontalLine}/>
-
-                        <View style={{flexDirection: 'row'}}>
-                            <Text style={styles.deviceTitle}>Surplus bags</Text>
-                            <Text style={styles.deviceContent}>Dispenser Number</Text>
-                        </View>
-                        <View style={Styles.horizontalLine}/>
-
-                        <View style={{flexDirection: 'row'}}>
-                            <Text style={styles.deviceTitle}>Last used time</Text>
-                            <Text style={styles.deviceContent}>Dispenser Number</Text>
-                        </View>
-                        <View style={Styles.horizontalLine}/>
-                    </View>
-                </Animatable.View>
-            )
-        } else {
-            return (
-                <Animatable.View animation="fadeInUp" duration={1000} iterationCount={1}>
-                    <View style={styles.scanButtonView}>
-                        <TouchableOpacity onPress={() => {
-                            Actions.push("scanScene")
-                        }}>
-                            <Image source={images.scan_btn}/>
-                        </TouchableOpacity>
-                        <Text style={styles.scanText}>Scan the QR code</Text>
-                    </View>
-                </Animatable.View>
-            )
-        }
-    };
 
     render() {
         return (
@@ -170,8 +116,8 @@ export default class HomePage extends Component {
                 {/* App bar */}
                 <CustomToolbar title={'PETRACK'}
                                rightIconOnPress={() => {
-                             Actions.push("profileScene")
-                         }}
+                                   Actions.push("profileScene")
+                               }}
                                rightIconColor={colors.themeColor}
                                disableLeft={true}/>
 
@@ -193,18 +139,59 @@ export default class HomePage extends Component {
                                 coordinate={marker.coordinate}
                                 key={`marker-${index}`}
                                 onPress={(e) => {
-                                    this.setState({showDispenserInfo: true});
                                     console.log('point clicked');
                                 }}>
                                 <Image source={images.ic_point}
                                        resizeMode="contain"
                                        style={{width: scale(20), height: scale(20)}}/>
+                                <MapView.Callout
+                                    tooltip={true}>
+                                    <View style={{
+                                        width: scale(200),
+                                        height: scale(120),
+                                        backgroundColor: 'white',
+                                        borderRadius: scale(20),
+                                        marginBottom: scale(10)
+                                    }}>
+                                        <View style={{flexDirection: 'row'}}>
+                                            <Text style={styles.deviceTitle}>Dispenser:</Text>
+                                            <Text style={styles.deviceContent}>0013</Text>
+                                        </View>
+                                        <View style={[Styles.horizontalLine, {marginTop: scale(4)}]}/>
+                                        <View style={{flexDirection: 'row'}}>
+                                            <Text style={styles.deviceTitle}>Distance:</Text>
+                                            <Text style={styles.deviceContent}>231m</Text>
+                                        </View>
+                                        <View style={[Styles.horizontalLine, {marginTop: scale(4)}]}/>
+
+                                        <View style={{flexDirection: 'row'}}>
+                                            <Text style={styles.deviceTitle}>Surplus bags:</Text>
+                                            <Text style={styles.deviceContent}>345</Text>
+                                        </View>
+                                        <View style={[Styles.horizontalLine, {marginTop: scale(4)}]}/>
+                                        <View style={{flexDirection: 'row'}}>
+                                            <Text style={styles.deviceTitle}>Last used time:</Text>
+                                            <Text style={styles.deviceContent}>3 days</Text>
+                                        </View>
+                                        <View style={[Styles.horizontalLine, {marginTop: scale(4)}]}/>
+                                    </View>
+                                </MapView.Callout>
                             </MapView.Marker>
                         );
                     })}
                 </MapView>
 
-                {this._renderScanQR()}
+                <Animatable.View animation="fadeInUp" duration={1000} iterationCount={1}>
+                    <View style={styles.scanButtonView}>
+                        <TouchableOpacity onPress={() => {
+                            Actions.push("scanScene")
+                        }}>
+                            <Image source={images.scan_btn}/>
+                        </TouchableOpacity>
+                        <Text style={styles.scanText}>Scan the QR code</Text>
+                    </View>
+                </Animatable.View>
+
             </View>
         );
     }
@@ -225,14 +212,14 @@ const styles = StyleSheet.create({
     deviceTitle: {
         flex: 1,
         color: colors.greyColor,
-        marginTop: scale(16),
+        marginTop: scale(8),
         marginLeft: scale(8)
     },
     deviceContent: {
         flex: 1,
         textAlign: 'right',
         color: colors.blackColor,
-        marginTop: scale(16),
+        marginTop: scale(8),
         marginRight: scale(8)
     }
 });
