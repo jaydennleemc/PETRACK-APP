@@ -5,6 +5,8 @@ import {scale} from 'react-native-size-matters';
 import * as colors from '../constants/colors';
 import {Button} from 'react-native-elements';
 import {Actions} from "react-native-router-flux";
+import {AccessToken, LoginManager} from "react-native-fbsdk";
+import AsyncStorage from "@react-native-community/async-storage";
 
 let ApiService = require('../utils/APIService');
 
@@ -22,6 +24,44 @@ export default class RegisterPhonePage extends Component {
             smsCodeText: '',
         }
     }
+
+    _fbAuth = () => {
+        LoginManager.logInWithReadPermissions(this.facebookPermission).then(
+            function (result) {
+                if (result.isCancelled) {
+                    console.log("Login cancelled");
+                } else {
+                    AccessToken.getCurrentAccessToken().then(async function (data) {
+                        try {
+                            let token = data.accessToken.toString();
+                            console.log('Facebook Token: ', token);
+                            // send facebook token to server
+                            ApiService.facebookAuth(token).then(async function (resp) {
+                                console.log(resp.data);
+                                let jwtToken = resp.data.jwt_token;
+                                ApiService.setupJWTToken(jwtToken);
+                                console.log('JWT Token: ', jwtToken);
+                                // store jwt token to AsyncStorage
+                                await AsyncStorage.setItem('jwtToken', jwtToken).then(() => {
+                                    setTimeout(() => {
+                                        Actions.reset('homeScene');
+                                    }, 1000)
+                                })
+                            }).catch((error) => {
+                                console.log('Request JWT Token Error: ', error)
+                            });
+                        } catch (error) {
+                            console.log('Facebook Authentication Error: ', error)
+                        }
+                    });
+                    console.log("Login success with permissions: " + result.grantedPermissions.toString());
+                }
+            },
+            function (error) {
+                console.log("Login fail with error: " + error);
+            }
+        );
+    };
 
     _resetSMSTimer = () => {
         setInterval(() => {
@@ -168,7 +208,7 @@ export default class RegisterPhonePage extends Component {
                 <View style={styles.view3}>
                     <View style={styles.underline2}/>
                     <TouchableOpacity onPress={() => {
-                        Actions.pop();
+                        this._fbAuth();
                     }}>
                         <View style={{flexDirection: 'row'}}>
                             <Text style={{color: colors.greyColor}}>Login with </Text>

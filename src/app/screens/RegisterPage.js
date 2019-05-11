@@ -5,7 +5,7 @@ import * as images from '../constants/images';
 import {Styles} from "../constants/styles";
 import {Actions} from "react-native-router-flux";
 import {AccessToken, LoginManager} from "react-native-fbsdk";
-import {scale} from 'react-native-size-matters';
+import {scale, verticalScale} from 'react-native-size-matters';
 import Permissions from 'react-native-permissions'
 import AsyncStorage from "@react-native-community/async-storage";
 
@@ -113,7 +113,7 @@ export default class RegisterPage extends Component {
                             this._fbAuth()
                         }}>
                             <Image
-                                resizeMode={"contain"}
+                                // resizeMode={"contain"}
                                 style={styles.image}
                                 source={images.register_facebook}/>
                         </TouchableOpacity>
@@ -123,13 +123,13 @@ export default class RegisterPage extends Component {
                             Actions.registerPhoneScene();
                         }}>
                             <Image
-                                resizeMode={'contain'}
+                                // resizeMode={'contain'}
                                 style={styles.image}
                                 source={images.register_phone}/>
                         </TouchableOpacity>
                     </View>
 
-                    <TouchableOpacity onPress={() => {
+                    <TouchableOpacity style={{marginTop:verticalScale(20)}} onPress={() => {
                         this._gotoAgreementView()
                     }}>
                         <Text style={styles.termsText}>Terms & Conditions</Text>
@@ -148,9 +148,8 @@ const styles = StyleSheet.create({
         marginTop: '30%'
     },
     bottomContainer: {
-        marginHorizontal: scale(16),
         flexDirection: 'column',
-        marginBottom: scale(30),
+        marginBottom: verticalScale(60),
         alignItems: 'center',
 
     },
