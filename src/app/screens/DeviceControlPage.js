@@ -1,7 +1,17 @@
 import React, {Component} from 'react';
 
-import {Image, ImageBackground, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {scale} from "react-native-size-matters";
+import {
+    Animated,
+    Easing,
+    Image,
+    ImageBackground,
+    SafeAreaView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View
+} from 'react-native';
+import {scale, verticalScale} from "react-native-size-matters";
 import Icon from 'react-native-vector-icons/AntDesign';
 import * as colors from "../constants/colors";
 import * as images from '../constants/images';
@@ -22,9 +32,10 @@ export default class DeviceControlPage extends Component {
         super(props);
         this.state = {
             deviceId: this.props.deviceId,
-            lock: true,
-            unlocking: false,
-        }
+            lockerStatus: 'unlocked'
+        };
+
+        this.RotateValueHolder = new Animated.Value(0);
     }
 
     componentDidMount(): void {
@@ -33,37 +44,63 @@ export default class DeviceControlPage extends Component {
 
     _unlockDispenser = (id) => {
         this.setState({
-            unlocking: true
+            lockerStatus: 'unlocking'
         });
         ApiService.activateDispenser(id).then((resp) => {
             console.log(resp.data);
             this.setState({
-                lock: false,
-            })
+                lockerStatus: 'unlocked'
+            });
 
         }).catch((error) => {
             console.log('unlock Dispenser error: ', error);
+            this.setState({
+                lockerStatus: 'locked'
+            });
         })
     };
 
     _lockDispenser = (id) => {
         this.setState({
-            unlocking: false
+            lockerStatus: 'unlocking'
         });
         ApiService.deactivateDispenser(id).then((resp) => {
             console.log(resp.data);
             this.setState({
-                lock: true,
-            })
+                lockerStatus: 'locked'
+            });
 
         }).catch((error) => {
             console.log('unlock Dispenser error: ', error);
+            this.setState({
+                lockerStatus: 'unlocked'
+            });
         })
     };
 
+    startImageRotateFunction(start) {
+        this.RotateValueHolder.setValue(0);
+        const rotate = Animated.timing(this.RotateValueHolder, {
+            toValue: 1,
+            duration: 3000,
+            easing: Easing.linear,
+        });
+
+        if (start) {
+            rotate.start(() => this.startImageRotateFunction());
+        } else {
+            rotate.stop();
+        }
+    }
+
     _renderLockerStatus = () => {
-        // return lock status
-        if (this.state.lock && this.state.unlocking === false) {
+        const RotateData = this.RotateValueHolder.interpolate({
+            inputRange: [0, 1],
+            outputRange: ['0deg', '360deg'],
+        });
+        // return lockerStatus status
+        if (this.state.lockerStatus === 'locked') {
+            this.startImageRotateFunction(false);
             return (
                 <View>
                     {/* Device status  */}
@@ -74,12 +111,12 @@ export default class DeviceControlPage extends Component {
                         </ImageBackground>
                     </View>
 
-                    {/* lock image */}
+                    {/* lockerStatus image */}
                     <View style={{alignSelf: 'center'}}>
                         <ImageBackground resizeMode={"contain"} source={images.ic_lock_bg}
                                          style={{width: scale(150), height: scale(150)}}>
                             <TouchableOpacity style={styles.lockImage} onPress={() => {
-                                this._unlockDispenser(this.state.deviceId);
+                                this._unlockDispenser(this.state.deviceId)
                             }}>
                                 <Image source={images.ic_lock} resizeMode={"contain"}
                                        style={{width: scale(50), height: scale(50),}}/>
@@ -87,10 +124,11 @@ export default class DeviceControlPage extends Component {
                         </ImageBackground>
                     </View>
 
-                    <Text style={styles.unlockHints}>{lockerStatus.lockedt}</Text>
+                    <Text style={styles.unlockHints}>{lockerStatus.locked}</Text>
                 </View>
             )
-        } else if (this.state.lock && this.state.unlocking) {
+        } else if (this.state.lockerStatus === 'unlocking') {
+            this.startImageRotateFunction(true);
             // return unlocking status
             return (
                 <View>
@@ -102,13 +140,17 @@ export default class DeviceControlPage extends Component {
                         </ImageBackground>
                     </View>
 
-                    {/* lock image */}
+                    {/* lockerStatus image */}
                     <View style={{alignSelf: 'center'}}>
                         <ImageBackground resizeMode={"contain"} source={images.ic_lock_bg}
                                          style={{width: scale(150), height: scale(150)}}>
                             <View style={styles.lockImage}>
-                                <Image source={images.ic_unlocking} resizeMode={"contain"}
-                                       style={{width: scale(50), height: scale(50),}}/>
+                                <Animated.Image source={images.ic_unlocking} resizeMode={"contain"}
+                                                style={{
+                                                    width: scale(50),
+                                                    height: scale(50),
+                                                    transform: [{rotate: RotateData}]
+                                                }}/>
                             </View>
                         </ImageBackground>
                     </View>
@@ -116,7 +158,8 @@ export default class DeviceControlPage extends Component {
                     <Text style={styles.unlockHints}>{lockerStatus.unlocking}</Text>
                 </View>
             )
-        } else {
+        } else if (this.state.lockerStatus === 'unlocked') {
+            this.startImageRotateFunction(false);
             // return unlocked status
             return (
                 <View>
@@ -128,12 +171,12 @@ export default class DeviceControlPage extends Component {
                         </ImageBackground>
                     </View>
 
-                    {/* lock image */}
+                    {/* lockerStatus image */}
                     <View style={{alignSelf: 'center'}}>
                         <ImageBackground resizeMode={"contain"} source={images.ic_unlock_bg}
                                          style={{width: scale(150), height: scale(150)}}>
                             <TouchableOpacity style={styles.lockImage} onPress={() => {
-                                this._lockDispenser(this.state.id);
+                                this._lockDispenser(this.state.deviceId)
                             }}>
                                 <Image source={images.ic_unlock} resizeMode={"contain"}
                                        style={{width: scale(50), height: scale(50),}}/>
@@ -141,13 +184,19 @@ export default class DeviceControlPage extends Component {
                         </ImageBackground>
                     </View>
 
-                    <Text style={styles.unlockHints}>{lockerStatus.unlocked}</Text>
+                    <View style={styles.unlockHints}>
+                        <Text style={[styles.unlockedText, {textAlign: 'center', marginTop: verticalScale(8)}]}>
+                            The dispenser has been unlcoked, </Text>
+                        <Text style={[styles.unlockedText, {marginTop: verticalScale(8)}]}>
+                            Press the
+                            <Text style={[styles.unlockedText, {fontWeight: 'bold'}]}> button on the dispenser </Text> <Text style={styles.unlockedText}>to get the bag</Text></Text>
+                    </View>
+
                 </View>
             )
         }
 
     };
-
 
     render() {
         return (
@@ -202,7 +251,12 @@ const styles = StyleSheet.create({
     },
     unlockHints: {
         alignSelf: 'center',
+        fontSize: scale(16),
         marginTop: scale(15),
         color: colors.lightColor
     },
+    unlockedText: {
+        fontSize: scale(16),
+        color: colors.lightColor
+    }
 });

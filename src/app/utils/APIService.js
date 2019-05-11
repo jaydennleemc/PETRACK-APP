@@ -40,7 +40,7 @@ const APIs = {
     removeDispenser: '/dispenser/remove/',
     updateDispenser: '/dispenser/update/',
     activateDispenser: '/dispenser/activate/',
-    deactivateDispenser: 'dispenser/deactivate/'
+    deactivateDispenser: '/dispenser/deactivate/'
 
 };
 
