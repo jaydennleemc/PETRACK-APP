@@ -9,7 +9,7 @@ import CustomToolbar from "../components/customToolbar";
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps'
 import {Actions} from "react-native-router-flux";
 import * as Animatable from 'react-native-animatable';
-import SlidingUpPanel from "rn-sliding-up-panel";
+import CustomSlidingUpPanel from "../components/customSlidingUpPanel";
 
 const {width, height} = Dimensions.get('window');
 const SCREEN_HEIGHT = height;
@@ -30,39 +30,27 @@ export default class HomePage extends Component {
             markers: [
                 {
                     coordinate: {
-                        latitude: 48.1804069,
-                        longitude: -65.8716805,
+                        latitude: 22.308047155697093,
+                        longitude: 114.19007422465576,
                     },
-                    title: "Best Place",
-                    description: "This is the best place in Portland",
-                    image: images.ic_point,
                 },
                 {
                     coordinate: {
-                        latitude: 45.524698,
-                        longitude: -122.6655507,
+                        latitude: 22.508047155697093,
+                        longitude: 114.20007422465576,
                     },
-                    title: "Second Best Place",
-                    description: "This is the second best place in Portland",
-                    image: images.ic_point,
                 },
                 {
                     coordinate: {
-                        latitude: 45.5230786,
-                        longitude: -122.6701034,
+                        latitude: 22.328047155697093,
+                        longitude: 114.22007422465576,
                     },
-                    title: "Third Best Place",
-                    description: "This is the third best place in Portland",
-                    image: images.ic_point,
                 },
                 {
                     coordinate: {
                         latitude: 45.521016,
                         longitude: -122.6561917,
                     },
-                    title: "Fourth Best Place",
-                    description: "This is the fourth best place in Portland",
-                    image: images.ic_point,
                 },
             ],
             region: {
@@ -90,9 +78,12 @@ export default class HomePage extends Component {
                 latitudeDelta: LATITUDE_DELTA,
                 longitudeDelta: LONGITUDE_DELTA,
             };
-            // this.setState({
-            //     region: initialRegion
-            // })
+
+            // console.log('location info', initialRegion);
+
+            this.setState({
+                region: initialRegion
+            })
         })
     };
 
@@ -138,51 +129,20 @@ export default class HomePage extends Component {
                             <MapView.Marker
                                 coordinate={marker.coordinate}
                                 key={`marker-${index}`}
-                                onPress={(e) => {
-                                    this._panel.show(200);
+                                onPress={() => {
+                                    this._panel.refreshData(this.state.markers[index]);
+                                    this._panel.show();
                                     console.log('point clicked');
                                 }}>
                                 <Image source={images.ic_point}
                                        resizeMode="contain"
                                        style={{width: scale(20), height: scale(20)}}/>
-                                {/*<MapView.Callout*/}
-                                {/*    tooltip={true}>*/}
-                                {/*    <View style={{*/}
-                                {/*        width: scale(200),*/}
-                                {/*        height: scale(120),*/}
-                                {/*        backgroundColor: 'white',*/}
-                                {/*        borderRadius: scale(20),*/}
-                                {/*        marginBottom: scale(10)*/}
-                                {/*    }}>*/}
-                                {/*        <View style={{flexDirection: 'row'}}>*/}
-                                {/*            <Text style={styles.deviceTitle}>Dispenser:</Text>*/}
-                                {/*            <Text style={styles.deviceContent}>0013</Text>*/}
-                                {/*        </View>*/}
-                                {/*        <View style={[Styles.horizontalLine, {marginTop: scale(4)}]}/>*/}
-                                {/*        <View style={{flexDirection: 'row'}}>*/}
-                                {/*            <Text style={styles.deviceTitle}>Distance:</Text>*/}
-                                {/*            <Text style={styles.deviceContent}>231m</Text>*/}
-                                {/*        </View>*/}
-                                {/*        <View style={[Styles.horizontalLine, {marginTop: scale(4)}]}/>*/}
-
-                                {/*        <View style={{flexDirection: 'row'}}>*/}
-                                {/*            <Text style={styles.deviceTitle}>Surplus bags:</Text>*/}
-                                {/*            <Text style={styles.deviceContent}>345</Text>*/}
-                                {/*        </View>*/}
-                                {/*        <View style={[Styles.horizontalLine, {marginTop: scale(4)}]}/>*/}
-                                {/*        <View style={{flexDirection: 'row'}}>*/}
-                                {/*            <Text style={styles.deviceTitle}>Last used time:</Text>*/}
-                                {/*            <Text style={styles.deviceContent}>3 days</Text>*/}
-                                {/*        </View>*/}
-                                {/*        <View style={[Styles.horizontalLine, {marginTop: scale(4)}]}/>*/}
-                                {/*    </View>*/}
-                                {/*</MapView.Callout>*/}
                             </MapView.Marker>
                         );
                     })}
                 </MapView>
 
-                <Animatable.View animation="fadeInUp" duration={1000} iterationCount={1}>
+                <Animatable.View animation="fadeInUp" duration={500} iterationCount={1}>
                     <View style={styles.scanButtonView}>
                         <TouchableOpacity onPress={() => {
                             Actions.push("scanScene")
@@ -193,33 +153,9 @@ export default class HomePage extends Component {
                     </View>
                 </Animatable.View>
 
-                <SlidingUpPanel
-                    draggableRange={{top: 700, bottom: 0.5}}
-                    ref={c => this._panel = c}>
-                    <View style={styles.container}>
-                        <View style={{flexDirection: 'row'}}>
-                            <Text style={styles.deviceTitle}>Dispenser:</Text>
-                            <Text style={styles.deviceContent}>0013</Text>
-                        </View>
-                        <View style={Styles.horizontalLine}/>
-                        <View style={{flexDirection: 'row'}}>
-                            <Text style={styles.deviceTitle}>Distance:</Text>
-                            <Text style={styles.deviceContent}>231m</Text>
-                        </View>
-                        <View style={Styles.horizontalLine}/>
 
-                        <View style={{flexDirection: 'row'}}>
-                            <Text style={styles.deviceTitle}>Surplus bags:</Text>
-                            <Text style={styles.deviceContent}>345</Text>
-                        </View>
-                        <View style={Styles.horizontalLine}/>
-                        <View style={{flexDirection: 'row'}}>
-                            <Text style={styles.deviceTitle}>Last used time:</Text>
-                            <Text style={styles.deviceContent}>3 days</Text>
-                        </View>
-                        <View style={Styles.horizontalLine}/>
-                    </View>
-                </SlidingUpPanel>
+                <CustomSlidingUpPanel
+                    ref={c => this._panel = c}/>
 
             </View>
         );
@@ -244,17 +180,4 @@ const styles = StyleSheet.create({
         marginTop: scale(8),
         alignSelf: 'center'
     },
-    deviceTitle: {
-        flex: 1,
-        color: colors.greyColor,
-        marginTop: scale(8),
-        marginLeft: scale(8)
-    },
-    deviceContent: {
-        flex: 1,
-        textAlign: 'right',
-        color: colors.blackColor,
-        marginTop: scale(8),
-        marginRight: scale(8)
-    }
 });
