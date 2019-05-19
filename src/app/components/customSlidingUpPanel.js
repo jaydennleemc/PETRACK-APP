@@ -31,7 +31,7 @@ export default class CustomSlidingUpPanel extends Component {
             <View style={{backgroundColor: colors.whiteColor}}>
                 <SlidingUpPanel
                     ref={c => this._panel = c}
-                    animatedValue={new Animated.Value(0)}
+                    animatedValue={new Animated.Value(0.1)}
                     draggableRange={{top: scale(220), bottom: 0}}>
                     <View style={styles.container}>
                         <View style={styles.deviceContainer}>

@@ -51,7 +51,7 @@ export default class SplashScene extends Component {
                 //todo handle update
             }
         }).catch((error) => {
-            console.log(error);
+            console.log('check version error ',error);
         })
     };
 

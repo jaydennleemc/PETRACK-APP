@@ -15,3 +15,4 @@ export const ic_unlock_bg = require('../../res/images/ic_circle_unlock.png');
 export const ic_lock_round = require('../../res/images/ic_lock_bg.png');
 export const ic_unlock_round = require('../../res/images/ic_unlock_bg.png');
 export const ic_unlocking = require('../../res/images/ic_unlocking.png');
+export const ic_bottom_arrow = require('../../res/images/bottom_arrow.png');

@@ -1,12 +1,15 @@
 import React, {Component} from 'react';
-import {SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {Image, Modal, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {scale} from 'react-native-size-matters';
 import * as colors from '../constants/colors';
+import * as images from '../constants/images';
 import {Button} from 'react-native-elements';
 import {Actions} from "react-native-router-flux";
 import {AccessToken, LoginManager} from "react-native-fbsdk";
 import AsyncStorage from "@react-native-community/async-storage";
+import PhoneInput from 'react-native-phone-input'
+import CountryPicker from 'react-native-country-picker-modal';
 
 let ApiService = require('../utils/APIService');
 
@@ -14,15 +17,35 @@ export default class RegisterPhonePage extends Component {
 
     constructor(props) {
         super(props);
+        this.onPressFlag = this.onPressFlag.bind(this);
+        this.selectCountry = this.selectCountry.bind(this);
         this.state = {
             canSendSMS: true,
             timer: 30,
             phoneNumFocus: false,
             smsCodeFocus: false,
             loginButton: true,
+            phonePrefix:'',
             phoneNumText: '',
             smsCodeText: '',
+            pickerData:null,
+            cca2: 'US',
         }
+    }
+
+    componentDidMount(): void {
+        this.setState({
+            pickerData: this.phone.getPickerData()
+        })
+    }
+
+    onPressFlag() {
+        this.countryPicker.openModal();
+    }
+
+    selectCountry(country) {
+        this.phone.selectCountry(country.cca2.toLowerCase());
+        this.setState({ cca2: country.cca2 });
     }
 
     _fbAuth = () => {
@@ -151,25 +174,48 @@ export default class RegisterPhonePage extends Component {
                 <View style={styles.view1}>
                     <Text style={styles.phoneText}>Enter Your Phone#</Text>
                     <Text style={styles.text1}>Phone Number</Text>
-                    {/* Phone Number Field */}
-                    <TextInput
-                        style={[styles.phoneNumText,
-                            {borderBottomColor: this.state.phoneNumFocus === true ? colors.themeColor : colors.lightColor}]}
-                        onFocus={() => {
-                            this.setState({
-                                phoneNumFocus: true,
-                                smsCodeFocus: false,
-                            })
-                        }}
-                        onChangeText={(text) => {
-                            this.setState({phoneNumText: text}, () => {
-                                this._enableLoginButton();
-                            })
-                        }}
-                        placeholder={'12345678'}
-                        maxLength={8}
-                        keyboardType={'number-pad'}
-                        clearButtonMode={'while-editing'}/>
+
+                    {/* Phone Number */}
+                    <View style={{flexDirection:'row'}}>
+                       {/* Phone Number Prefix  */}
+
+                       <View style={{width:scale(88), height:scale(30), marginTop:scale(28) }}>
+                           <PhoneInput
+                               ref={(ref) => {
+                                   this.phone = ref;
+                               }}
+                               onPressFlag={this.onPressFlag}/>
+
+                           <CountryPicker
+                               ref={(ref) => {
+                                   this.countryPicker = ref;
+                               }}
+                               onChange={value => this.selectCountry(value)}
+                               translation="eng"
+                               cca2={this.state.cca2}>
+                               <View />
+                           </CountryPicker>
+                       </View>
+
+                        <TextInput
+                            style={[styles.phoneNumText,
+                                {borderBottomColor: this.state.phoneNumFocus === true ? colors.themeColor : colors.lightColor,
+                                    flex:1}]}
+                            onFocus={() => {
+                                this.setState({
+                                    phoneNumFocus: true,
+                                    smsCodeFocus: false,
+                                })
+                            }}
+                            onChangeText={(text) => {
+                                this.setState({phoneNumText: text}, () => {
+                                    this._enableLoginButton();
+                                })
+                            }}
+                            placeholder={'12345678'}
+                            keyboardType={'number-pad'}
+                            clearButtonMode={'while-editing'}/>
+                    </View>
                     <View style={styles.view2}>
                         {/* SMS Code Field */}
                         <TextInput style={styles.smsCodeText}
@@ -217,6 +263,7 @@ export default class RegisterPhonePage extends Component {
                     </TouchableOpacity>
                     <View style={styles.underline2}/>
                 </View>
+
             </View>
         );
     }

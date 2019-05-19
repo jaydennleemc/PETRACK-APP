@@ -176,9 +176,9 @@ class DogListItem extends PureComponent {
                         <Text style={listStyles.dogName}>{this.state.pet.name}</Text>
 
                         <View style={listStyles.gridView}>
-                            {this._renderGridViewItem('345', 'Steps')}
-                            {this._renderGridViewItem('345', 'Bags')}
-                            {this._renderGridViewItem('345', 'Clip')}
+                            {this._renderGridViewItem('0', 'Steps')}
+                            {this._renderGridViewItem('0', 'Bags')}
+                            {this._renderGridViewItem('N/A', 'Clip')}
                         </View>
 
                     </View>

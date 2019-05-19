@@ -32,7 +32,7 @@ export default class DeviceControlPage extends Component {
         super(props);
         this.state = {
             deviceId: this.props.deviceId,
-            lockerStatus: 'unlocked'
+            lockerStatus: 'locked'
         };
 
         this.RotateValueHolder = new Animated.Value(0);

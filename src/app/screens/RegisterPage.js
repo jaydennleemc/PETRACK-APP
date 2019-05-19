@@ -113,7 +113,7 @@ export default class RegisterPage extends Component {
                             this._fbAuth()
                         }}>
                             <Image
-                                // resizeMode={"contain"}
+                                resizeMode={"contain"}
                                 style={styles.image}
                                 source={images.register_facebook}/>
                         </TouchableOpacity>
@@ -123,7 +123,7 @@ export default class RegisterPage extends Component {
                             Actions.registerPhoneScene();
                         }}>
                             <Image
-                                // resizeMode={'contain'}
+                                resizeMode={'contain'}
                                 style={styles.image}
                                 source={images.register_phone}/>
                         </TouchableOpacity>
@@ -154,6 +154,7 @@ const styles = StyleSheet.create({
 
     },
     image: {
+        paddingHorizontal:scale(16),
         marginTop: scale(8),
         width: '100%',
         height: scale(60),

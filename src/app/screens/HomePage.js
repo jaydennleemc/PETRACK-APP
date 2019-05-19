@@ -30,7 +30,7 @@ export default class HomePage extends Component {
             markers: [
                 {
                     coordinate: {
-                        latitude: 22.308047155697093,
+                        latitude: 22.308047255697193,
                         longitude: 114.19007422465576,
                     },
                 },
@@ -38,18 +38,6 @@ export default class HomePage extends Component {
                     coordinate: {
                         latitude: 22.508047155697093,
                         longitude: 114.20007422465576,
-                    },
-                },
-                {
-                    coordinate: {
-                        latitude: 22.328047155697093,
-                        longitude: 114.22007422465576,
-                    },
-                },
-                {
-                    coordinate: {
-                        latitude: 45.521016,
-                        longitude: -122.6561917,
                     },
                 },
             ],
@@ -65,7 +53,6 @@ export default class HomePage extends Component {
 
     componentDidMount(): void {
         this._getCurrentPosition();
-        this._findNearByDevice();
     }
 
     _getCurrentPosition = () => {
@@ -79,12 +66,13 @@ export default class HomePage extends Component {
                 longitudeDelta: LONGITUDE_DELTA,
             };
 
-            // console.log('location info', initialRegion);
-
+            console.log('location info', initialRegion);
             this.setState({
                 region: initialRegion
+            }, ()=> {
+                this._findNearByDevice();
             })
-        })
+        });
     };
 
     _findNearByDevice = () => {
@@ -93,11 +81,31 @@ export default class HomePage extends Component {
                 console.log('findNearByDevice', resp);
                 this.setState({
                     dispensers: resp.data.dispensers
-                })
+                }, ()=>{this._fetchMarkerData()});
             }).catch((error) => {
             console.log('findNearByDevice error = ', error)
         })
     };
+
+    _fetchMarkerData() {
+        if (this.state.markers.length !== 0)  {
+            var markers = [];
+            for (let dispenser of this.state.dispensers) {
+                markers.push({
+                    coordinate: {
+                        latitude: dispenser.location.coordinates[1],
+                        longitude: dispenser.location.coordinates[0],
+                    },
+                })
+            }
+
+            this.setState({
+                markers:markers
+            }, ()=>{
+                console.log(this.state.markers)
+            })
+        }
+    }
 
 
     render() {
@@ -136,7 +144,7 @@ export default class HomePage extends Component {
                                 }}>
                                 <Image source={images.ic_point}
                                        resizeMode="contain"
-                                       style={{width: scale(20), height: scale(20)}}/>
+                                       style={{width: scale(40), height: scale(40)}}/>
                             </MapView.Marker>
                         );
                     })}
