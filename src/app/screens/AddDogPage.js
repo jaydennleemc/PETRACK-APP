@@ -20,7 +20,9 @@ import {Button} from "react-native-elements";
 import {Styles} from '../constants/styles';
 import {Actions} from "react-native-router-flux";
 import CustomDatePicker from '../components/customDatePicker';
+import { Dropdown } from 'react-native-material-dropdown';
 import moment from "moment";
+
 
 let ApiService = require('../utils/APIService');
 
@@ -100,6 +102,20 @@ export default class AddDogPage extends Component {
                                 }}>{this.state.name}</TextInput>
                         </View>
 
+                        {/* Dog Gender */}
+                        <View style={styles.body}>
+                            <Text style={{color: colors.lightColor}}>Gender</Text>
+                            <Dropdown
+                                onChangeText={(text) => {
+                                    this.setState({
+                                        gender:text
+                                    })
+                                }}
+                                value={'M'}
+                                data={[{value: 'M',}, {value: 'F',}]}
+                            />
+                        </View>
+
                         {/* Birthday Field */}
                         <View style={styles.body}>
                             <Text style={{color: colors.lightColor}}>Birthday</Text>
@@ -136,7 +152,7 @@ export default class AddDogPage extends Component {
                         <View style={styles.body}>
                             <Text style={{color: colors.lightColor}}>Bags</Text>
                             <TouchableOpacity onPress={() => {
-                                Alert.alert('Version was click!!!');
+                                // Alert.alert('Version was click!!!');
                             }}>
                                 <TextInput
                                     pointerEvents="none"
@@ -145,7 +161,7 @@ export default class AddDogPage extends Component {
                                         borderBottomColor: colors.greyColor,
                                         borderBottomWidth: 1,
                                         height: scale(30),
-                                    }}>9</TextInput>
+                                    }}>0</TextInput>
                             </TouchableOpacity>
                         </View>
 

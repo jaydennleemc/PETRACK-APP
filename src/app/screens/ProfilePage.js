@@ -171,7 +171,7 @@ class DogListItem extends PureComponent {
                 Actions.profileDetailScene({pet: this.state.pet});
             }}>
                 <View style={listStyles.container}>
-                    <Image source={images.dog1}/>
+                    <Image style={{width: scale(100), height: scale(150)}} source={images.dog1}/>
                     <View style={listStyles.view}>
                         <Text style={listStyles.dogName}>{this.state.pet.name}</Text>
 

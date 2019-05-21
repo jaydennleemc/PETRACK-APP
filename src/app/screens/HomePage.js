@@ -69,7 +69,7 @@ export default class HomePage extends Component {
             console.log('location info', initialRegion);
             this.setState({
                 region: initialRegion
-            }, ()=> {
+            }, () => {
                 this._findNearByDevice();
             })
         });
@@ -81,14 +81,16 @@ export default class HomePage extends Component {
                 console.log('findNearByDevice', resp);
                 this.setState({
                     dispensers: resp.data.dispensers
-                }, ()=>{this._fetchMarkerData()});
+                }, () => {
+                    this._fetchMarkerData()
+                });
             }).catch((error) => {
             console.log('findNearByDevice error = ', error)
         })
     };
 
     _fetchMarkerData() {
-        if (this.state.markers.length !== 0)  {
+        if (this.state.markers.length !== 0) {
             var markers = [];
             for (let dispenser of this.state.dispensers) {
                 markers.push({
@@ -100,8 +102,8 @@ export default class HomePage extends Component {
             }
 
             this.setState({
-                markers:markers
-            }, ()=>{
+                markers: markers
+            }, () => {
                 console.log(this.state.markers)
             })
         }
