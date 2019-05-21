@@ -1,4 +1,5 @@
 import fly from 'flyio';
+import Utils from './Utils';
 
 const base_url = 'http://api.petrack.app';
 fly.config.timeout = 3000;
@@ -262,6 +263,15 @@ class APIService {
         return fly.put(url, {}, {
             headers: {"Authorization": bearer}
         });
+    }
+
+    static calculateDistance(data) {
+        const origins = data.origins[0] + ',' + data.origins[1];
+        const destinations = data.destinations[0] + ',' + data.destinations[1];
+        const api_key = Utils.GOOGLE_MAPS_API_KEY;
+        const url_prefix = 'https://maps.googleapis.com/maps/api/distancematrix/json?origins=';
+        const url = url_prefix + origins + '&destinations=' + destinations + '&mode=walking&language=fr-FR&avoid=tolls&key=' + api_key;
+        return fly.get(url);
     }
 
 

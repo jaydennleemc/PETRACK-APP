@@ -36,6 +36,7 @@
     "react-native-elements": "^1.1.0",
     "react-native-fbsdk": "^0.8.0",
     "react-native-maps": "github:jerolimov/react-native-maps#fix-rn59rc-compile-issues",
+    "react-native-maps-directions": "^1.7.0",
     "react-native-material-dropdown": "^0.11.1",
     "react-native-permissions": "^1.1.1",
     "react-native-phone-input": "^0.2.1",

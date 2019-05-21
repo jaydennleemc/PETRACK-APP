@@ -20,6 +20,9 @@ const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 let ApiService = require('../utils/APIService');
 
+const origin = {latitude: 37.3318456, longitude: -122.0296002};
+const destination = {latitude: 37.771707, longitude: -122.4053769};
+
 export default class HomePage extends Component {
 
     constructor(props) {
@@ -42,8 +45,8 @@ export default class HomePage extends Component {
                 },
             ],
             region: {
-                latitude: 48.1804069,
-                longitude: -65.8716805,
+                latitude: 37.3318456,
+                longitude: -122.0296002,
                 latitudeDelta: 0.04864195044303443,
                 longitudeDelta: 0.040142817690068,
             },
@@ -68,7 +71,7 @@ export default class HomePage extends Component {
 
             console.log('location info', initialRegion);
             this.setState({
-                region: initialRegion
+                // region: initialRegion
             }, () => {
                 this._findNearByDevice();
             })
@@ -109,6 +112,18 @@ export default class HomePage extends Component {
         }
     }
 
+    _calculateDistance() {
+        const data = {
+            origins:["22.308047255697193", "114.19007422465576"],
+            destinations:["22.308047255697193", "114.19007422465576"],
+        };
+        ApiService.calculateDistance(data).then(resp =>{
+            console.log(resp.data);
+        }).catch(error => {
+            console.log('calculate distance error', error)
+        })
+    }
+
 
     render() {
         return (
@@ -132,8 +147,17 @@ export default class HomePage extends Component {
                     provider={PROVIDER_GOOGLE}
                     style={{flex: 1}}
                     region={this.state.region}
-                    followsUserLocation={true}
-                    showsUserLocation={true}>
+                    followsUserLocation={false}
+                    showsUserLocation={false}>
+
+                    {/*<MapViewDirections*/}
+                    {/*    origin={origin}*/}
+                    {/*    destination={destination}*/}
+                    {/*    apikey={GOOGLE_MAPS_APIKEY}*/}
+                    {/*    strokeWidth={3}*/}
+                    {/*    strokeColor="hotpink"*/}
+                    {/*/>*/}
+
                     {this.state.markers.map((marker, index) => {
                         return (
                             <MapView.Marker
@@ -177,7 +201,6 @@ const styles = StyleSheet.create({
         flex: 1,
         shadowOpacity: 0.25,
         backgroundColor: 'white',
-        // alignItems: 'center',
     },
     scanButtonView: {
         position: 'absolute',
