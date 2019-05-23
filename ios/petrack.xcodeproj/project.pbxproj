@@ -86,6 +86,7 @@
 		B256526B2257C475006D9550 /* AIRGMSMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = B25652562257C475006D9550 /* AIRGMSMarker.m */; };
 		B299C0B522741E9B00D45F18 /* libRNFetchBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B299C0B122741E8800D45F18 /* libRNFetchBlob.a */; };
 		B2D4AEAB226F7C4A00A8AA75 /* libRNCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2D4AEA5226F7C2C00A8AA75 /* libRNCamera.a */; };
+		B2DED4BC2296C000005FA723 /* libRNI18n.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2DED4B62296BFCE005FA723 /* libRNI18n.a */; };
 		B419A39D5E524E598BAF0F6A /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E62991615A94054A1302B03 /* MaterialCommunityIcons.ttf */; };
 		CA735902C833412F95640C10 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B242E2538804450D8226D549 /* MaterialIcons.ttf */; };
 		D172EB16032748CDBCAAAB28 /* libRNVectorIcons-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D77AA1087E54EF4B3A39812 /* libRNVectorIcons-tvOS.a */; };
@@ -446,6 +447,20 @@
 			remoteGlobalIDString = 4107012F1ACB723B00C6AA39;
 			remoteInfo = RNCamera;
 		};
+		B2DED4B52296BFCE005FA723 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B2DED4832296BFCD005FA723 /* RNI18n.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNI18n;
+		};
+		B2DED4B72296BFCE005FA723 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B2DED4832296BFCD005FA723 /* RNI18n.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6476C4051EEAA69700B10F51;
+			remoteInfo = "RNI18n-tvOS";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -552,6 +567,7 @@
 		B25652562257C475006D9550 /* AIRGMSMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIRGMSMarker.m; sourceTree = "<group>"; };
 		B299C08122741E8800D45F18 /* RNFetchBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNFetchBlob.xcodeproj; path = "../node_modules/rn-fetch-blob/ios/RNFetchBlob.xcodeproj"; sourceTree = "<group>"; };
 		B2D4AE78226F7C2C00A8AA75 /* RNCamera.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNCamera.xcodeproj; path = "../node_modules/react-native-camera/ios/RNCamera.xcodeproj"; sourceTree = "<group>"; };
+		B2DED4832296BFCD005FA723 /* RNI18n.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNI18n.xcodeproj; path = "../node_modules/react-native-i18n/ios/RNI18n.xcodeproj"; sourceTree = "<group>"; };
 		C22D2467975648BBA95FDDC3 /* libAirMaps.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAirMaps.a; sourceTree = "<group>"; };
 		C3884BA3FB2245BC98D48785 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		C932512168296B269ADFADF7 /* Pods-petrackTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-petrackTests.debug.xcconfig"; path = "Target Support Files/Pods-petrackTests/Pods-petrackTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -578,6 +594,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2DED4BC2296C000005FA723 /* libRNI18n.a in Frameworks */,
 				B20F073A227D3B940061EFB4 /* libRNDatePicker.a in Frameworks */,
 				B299C0B522741E9B00D45F18 /* libRNFetchBlob.a in Frameworks */,
 				B2D4AEAB226F7C4A00A8AA75 /* libRNCamera.a in Frameworks */,
@@ -803,6 +820,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				B2DED4832296BFCD005FA723 /* RNI18n.xcodeproj */,
 				B20F0705227D3B110061EFB4 /* RNDatePicker.xcodeproj */,
 				B299C08122741E8800D45F18 /* RNFetchBlob.xcodeproj */,
 				B2D4AE78226F7C2C00A8AA75 /* RNCamera.xcodeproj */,
@@ -1024,6 +1042,15 @@
 			isa = PBXGroup;
 			children = (
 				B2D4AEA5226F7C2C00A8AA75 /* libRNCamera.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B2DED4842296BFCD005FA723 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B2DED4B62296BFCE005FA723 /* libRNI18n.a */,
+				B2DED4B82296BFCE005FA723 /* libRNI18n-tvOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1250,6 +1277,10 @@
 				{
 					ProductGroup = B299C08222741E8800D45F18 /* Products */;
 					ProjectRef = B299C08122741E8800D45F18 /* RNFetchBlob.xcodeproj */;
+				},
+				{
+					ProductGroup = B2DED4842296BFCD005FA723 /* Products */;
+					ProjectRef = B2DED4832296BFCD005FA723 /* RNI18n.xcodeproj */;
 				},
 				{
 					ProductGroup = B2A239AD224B7CEE003D3660 /* Products */;
@@ -1605,6 +1636,20 @@
 			fileType = archive.ar;
 			path = libRNCamera.a;
 			remoteRef = B2D4AEA4226F7C2C00A8AA75 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B2DED4B62296BFCE005FA723 /* libRNI18n.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNI18n.a;
+			remoteRef = B2DED4B52296BFCE005FA723 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B2DED4B82296BFCE005FA723 /* libRNI18n-tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libRNI18n-tvOS.a";
+			remoteRef = B2DED4B72296BFCE005FA723 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
