@@ -1,6 +1,7 @@
 export default {
     greeting: 'Hi!',
     terms_conditions:'Terms & Conditions',
+    privacy_policy:'Privacy Policy',
     pin_button:'Send PIN',
     phone_title:'Enter Your Phone#',
     phone_number:'Phone Number',
