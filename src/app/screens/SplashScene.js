@@ -17,8 +17,8 @@ export default class SplashScene extends Component {
     }
 
     componentDidMount() {
-        SplashScreen.hide();
         this._checkVersion();
+        SplashScreen.hide();
     }
 
     _checkToken = async () => {
