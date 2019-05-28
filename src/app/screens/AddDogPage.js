@@ -22,7 +22,7 @@ import {Actions} from "react-native-router-flux";
 import CustomDatePicker from '../components/customDatePicker';
 import { Dropdown } from 'react-native-material-dropdown';
 import moment from "moment";
-import I18n from 'react-native-i18n';
+import I18n from '../i18n/i18n';
 
 
 let ApiService = require('../utils/APIService');

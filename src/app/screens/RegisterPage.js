@@ -8,7 +8,7 @@ import {AccessToken, LoginManager} from "react-native-fbsdk";
 import {scale, verticalScale} from 'react-native-size-matters';
 import Permissions from 'react-native-permissions'
 import AsyncStorage from "@react-native-community/async-storage";
-import I18n from 'react-native-i18n';
+import I18n from '../i18n/i18n';
 
 let ApiService = require('../utils/APIService');
 

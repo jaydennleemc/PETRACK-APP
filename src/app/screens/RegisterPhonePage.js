@@ -10,7 +10,7 @@ import {AccessToken, LoginManager} from "react-native-fbsdk";
 import AsyncStorage from "@react-native-community/async-storage";
 import PhoneInput from 'react-native-phone-input'
 import CountryPicker from 'react-native-country-picker-modal';
-import I18n from 'react-native-i18n';
+import I18n from '../i18n/i18n';
 
 let ApiService = require('../utils/APIService');
 

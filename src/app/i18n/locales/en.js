@@ -1,6 +1,5 @@
 export default {
     greeting: 'Hi!',
-
     terms_conditions:'Terms & Conditions',
     pin_button:'Send PIN',
     phone_title:'Enter Your Phone#',
@@ -30,11 +29,8 @@ export default {
     locked_status:'Click the button to unlock dispenser.',
     unlocking_status:'   Syncing... \n Please wait.',
     unlocked_status:'The dispenser has been unlocked, \n Press the button on the dispenser to get the bag.',
-
-
     //Dialog Button
     dialog_yes_btn: 'Yes',
     dialog_no_btn: 'no',
-
 
 };

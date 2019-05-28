@@ -17,7 +17,7 @@ import {Styles} from "../constants/styles";
 import {Button} from "react-native-elements";
 import {Actions} from "react-native-router-flux";
 import AsyncStorage from '@react-native-community/async-storage';
-import I18n from 'react-native-i18n';
+import I18n from '../i18n/i18n';
 
 let ApiService = require('../utils/APIService');
 

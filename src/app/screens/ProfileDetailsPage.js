@@ -18,7 +18,7 @@ import * as images from '../constants/images';
 import {Button} from "react-native-elements";
 import {Styles} from '../constants/styles';
 import {Actions} from "react-native-router-flux";
-import I18n from 'react-native-i18n';
+import I18n from '../i18n/i18n';
 
 let ApiService = require('../utils/APIService');
 

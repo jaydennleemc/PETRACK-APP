@@ -10,7 +10,7 @@ import MapView, {PROVIDER_GOOGLE} from 'react-native-maps'
 import {Actions} from "react-native-router-flux";
 import * as Animatable from 'react-native-animatable';
 import CustomSlidingUpPanel from "../components/customSlidingUpPanel";
-import I18n from 'react-native-i18n';
+import I18n from '../i18n/i18n';
 
 const {width, height} = Dimensions.get('window');
 const SCREEN_HEIGHT = height;
