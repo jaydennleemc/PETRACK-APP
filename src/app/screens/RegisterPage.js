@@ -92,6 +92,10 @@ export default class RegisterPage extends Component {
         Actions.push('agreementScene');
     };
 
+    _gotoPrivacyView = () => {
+        Actions.push('privacyScene');
+    };
+
     render() {
         return (
             <View style={Styles.containerWithThemeColor}>
@@ -135,6 +139,12 @@ export default class RegisterPage extends Component {
                     }}>
                         <Text style={styles.termsText}>{I18n.t('terms_conditions')}</Text>
                     </TouchableOpacity>
+
+                    <TouchableOpacity style={{marginTop:verticalScale(10)}} onPress={() => {
+                        this._gotoPrivacyView()
+                    }}>
+                        <Text style={styles.privacyText}>{I18n.t('privacy_policy')}</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
         );
@@ -162,7 +172,12 @@ const styles = StyleSheet.create({
     },
     termsText: {
         marginTop: scale(10),
-        fontSize: scale(18),
+        fontSize: scale(14),
+        color: colors.whiteColor
+    },
+    privacyText: {
+        marginTop: scale(1),
+        fontSize: scale(14),
         color: colors.whiteColor
     }
 });
