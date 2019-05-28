@@ -136,39 +136,9 @@ export default class AddDogPage extends Component {
                             </TouchableOpacity>
                         </View>
 
-                        {/* Today steps  */}
+                        {/* Dog clip */}
                         <View style={styles.body}>
-                            <Text style={{color: colors.lightColor}}>{I18n.t('pet_today_step')}</Text>
-                            <TextInput
-                                pointerEvents="none"
-                                editable={false}
-                                style={{
-                                    borderBottomColor: colors.greyColor,
-                                    borderBottomWidth: 1,
-                                    height: scale(30),
-                                }}/>
-                        </View>
-
-                        {/* Bags */}
-                        <View style={styles.body}>
-                            <Text style={{color: colors.lightColor}}>{I18n.t('pet_bags')}</Text>
-                            <TouchableOpacity onPress={() => {
-                                // Alert.alert('Version was click!!!');
-                            }}>
-                                <TextInput
-                                    pointerEvents="none"
-                                    editable={false}
-                                    style={{
-                                        borderBottomColor: colors.greyColor,
-                                        borderBottomWidth: 1,
-                                        height: scale(30),
-                                    }}>0</TextInput>
-                            </TouchableOpacity>
-                        </View>
-
-                        {/* Chips */}
-                        <View style={styles.body}>
-                            <Text style={{color: colors.lightColor}}>{I18n.t('pet_chips')}</Text>
+                            <Text style={{color: colors.lightColor}}>{I18n.t('pet_clip')}</Text>
                             <TouchableOpacity onPress={() => {
                                 Alert.alert('Setup Clip not available');
                             }}>
