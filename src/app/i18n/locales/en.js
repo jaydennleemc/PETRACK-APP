@@ -21,7 +21,7 @@ export default {
     pet_birthday:'Birthday',
     pet_steps:'Today Steps',
     pet_bags:'Bag',
-    pet_chips:'Chips',
+    pet_clip:'Clip',
     pet_delete:'Delete',
     pet_gender:'Gender',
     pet_today_step:'Today Steps',
