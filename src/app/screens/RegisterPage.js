@@ -8,6 +8,7 @@ import {AccessToken, LoginManager} from "react-native-fbsdk";
 import {scale, verticalScale} from 'react-native-size-matters';
 import Permissions from 'react-native-permissions'
 import AsyncStorage from "@react-native-community/async-storage";
+import I18n from 'react-native-i18n';
 
 let ApiService = require('../utils/APIService');
 
@@ -132,7 +133,7 @@ export default class RegisterPage extends Component {
                     <TouchableOpacity style={{marginTop:verticalScale(20)}} onPress={() => {
                         this._gotoAgreementView()
                     }}>
-                        <Text style={styles.termsText}>Terms & Conditions</Text>
+                        <Text style={styles.termsText}>{I18n.t('terms_conditions')}</Text>
                     </TouchableOpacity>
                 </View>
             </View>

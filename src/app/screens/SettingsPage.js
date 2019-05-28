@@ -17,6 +17,7 @@ import {Styles} from "../constants/styles";
 import {Button} from "react-native-elements";
 import {Actions} from "react-native-router-flux";
 import AsyncStorage from '@react-native-community/async-storage';
+import I18n from 'react-native-i18n';
 
 let ApiService = require('../utils/APIService');
 
@@ -50,7 +51,7 @@ export default class SettingsPage extends Component {
 
     _signOut = () => {
         let yes = {
-            text: 'Yes', onPress: () => {
+            text: I18n.t('dialog_yes_btn'), onPress: () => {
                 ApiService.signOut().then((resp) => {
                     console.log(resp);
                     AsyncStorage.clear().then(() => {
@@ -61,7 +62,7 @@ export default class SettingsPage extends Component {
                 })
             }
         };
-        let no = {text: 'No', style: 'cancel'};
+        let no = {text: I18n.t('dialog_no_btn'), style: 'cancel'};
 
         Alert.alert('Sign Out', 'Do you want to sign out ?',
             [yes, no],
@@ -84,14 +85,14 @@ export default class SettingsPage extends Component {
                     </TouchableOpacity>
 
                     <View style={styles.view1}>
-                        <Text style={styles.settingText}>Setting</Text>
+                        <Text style={styles.settingText}>{I18n.t('setting_title')}</Text>
                     </View>
 
                     <ScrollView bounces={false}>
                         <View>
                             {/* Name Field */}
                             <View style={styles.body}>
-                                <Text style={{color: colors.lightColor}}>Name</Text>
+                                <Text style={{color: colors.lightColor}}>{I18n.t('username')}</Text>
                                 <TextInput
                                     editable={false}
                                     style={{
@@ -103,7 +104,7 @@ export default class SettingsPage extends Component {
 
                             {/* Account Field */}
                             <View style={styles.body}>
-                                <Text style={{color: colors.lightColor}}>Account</Text>
+                                <Text style={{color: colors.lightColor}}>{I18n.t('account')}</Text>
                                 <TextInput
                                     editable={false}
                                     textContentType={'emailAddress'}
@@ -116,7 +117,7 @@ export default class SettingsPage extends Component {
 
                             {/* Version Field */}
                             <View style={styles.body}>
-                                <Text style={{color: colors.lightColor}}>Version</Text>
+                                <Text style={{color: colors.lightColor}}>{I18n.t('version')}</Text>
                                 <TouchableOpacity onPress={() => {
                                     Alert.alert('Version was click!!!');
                                 }}>
@@ -133,7 +134,7 @@ export default class SettingsPage extends Component {
 
                             {/* Help Filed */}
                             <View style={styles.body}>
-                                <Text style={{color: colors.lightColor}}>Help</Text>
+                                <Text style={{color: colors.lightColor}}>{I18n.t('help')}</Text>
                                 <TouchableOpacity onPress={() => {
                                     Alert.alert('Help was click!!!')
                                 }}>
@@ -151,7 +152,7 @@ export default class SettingsPage extends Component {
 
                             {/* Contact Filed */}
                             <View style={styles.body}>
-                                <Text style={{color: colors.lightColor}}>Contact</Text>
+                                <Text style={{color: colors.lightColor}}>{I18n.t('contact')}</Text>
                                 <TouchableOpacity onPress={() => {
                                     Alert.alert('Contact was click!!!')
                                 }}>
@@ -162,7 +163,7 @@ export default class SettingsPage extends Component {
                                             borderBottomColor: colors.greyColor,
                                             borderBottomWidth: 1,
                                             height: scale(30),
-                                        }}> About US</TextInput>
+                                        }}>{I18n.t('aboutUS')}</TextInput>
                                 </TouchableOpacity>
                             </View>
                         </View>

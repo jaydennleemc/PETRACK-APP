@@ -8,7 +8,8 @@ import * as images from '../constants/images';
 import {Button} from "react-native-elements";
 import {Styles} from '../constants/styles';
 import {Actions} from "react-native-router-flux";
-import RNFetchBlob from 'rn-fetch-blob'
+import RNFetchBlob from 'rn-fetch-blob';
+import I18n from 'react-native-i18n';
 
 let ApiService = require('../utils/APIService');
 
@@ -118,7 +119,7 @@ export default class ProfilePage extends Component {
                         renderItem={({item}) => <DogListItem data={item}/>}/>
 
                     <View style={styles.buttonView}>
-                        <Button title={'Get a new pet'}
+                        <Button title={I18n.t('new_pet_btn')}
                                 onPress={() => {
                                     Actions.addDogScene();
                                 }}

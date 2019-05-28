@@ -10,6 +10,7 @@ import {AccessToken, LoginManager} from "react-native-fbsdk";
 import AsyncStorage from "@react-native-community/async-storage";
 import PhoneInput from 'react-native-phone-input'
 import CountryPicker from 'react-native-country-picker-modal';
+import I18n from 'react-native-i18n';
 
 let ApiService = require('../utils/APIService');
 
@@ -116,7 +117,7 @@ export default class RegisterPhonePage extends Component {
                         this._requestSMSCodeTimer();
                     }
                 }}>
-                    <Text style={styles.sendPINText}>Send PIN</Text>
+                    <Text style={styles.sendPINText}>{I18n.t('pin_button')}</Text>
                 </TouchableOpacity>
             )
         } else {
@@ -172,8 +173,8 @@ export default class RegisterPhonePage extends Component {
                 </TouchableOpacity>
 
                 <View style={styles.view1}>
-                    <Text style={styles.phoneText}>Enter Your Phone#</Text>
-                    <Text style={styles.text1}>Phone Number</Text>
+                    <Text style={styles.phoneText}>{I18n.t('phone_title')}</Text>
+                    <Text style={styles.text1}>{I18n.t('phone_number')}</Text>
 
                     {/* Phone Number */}
                     <View style={{flexDirection:'row'}}>
@@ -212,7 +213,7 @@ export default class RegisterPhonePage extends Component {
                                     this._enableLoginButton();
                                 })
                             }}
-                            placeholder={'12345678'}
+                            placeholder={I18n.t('phone_placeholder')}
                             keyboardType={'number-pad'}
                             clearButtonMode={'while-editing'}/>
                     </View>
@@ -231,7 +232,7 @@ export default class RegisterPhonePage extends Component {
                                        })
                                    }}
                                    maxLength={4}
-                                   placeholder={'PIN Number'}/>
+                                   placeholder={I18n.t('pin_placeholder')}/>
 
                         {/*    Render Send PIN or Timer       */}
                         {this._renderSMSComp()}

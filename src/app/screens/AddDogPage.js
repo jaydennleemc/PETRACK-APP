@@ -22,6 +22,7 @@ import {Actions} from "react-native-router-flux";
 import CustomDatePicker from '../components/customDatePicker';
 import { Dropdown } from 'react-native-material-dropdown';
 import moment from "moment";
+import I18n from 'react-native-i18n';
 
 
 let ApiService = require('../utils/APIService');
@@ -88,7 +89,7 @@ export default class AddDogPage extends Component {
                     <View>
                         {/* DogName Field */}
                         <View style={styles.body}>
-                            <Text style={{color: colors.lightColor}}>Name</Text>
+                            <Text style={{color: colors.lightColor}}>{I18n.t('pet_name')}</Text>
                             <TextInput
                                 onChangeText={(text) => {
                                     this.setState({
@@ -104,7 +105,7 @@ export default class AddDogPage extends Component {
 
                         {/* Dog Gender */}
                         <View style={styles.body}>
-                            <Text style={{color: colors.lightColor}}>Gender</Text>
+                            <Text style={{color: colors.lightColor}}>{I18n.t('pet_gender')}</Text>
                             <Dropdown
                                 onChangeText={(text) => {
                                     this.setState({
@@ -118,7 +119,7 @@ export default class AddDogPage extends Component {
 
                         {/* Birthday Field */}
                         <View style={styles.body}>
-                            <Text style={{color: colors.lightColor}}>Birthday</Text>
+                            <Text style={{color: colors.lightColor}}>{I18n.t('pet_birthday')}</Text>
                             <TouchableOpacity onPress={() => {
                                 this.setState({
                                     modalVisible: true
@@ -137,7 +138,7 @@ export default class AddDogPage extends Component {
 
                         {/* Today steps  */}
                         <View style={styles.body}>
-                            <Text style={{color: colors.lightColor}}>Today Steps</Text>
+                            <Text style={{color: colors.lightColor}}>{I18n.t('pet_today_step')}</Text>
                             <TextInput
                                 pointerEvents="none"
                                 editable={false}
@@ -150,7 +151,7 @@ export default class AddDogPage extends Component {
 
                         {/* Bags */}
                         <View style={styles.body}>
-                            <Text style={{color: colors.lightColor}}>Bags</Text>
+                            <Text style={{color: colors.lightColor}}>{I18n.t('pet_bags')}</Text>
                             <TouchableOpacity onPress={() => {
                                 // Alert.alert('Version was click!!!');
                             }}>
@@ -167,7 +168,7 @@ export default class AddDogPage extends Component {
 
                         {/* Chips */}
                         <View style={styles.body}>
-                            <Text style={{color: colors.lightColor}}>Chips</Text>
+                            <Text style={{color: colors.lightColor}}>{I18n.t('pet_chips')}</Text>
                             <TouchableOpacity onPress={() => {
                                 Alert.alert('Setup Clip not available');
                             }}>
@@ -187,7 +188,7 @@ export default class AddDogPage extends Component {
 
 
                 <View style={styles.buttonView}>
-                    <Button title={'Add'}
+                    <Button title={I18n.t('add_pet_btn')}
                             onPress={() => {
                                 this._addDog();
                             }}

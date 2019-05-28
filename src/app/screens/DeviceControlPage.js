@@ -17,13 +17,14 @@ import * as colors from "../constants/colors";
 import * as images from '../constants/images';
 import {Styles} from "../constants/styles";
 import {Actions} from "react-native-router-flux";
+import I18n from 'react-native-i18n';
 
 let ApiService = require('../utils/APIService');
 
 const lockerStatus = {
-    locked: 'Click the button to unlock dispenser.',
-    unlocking: '   Syncing... \n Please wait.',
-    unlocked: 'The dispenser has been unlocked, \n Press the button on the dispenser to get the bag.'
+    locked: I18n.t('locked_status'),
+    unlocking: I18n.t('unlocking_status'),
+    unlocked: I18n.t('unlocked'),
 };
 
 export default class DeviceControlPage extends Component {
@@ -107,7 +108,7 @@ export default class DeviceControlPage extends Component {
                     <View style={{alignSelf: 'center'}}>
                         <ImageBackground resizeMode={"contain"} source={images.ic_lock_round}
                                          style={{width: scale(200), height: scale(100)}}>
-                            <Text style={styles.lockStatus}>Locked</Text>
+                            <Text style={styles.lockStatus}>{I18n.t('device_locked')}</Text>
                         </ImageBackground>
                     </View>
 
@@ -136,7 +137,7 @@ export default class DeviceControlPage extends Component {
                     <View style={{alignSelf: 'center'}}>
                         <ImageBackground resizeMode={"contain"} source={images.ic_lock_round}
                                          style={{width: scale(200), height: scale(100)}}>
-                            <Text style={styles.lockStatus}>Locked</Text>
+                            <Text style={styles.lockStatus}>{I18n.t('device_locked')}</Text>
                         </ImageBackground>
                     </View>
 
@@ -167,7 +168,7 @@ export default class DeviceControlPage extends Component {
                     <View style={{alignSelf: 'center'}}>
                         <ImageBackground resizeMode={"contain"} source={images.ic_unlock_round}
                                          style={{width: scale(200), height: scale(100)}}>
-                            <Text style={styles.lockStatus}>Unlocked</Text>
+                            <Text style={styles.lockStatus}>{I18n.t('device_unlocked')}</Text>
                         </ImageBackground>
                     </View>
 

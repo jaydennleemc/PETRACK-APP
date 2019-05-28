@@ -18,6 +18,7 @@ import * as images from '../constants/images';
 import {Button} from "react-native-elements";
 import {Styles} from '../constants/styles';
 import {Actions} from "react-native-router-flux";
+import I18n from 'react-native-i18n';
 
 let ApiService = require('../utils/APIService');
 
@@ -80,7 +81,7 @@ export default class ProfileDetailsPage extends Component {
                     <View>
                         {/* DogName Field */}
                         <View style={styles.body}>
-                            <Text style={{color: colors.lightColor}}>Name</Text>
+                            <Text style={{color: colors.lightColor}}>{I18n.t('pet_name')}</Text>
                             <TextInput
                                 style={{
                                     borderBottomColor: colors.greyColor,
@@ -91,7 +92,7 @@ export default class ProfileDetailsPage extends Component {
 
                         {/* Birthday Field */}
                         <View style={styles.body}>
-                            <Text style={{color: colors.lightColor}}>Birthday</Text>
+                            <Text style={{color: colors.lightColor}}>{I18n.t('pet_birthday')}</Text>
                             <TouchableOpacity onPress={() => {
                                 // Alert.alert('Birthday was click!!!');
                             }}>
@@ -108,7 +109,7 @@ export default class ProfileDetailsPage extends Component {
 
                         {/* Today steps  */}
                         <View style={styles.body}>
-                            <Text style={{color: colors.lightColor}}>Today Steps</Text>
+                            <Text style={{color: colors.lightColor}}>{I18n.t('pet_steps')}</Text>
                             <TouchableOpacity onPress={() => {
                                 // Alert.alert('Today Steps was click!!!');
                             }}>
@@ -125,7 +126,7 @@ export default class ProfileDetailsPage extends Component {
 
                         {/* Bags */}
                         <View style={styles.body}>
-                            <Text style={{color: colors.lightColor}}>Bags</Text>
+                            <Text style={{color: colors.lightColor}}>{I18n.t("pet_bags")}</Text>
                             <TouchableOpacity onPress={() => {
                                 Alert.alert('Version was click!!!');
                             }}>
@@ -142,7 +143,7 @@ export default class ProfileDetailsPage extends Component {
 
                         {/* Chips */}
                         <View style={styles.body}>
-                            <Text style={{color: colors.lightColor}}>Chips</Text>
+                            <Text style={{color: colors.lightColor}}>{I18n.t('pet_chips')}</Text>
                             <TouchableOpacity onPress={() => {
                                 // Alert.alert('Chips was click!!!');
                             }}>
@@ -162,7 +163,7 @@ export default class ProfileDetailsPage extends Component {
 
 
                 <View style={styles.buttonView}>
-                    <Button title={'Delete'}
+                    <Button title={I18n.t('pet_delete')}
                             onPress={() => {
                                 this._deletePet();
                             }}
