@@ -22,6 +22,7 @@ export default class CustomDatePicker extends Component {
                 <View style={{alignSelf: 'center', shadowOpacity: 0.1, backgroundColor: 'white', borderRadius: 25}}>
                     <DatePicker
                         mode={'date'}
+                        maximumDate={this.state.date}
                         date={this.state.date}
                         onDateChange={date => this.setState({date})}
                     />
