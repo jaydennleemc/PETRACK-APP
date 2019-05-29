@@ -20,7 +20,7 @@ import {Button} from "react-native-elements";
 import {Styles} from '../constants/styles';
 import {Actions} from "react-native-router-flux";
 import CustomDatePicker from '../components/customDatePicker';
-import { Dropdown } from 'react-native-material-dropdown';
+import {Dropdown} from 'react-native-material-dropdown';
 import moment from "moment";
 import I18n from '../i18n/i18n';
 
@@ -36,7 +36,7 @@ export default class AddDogPage extends Component {
             birthdayDate: new Date(),
             name: '',
             gender: 'M',
-            type: 'dog',
+            type: this.props.dogType,
             birthday: '',
             weight: '3.4',
         }
@@ -109,7 +109,7 @@ export default class AddDogPage extends Component {
                             <Dropdown
                                 onChangeText={(text) => {
                                     this.setState({
-                                        gender:text
+                                        gender: text
                                     })
                                 }}
                                 value={'M'}
@@ -138,7 +138,7 @@ export default class AddDogPage extends Component {
 
                         {/* Dog clip */}
                         <View style={styles.body}>
-                            <Text style={{color: colors.lightColor}}>{I18n.t('pet_clip')}</Text>
+                            <Text style={{color: colors.lightColor}}>{I18n.t('pet_chip')}</Text>
                             <TouchableOpacity onPress={() => {
                                 Alert.alert('Setup Clip not available');
                             }}>

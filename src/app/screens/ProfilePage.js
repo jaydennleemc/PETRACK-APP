@@ -1,15 +1,17 @@
-import React, {Component, PureComponent} from 'react';
+import React, {Component} from 'react';
 
-import {ActivityIndicator, FlatList, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {ActivityIndicator, FlatList, Image, Modal, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {scale} from "react-native-size-matters";
 import * as colors from '../constants/colors';
-import Icon from 'react-native-vector-icons/AntDesign';
 import * as images from '../constants/images';
+import Icon from 'react-native-vector-icons/AntDesign';
+import DogListItem from '../components/dogListItem';
 import {Button} from "react-native-elements";
 import {Styles} from '../constants/styles';
 import {Actions} from "react-native-router-flux";
 import RNFetchBlob from 'rn-fetch-blob';
 import I18n from '../i18n/i18n';
+import PetTypeModal from "../components/petTypeModal";
 
 let ApiService = require('../utils/APIService');
 
@@ -23,6 +25,7 @@ export default class ProfilePage extends Component {
             profileImage: '',
             username: '',
             pets: [],
+            modalVisible: false,
         }
     }
 
@@ -121,11 +124,33 @@ export default class ProfilePage extends Component {
                     <View style={styles.buttonView}>
                         <Button title={I18n.t('new_pet_btn')}
                                 onPress={() => {
-                                    Actions.addDogScene();
+                                    this.setState({modalVisible: true})
                                 }}
                                 buttonStyle={styles.petButtonStyle}
                                 containerStyle={styles.petButtonContainer}/>
                     </View>
+
+                    <Modal
+                        animationType="node"
+                        transparent={false}
+                        visible={this.state.modalVisible}>
+                        <View style={{position: 'absolute', top: '0%', alignSelf: 'center'}}>
+                            <TouchableOpacity onPress={() => {
+                                this.setState({modalVisible: false})
+                            }}>
+                                <Image width={0} height={0} source={images.bg_blurs}/>
+                            </TouchableOpacity>
+                            <View style={{position: 'absolute', top: '15%', alignSelf: 'center'}}>
+                                <PetTypeModal
+                                    callBack={() => {
+                                        this.setState({
+                                            modalVisible: false
+                                        });
+                                    }}
+                                />
+                            </View>
+                        </View>
+                    </Modal>
 
                 </View>
             );
@@ -140,52 +165,6 @@ export default class ProfilePage extends Component {
                 </View>
             )
         }
-    }
-}
-
-class DogListItem extends PureComponent {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            pet: this.props.data
-        }
-    }
-
-    _onPress = () => {
-        this.props.onPressItem(this.props.id);
-    };
-
-
-    _renderGridViewItem = (value1, value2) => {
-        return (
-            <View style={{flexDirection: 'column'}}>
-                <Text>{value1}</Text>
-                <Text style={{color: colors.greyColor, marginTop: scale(16)}}>{value2}</Text>
-            </View>
-        );
-    };
-
-    render() {
-        return (
-            <TouchableOpacity onPress={() => {
-                Actions.profileDetailScene({pet: this.state.pet});
-            }}>
-                <View style={listStyles.container}>
-                    <Image style={{width: scale(100), height: scale(150)}} source={images.dog1}/>
-                    <View style={listStyles.view}>
-                        <Text style={listStyles.dogName}>{this.state.pet.name}</Text>
-
-                        <View style={listStyles.gridView}>
-                            {this._renderGridViewItem('0', 'Steps')}
-                            {this._renderGridViewItem('0', 'Bags')}
-                            {this._renderGridViewItem('N/A', 'Clip')}
-                        </View>
-
-                    </View>
-                </View>
-            </TouchableOpacity>
-        )
     }
 }
 
@@ -207,7 +186,7 @@ const styles = StyleSheet.create({
     buttonView: {
         width: '100%',
         position: 'absolute',
-        bottom: scale(16),
+        bottom: scale(32),
     },
     petButtonStyle: {
         borderRadius: 25,
@@ -215,26 +194,5 @@ const styles = StyleSheet.create({
     },
     petButtonContainer: {
         marginHorizontal: scale(16)
-    }
-});
-
-const listStyles = StyleSheet.create({
-    container: {
-        flexDirection: 'row',
-        margin: scale(8)
-    },
-    view: {
-        flex: 1,
-        marginHorizontal: scale(16)
-    },
-    dogName: {
-        marginTop: scale(16),
-        marginLeft: scale(8),
-    },
-    gridView: {
-        marginTop: scale(50),
-        marginHorizontal: scale(16),
-        flexDirection: 'row',
-        justifyContent: 'space-between',
     }
 });

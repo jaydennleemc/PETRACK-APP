@@ -166,7 +166,7 @@ class APIService {
     static signOut() {
         const url = cloudVersion + APIs.signOut;
         const bearer = "Bearer " + jwtToken;
-        return fly.post(url);
+        return fly.post(url, {}, {headers: {"Authorization": bearer}});
     }
 
     // Clips

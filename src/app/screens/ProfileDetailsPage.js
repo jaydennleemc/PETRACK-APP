@@ -143,7 +143,7 @@ export default class ProfileDetailsPage extends Component {
 
                         {/* Chips */}
                         <View style={styles.body}>
-                            <Text style={{color: colors.lightColor}}>{I18n.t('pet_chips')}</Text>
+                            <Text style={{color: colors.lightColor}}>{I18n.t('pet_chip')}</Text>
                             <TouchableOpacity onPress={() => {
                                 // Alert.alert('Chips was click!!!');
                             }}>
@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
     buttonView: {
         width: '100%',
         position: 'absolute',
-        bottom: scale(16),
+        bottom: scale(32),
     },
     petButtonStyle: {
         borderRadius: 25,
