@@ -57,7 +57,18 @@ export default class HomePage extends Component {
 
     componentDidMount(): void {
         this._getCurrentPosition();
+        this._refreshLocation();
     }
+
+    componentWillUnmount(): void {
+        clearInterval()
+    }
+
+    _refreshLocation = () => {
+        setInterval(() => {
+            this._getCurrentPosition();
+        }, 3000)
+    };
 
     _getCurrentPosition = () => {
         navigator.geolocation.getCurrentPosition((position) => {
@@ -72,9 +83,11 @@ export default class HomePage extends Component {
 
             console.log('location info', initialRegion);
             this.setState({
-                // region: initialRegion
+                region: initialRegion
             }, () => {
-                this._findNearByDevice();
+                if (initialRegion === this.state.region) {
+                    this._findNearByDevice();
+                }
             })
         });
     };
@@ -115,10 +128,10 @@ export default class HomePage extends Component {
 
     _calculateDistance() {
         const data = {
-            origins:["22.308047255697193", "114.19007422465576"],
-            destinations:["22.308047255697193", "114.19007422465576"],
+            origins: ["22.308047255697193", "114.19007422465576"],
+            destinations: ["22.308047255697193", "114.19007422465576"],
         };
-        ApiService.calculateDistance(data).then(resp =>{
+        ApiService.calculateDistance(data).then(resp => {
             console.log(resp.data);
         }).catch(error => {
             console.log('calculate distance error', error)
