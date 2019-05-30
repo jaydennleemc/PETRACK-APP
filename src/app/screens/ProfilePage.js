@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import {ActivityIndicator, FlatList, Image, Modal, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {ActivityIndicator, FlatList, Image, Modal, StyleSheet, Text, TouchableOpacity, View, TouchableHighlight} from 'react-native';
 import {scale} from "react-native-size-matters";
 import * as colors from '../constants/colors';
 import * as images from '../constants/images';
@@ -29,12 +29,12 @@ export default class ProfilePage extends Component {
         }
     }
 
-    componentWillMount(): void {
+    componentWillMount() {
         this._getProfile();
         this._getPets();
     }
 
-    componentWillReceiveProps(nextProps: Readonly<P>, nextContext: any): void {
+    componentWillReceiveProps(nextProps: Readonly<P>, nextContext: any) {
         console.log('should refresh ', nextProps.refresh);
         if (nextProps.refresh === true) {
             this._getPets();
@@ -135,11 +135,11 @@ export default class ProfilePage extends Component {
                         transparent={false}
                         visible={this.state.modalVisible}>
                         <View style={{position: 'absolute', top: '0%', alignSelf: 'center'}}>
-                            <TouchableOpacity onPress={() => {
+                            <TouchableHighlight onPress={() => {
                                 this.setState({modalVisible: false})
                             }}>
                                 <Image width={0} height={0} source={images.bg_blurs}/>
-                            </TouchableOpacity>
+                            </TouchableHighlight>
                             <View style={{position: 'absolute', top: '15%', alignSelf: 'center'}}>
                                 <PetTypeModal
                                     callBack={() => {
