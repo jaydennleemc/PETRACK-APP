@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Text, TouchableOpacity, View} from 'react-native';
+import {Text, TouchableOpacity, View, Platform} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {scale} from "react-native-size-matters";
@@ -54,7 +54,7 @@ class CustomToolbar extends React.PureComponent {
                     flexDirection: 'row',
                     justifyContent: 'space-between',
                     paddingHorizontal: scale(16),
-                    height: scale(40)
+                    height: (Platform.OS === "android")? scale(50): scale(40)
                 }}>
 
                     {this._renderLeft()}

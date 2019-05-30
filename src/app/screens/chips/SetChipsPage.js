@@ -1,13 +1,12 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react'
+import { Text, View } from 'react-native'
 
-import {View} from 'react-native';
-
-// import styles from './styles';
-
-export default class extends Component {
+export default class SetChipsPage extends Component {
     render() {
         return (
-            <View/>
-        );
+            <View>
+                <Text> textInComponent </Text>
+            </View>
+        )
     }
 }

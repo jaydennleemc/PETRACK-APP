@@ -39,7 +39,7 @@ export default class DeviceControlPage extends Component {
         this.RotateValueHolder = new Animated.Value(0);
     }
 
-    componentDidMount(): void {
+    componentDidMount() {
 
     }
 
