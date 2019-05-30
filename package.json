@@ -9,6 +9,8 @@
     "iPhoneX": "react-native run-ios --simulator=\"iPhone X\"",
     "iPhoneSE": "react-native run-ios --simulator=\"iPhone SE\"",
     "Android": "react-native run-android",
+    "rebuildIOS": "cd ios && rm -rf build",
+    "reinstallPkg": "rm -rf node_modules && npm i",
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
     "lint": "eslint ."

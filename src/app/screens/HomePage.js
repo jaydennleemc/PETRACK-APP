@@ -1,20 +1,18 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
-import { Dimensions, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { scale } from "react-native-size-matters";
+import {Dimensions, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {scale} from "react-native-size-matters";
 import * as colors from '../constants/colors';
 import * as images from '../constants/images';
-import { Styles } from '../constants/styles';
+import {Styles} from '../constants/styles';
 import CustomToolbar from "../components/customToolbar";
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'
-import { Actions } from "react-native-router-flux";
+import MapView, {PROVIDER_GOOGLE} from 'react-native-maps'
+import {Actions} from "react-native-router-flux";
 import * as Animatable from 'react-native-animatable';
 import CustomSlidingUpPanel from "../components/customSlidingUpPanel";
-import MapsMarker from '../components/mapsMarker'
 import I18n from '../i18n/i18n';
-import { Button } from 'react-native-elements';
 
-const { width, height } = Dimensions.get('window');
+const {width, height} = Dimensions.get('window');
 const SCREEN_HEIGHT = height;
 const SCREEN_WIDTH = width;
 const ASPECT_RATIO = width / height;
@@ -23,8 +21,8 @@ const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 let ApiService = require('../utils/APIService');
 
-const origin = { latitude: 37.3318456, longitude: -122.0296002 };
-const destination = { latitude: 37.771707, longitude: -122.4053769 };
+const origin = {latitude: 37.3318456, longitude: -122.0296002};
+const destination = {latitude: 37.771707, longitude: -122.4053769};
 
 export default class HomePage extends Component {
 
@@ -53,53 +51,23 @@ export default class HomePage extends Component {
                 latitudeDelta: 0.04864195044303443,
                 longitudeDelta: 0.040142817690068,
             },
-            deviceRegion: {
-                latitude: 37.3318456,
-                longitude: -122.0296002,
-                latitudeDelta: 0.04864195044303443,
-                longitudeDelta: 0.040142817690068,
-            }
         }
     }
 
 
-    componentDidMount() {
+    componentDidMount(): void {
         this._getCurrentPosition();
-        this._refreshDevicesMarker();
+        this._refreshLocation();
     }
 
-    componentWillUnmount() {
+    componentWillUnmount(): void {
         clearInterval()
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        return this.state.markers != nextState.markers;
-    }
-
-    _refreshDevicesMarker = () => {
+    _refreshLocation = () => {
         setInterval(() => {
-            navigator.geolocation.getCurrentPosition((position) => {
-                let lat = parseFloat(position.coords.latitude);
-                let long = parseFloat(position.coords.longitude);
-                let initialRegion = {
-                    latitude: lat,
-                    longitude: long,
-                    latitudeDelta: LATITUDE_DELTA,
-                    longitudeDelta: LONGITUDE_DELTA,
-                };
-
-                console.log('location info', initialRegion);
-
-                if (initialRegion !== this.state.region) {
-                    this.setState({
-                        deviceRegion: initialRegion
-                    }, () => {
-                        this._findNearByDevice();
-                    })
-                }
-
-            });
-        }, 5000)
+            this._getCurrentPosition();
+        }, 10000)
     };
 
     _getCurrentPosition = () => {
@@ -114,21 +82,18 @@ export default class HomePage extends Component {
             };
 
             console.log('location info', initialRegion);
-
-            if (initialRegion !== this.state.region) {
-                this.setState({
-                    region: initialRegion,
-                    deviceRegion: initialRegion
-                }, () => {
+            this.setState({
+                region: initialRegion
+            }, () => {
+                if (initialRegion === this.state.region) {
                     this._findNearByDevice();
-                })
-            }
-
+                }
+            })
         });
     };
 
     _findNearByDevice = () => {
-        ApiService.findNearBy(this.state.deviceRegion.latitude, this.state.deviceRegion.longitude, 1000)
+        ApiService.findNearBy(this.state.region.latitude, this.state.region.longitude, 1000)
             .then(resp => {
                 console.log('findNearByDevice', resp);
                 this.setState({
@@ -137,8 +102,8 @@ export default class HomePage extends Component {
                     this._fetchMarkerData()
                 });
             }).catch((error) => {
-                console.log('findNearByDevice error = ', error)
-            })
+            console.log('findNearByDevice error = ', error)
+        })
     };
 
     _fetchMarkerData() {
@@ -177,27 +142,22 @@ export default class HomePage extends Component {
     render() {
         return (
             <View style={Styles.container}>
-                <SafeAreaView />
+                <SafeAreaView/>
                 {/* App bar */}
                 <CustomToolbar title={'PETRACK'}
-                    rightIconOnPress={() => {
-                        Actions.push("profileScene")
-                    }}
-                    rightIconColor={colors.themeColor}
-                    disableLeft={true} />
+                               rightIconOnPress={() => {
+                                   Actions.push("profileScene")
+                               }}
+                               rightIconColor={colors.themeColor}
+                               disableLeft={true}/>
 
                 {/* Map View */}
                 <MapView
-                    onPress={() => {
-                        if (this.state.showDispenserInfo === true) {
-                            this.setState({ showDispenserInfo: false });
-                        }
-                    }}
                     provider={PROVIDER_GOOGLE}
-                    style={{ flex: 1 }}
+                    style={{flex: 1}}
                     region={this.state.region}
                     followsUserLocation={false}
-                    showsUserLocation={true}>
+                    showsUserLocation={false}>
 
                     {/*<MapViewDirections*/}
                     {/*    origin={origin}*/}
@@ -207,28 +167,38 @@ export default class HomePage extends Component {
                     {/*    strokeColor="hotpink"*/}
                     {/*/>*/}
 
-                    <MapsMarker
-                        markers={this.state.markers} />
-
+                    {this.state.markers.map((marker, index) => {
+                        return (
+                            <MapView.Marker
+                                coordinate={marker.coordinate}
+                                key={`marker-${index}`}
+                                onPress={() => {
+                                    this._panel.refreshData(this.state.markers[index]);
+                                    this._panel.show();
+                                    console.log('point clicked');
+                                }}>
+                                <Image source={images.ic_point}
+                                       resizeMode="contain"
+                                       style={{width: scale(40), height: scale(40)}}/>
+                            </MapView.Marker>
+                        );
+                    })}
                 </MapView>
 
-
-                <View style={styles.scanButtonView}>
-                    <Animatable.View animation="fadeInUp" duration={500} iterationCount={1}>
+                <Animatable.View animation="fadeInUp" duration={500} iterationCount={1}>
+                    <View style={styles.scanButtonView}>
                         <TouchableOpacity onPress={() => {
                             Actions.push("scanScene")
                         }}>
-                            <Image source={images.scan_btn} />
+                            <Image source={images.scan_btn}/>
                         </TouchableOpacity>
-
                         <Text style={styles.scanText}>{I18n.t('scan_qr_code')}</Text>
-                    </Animatable.View>
-                </View>
-
+                    </View>
+                </Animatable.View>
 
 
                 <CustomSlidingUpPanel
-                    ref={c => this._panel = c} />
+                    ref={c => this._panel = c}/>
 
             </View>
         );
