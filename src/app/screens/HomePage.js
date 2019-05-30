@@ -81,13 +81,12 @@ export default class HomePage extends Component {
                 longitudeDelta: LONGITUDE_DELTA,
             };
 
-            console.log('location info', initialRegion);
+            console.log('current location info', initialRegion);
+
             this.setState({
                 region: initialRegion
             }, () => {
-                if (initialRegion === this.state.region) {
-                    this._findNearByDevice();
-                }
+                this._findNearByDevice();
             })
         });
     };
@@ -95,7 +94,7 @@ export default class HomePage extends Component {
     _findNearByDevice = () => {
         ApiService.findNearBy(this.state.region.latitude, this.state.region.longitude, 1000)
             .then(resp => {
-                console.log('findNearByDevice', resp);
+                console.log('findNearByDevice size = ', resp.data.dispensers.length);
                 this.setState({
                     dispensers: resp.data.dispensers
                 }, () => {
@@ -157,15 +156,7 @@ export default class HomePage extends Component {
                     style={{flex: 1}}
                     region={this.state.region}
                     followsUserLocation={false}
-                    showsUserLocation={false}>
-
-                    {/*<MapViewDirections*/}
-                    {/*    origin={origin}*/}
-                    {/*    destination={destination}*/}
-                    {/*    apikey={GOOGLE_MAPS_APIKEY}*/}
-                    {/*    strokeWidth={3}*/}
-                    {/*    strokeColor="hotpink"*/}
-                    {/*/>*/}
+                    showsUserLocation={true}>
 
                     {this.state.markers.map((marker, index) => {
                         return (
