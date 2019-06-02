@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Text, TouchableOpacity, View, Platform} from 'react-native';
+import {Platform, Text, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {scale} from "react-native-size-matters";
@@ -11,22 +11,25 @@ class CustomToolbar extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            leftIcon: this.props.disableLeft,
-            rightIcon: this.props.disableRight,
+            leftIcon: (this.props.leftIcon != null) ? this.props.leftIcon : 'arrowleft',
+            rightIcon: this.props.rightIcon != null ? this.props.rightIcon : '',
+            disableLeftIcon: this.props.disableLeft,
+            disableRightIcon: this.props.disableRight,
             leftIconColor: this.props.leftIconColor,
             rightIconColor: this.props.rightIconColor,
             title: this.props.title,
-            titleColor:this.props.titleColor
+            titleColor: this.props.titleColor
         }
     }
 
     _renderLeft = () => {
 
-        if (this.state.leftIcon !== true) {
+        if (this.state.disableLeftIcon !== true) {
             return (
                 <TouchableOpacity style={{alignSelf: 'center'}} onPress={this.props.leftIconOnPress}>
-                    {this.props.leftIcon != null ? this.props.leftIcon :
-                        <Icon name={"arrowleft"} size={scale(24)} style={{color: this.state.rightIconColor === null ? colors.lightColor : this.state.leftIconColor}}/>}
+                    {this.props.disableLeftIcon != null ? this.props.disableLeftIcon :
+                        <Icon name={this.state.leftIcon} size={scale(24)}
+                              style={{color: this.state.rightIconColor === null ? colors.lightColor : this.state.leftIconColor}}/>}
                 </TouchableOpacity>
             );
         } else {
@@ -36,10 +39,10 @@ class CustomToolbar extends React.PureComponent {
 
     _renderRight = () => {
 
-        if (this.state.rightIcon !== true) {
+        if (this.state.disableRightIcon !== true) {
             return (
                 <TouchableOpacity style={{alignSelf: 'center'}} onPress={this.props.rightIconOnPress}>
-                    <Ionicons name={'ios-person'} size={scale(24)}
+                    <Ionicons name={this.state.rightIcon} size={scale(24)}
                               style={{color: this.state.rightIconColor === null ? colors.lightColor : this.state.rightIconColor}}/>
                 </TouchableOpacity>);
         } else {
@@ -55,7 +58,7 @@ class CustomToolbar extends React.PureComponent {
                     flexDirection: 'row',
                     justifyContent: 'space-between',
                     paddingHorizontal: scale(16),
-                    height: (Platform.OS === "android")? scale(50): scale(40)
+                    height: (Platform.OS === "android") ? scale(50) : scale(40)
                 }}>
 
                     {this._renderLeft()}
@@ -64,7 +67,7 @@ class CustomToolbar extends React.PureComponent {
                         alignSelf: 'center',
                         textAlign: 'center',
                         fontSize: scale(this.props.fontSize == null ? scale(16) : this.props.fontSize),
-                        color:(this.props.titleColor == null) ? '#000' : this.state.titleColor
+                        color: (this.props.titleColor == null) ? '#000' : this.state.titleColor
                     }}>{this.state.title}</Text>
 
                     {this._renderRight()}

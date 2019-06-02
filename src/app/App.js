@@ -16,6 +16,7 @@ import DeviceControlPage from "./screens/DeviceControlPage";
 import SetChipsPage from "./screens/chips/SetChipsPage";
 import FindChipsPage from "./screens/chips/FindChipsPage";
 import PairChipsPage from "./screens/chips/PairChipsPage";
+import SyncChipsPage from "./screens/chips/SyncChipsPage";
 
 export default class extends Component {
 
@@ -41,6 +42,7 @@ export default class extends Component {
                     <Scene key={"setupChipsScene"} component={SetChipsPage} hideNavBar={true}/>
                     <Scene key={"findChipsScene"} component={FindChipsPage} hideNavBar={true}/>
                     <Scene key={"pairChipsScene"} component={PairChipsPage} hideNavBar={true}/>
+                    <Scene key={"syncChipsScene"} component={SyncChipsPage} hideNavBar={true}/>
 
                 </Scene>
             </Router>

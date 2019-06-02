@@ -146,12 +146,14 @@ export default class HomePage extends Component {
             <View style={Styles.container}>
                 <SafeAreaView/>
                 {/* App bar */}
-                <CustomToolbar title={'PETRACK'}
-                               rightIconOnPress={() => {
-                                   Actions.push("profileScene")
-                               }}
-                               rightIconColor={colors.themeColor}
-                               disableLeft={true}/>
+                <CustomToolbar
+                    rightIcon={'ios-person'}
+                    title={'PETRACK'}
+                    rightIconOnPress={() => {
+                        Actions.push("profileScene")
+                    }}
+                    rightIconColor={colors.themeColor}
+                    disableLeft={true}/>
 
                 {/* Map View */}
                 <MapView
