@@ -48,6 +48,9 @@ export default {
     BL_pair_request: 'Bluetooth Pairing Request',
     BL_pair_message: '\"Chips\" would like to pair with your iPhone',
     pair_btn: 'Pair',
-
+    pair_chips_title: 'Pairing Chips',
+    updating_chips:'WE ARE STILL UPDATING \n YOUR CHIPS.',
+    chips_ready:'Chips Ready.',
+    chips_ready_btn:'Let\'s Go!'
 
 };
