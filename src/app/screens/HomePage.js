@@ -125,13 +125,16 @@ export default class HomePage extends Component {
         }
     }
 
-    _calculateDistance() {
+    _showPanel(region, marker) {
         const data = {
-            origins: ["22.308047255697193", "114.19007422465576"],
-            destinations: ["22.308047255697193", "114.19007422465576"],
+            origins: [marker.latitude, marker.longitude],
+            destinations: [region[0], region[1]],
         };
+
         ApiService.calculateDistance(data).then(resp => {
             console.log(resp.data);
+            // this._panel.refreshData(this.state.markers[index]);
+            this._panel.show();
         }).catch(error => {
             console.log('calculate distance error', error)
         })
@@ -164,9 +167,7 @@ export default class HomePage extends Component {
                                 coordinate={marker.coordinate}
                                 key={`marker-${index}`}
                                 onPress={() => {
-                                    this._panel.refreshData(this.state.markers[index]);
-                                    this._panel.show();
-                                    console.log('point clicked');
+                                    this._showPanel(this.state.region, this.state.markers[index].coordinate);
                                 }}>
                                 <Image source={images.ic_point}
                                        resizeMode="contain"

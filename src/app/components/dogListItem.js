@@ -34,7 +34,7 @@ export default class DogListItem extends PureComponent {
                 Actions.profileDetailScene({pet: this.state.pet});
             }}>
                 <View style={listStyles.container}>
-                    <Image style={{width: scale(96), height: scale(130)}} source={images.dog1}/>
+                    <Image resizeMode={"contain"} style={{width: scale(96), height: scale(130)}} source={images.dog1}/>
                     <View style={listStyles.view}>
                         <Text style={listStyles.dogName}>{this.state.pet.name}</Text>
 
@@ -67,7 +67,7 @@ const listStyles = StyleSheet.create({
         marginTop: scale(16),
         marginLeft: scale(8),
     },
-    gridView: {
+    rowView: {
         marginTop: scale(50),
         marginHorizontal: scale(16),
         flexDirection: 'row',

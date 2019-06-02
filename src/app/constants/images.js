@@ -21,3 +21,4 @@ export const ic_dog = require('../../res/images/dog.png');
 export const ic_check = require('../../res/images/ic_check.png');
 export const ic_checked = require('../../res/images/ic_checked.png');
 export const bg_blurs = require('../../res/images/blurs.png');
+export const chips = require('../../res/images/chips.png');

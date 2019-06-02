@@ -1,13 +1,29 @@
 import React, {Component} from 'react';
 
-import {View} from 'react-native';
+import {SafeAreaView, View} from 'react-native';
+import CustomToolbar from "../../components/customToolbar";
+import * as colors from "../../constants/colors";
 
-// import styles from './styles';
+export default class ChipsDetailsPage extends Component {
 
-export default class extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {}
+    }
+
+    componentDidMount() {
+    }
+
+
     render() {
         return (
-            <View/>
+            <View>
+                <SafeAreaView/>
+                <CustomToolbar
+                    title={''}
+                    disableRight={true}
+                    leftIconColor={colors.lightColor}/>
+            </View>
         );
     }
 }

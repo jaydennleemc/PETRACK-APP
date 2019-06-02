@@ -15,7 +15,8 @@ class CustomToolbar extends React.PureComponent {
             rightIcon: this.props.disableRight,
             leftIconColor: this.props.leftIconColor,
             rightIconColor: this.props.rightIconColor,
-            title: this.props.title
+            title: this.props.title,
+            titleColor:this.props.titleColor
         }
     }
 
@@ -62,7 +63,8 @@ class CustomToolbar extends React.PureComponent {
                     <Text style={{
                         alignSelf: 'center',
                         textAlign: 'center',
-                        fontSize: scale(this.props.fontSize == null ? scale(16) : this.props.fontSize)
+                        fontSize: scale(this.props.fontSize == null ? scale(16) : this.props.fontSize),
+                        color:(this.props.titleColor == null) ? '#000' : this.state.titleColor
                     }}>{this.state.title}</Text>
 
                     {this._renderRight()}

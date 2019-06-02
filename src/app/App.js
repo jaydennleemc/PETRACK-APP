@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import {Actions, Scene, Router, Stack, Modal} from 'react-native-router-flux';
+import {Router, Scene} from 'react-native-router-flux';
 import SplashScene from "./screens/SplashScene";
 import RegisterPage from "./screens/RegisterPage";
 import RegisterPhonePage from "./screens/RegisterPhonePage";
@@ -13,6 +13,8 @@ import AgreementPage from "./screens/AgreementPage";
 import PrivacyPage from "./screens/PrivacyPage";
 import AddDogPage from "./screens/AddDogPage";
 import DeviceControlPage from "./screens/DeviceControlPage";
+import SetChipsPage from "./screens/chips/SetChipsPage";
+import FindChipsPage from "./screens/chips/FindChipsPage";
 
 export default class extends Component {
 
@@ -33,6 +35,10 @@ export default class extends Component {
                     <Scene key={"scanScene"} component={ScanPage} hideNavBar={true}/>
                     <Scene key={"deviceControlScene"} component={DeviceControlPage} hideNavBar={true}/>
                     <Scene key={"settingScene"} component={SettingsPage} hideNavBar={true}/>
+
+                    {/* Chips */}
+                    <Scene key={"setupChipsScene"} component={SetChipsPage} hideNavBar={true}/>
+                    <Scene key={"findChipsScene"} component={FindChipsPage} hideNavBar={true}/>
 
                 </Scene>
             </Router>

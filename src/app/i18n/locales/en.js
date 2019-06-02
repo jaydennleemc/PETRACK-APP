@@ -38,4 +38,16 @@ export default {
     dialog_yes_btn: 'Yes',
     dialog_no_btn: 'no',
 
+    yes_btn: 'YES',
+    cancel_btn: 'Cancel',
+
+    chips: 'WAKE UP CHIPS BY PRESSING \n     THE TOP OF THE DEVICE',
+    searching: 'SEARCHING',
+    find_your_device: 'Find Your Device',
+    setup_device: 'What device are you setting up?',
+    BL_pair_request: 'Bluetooth Pairing Request',
+    BL_pair_message: '\"Chips\" would like to pair with your iPhone',
+    pair_btn: 'Pair',
+
+
 };
