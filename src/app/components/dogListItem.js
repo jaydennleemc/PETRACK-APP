@@ -67,7 +67,7 @@ const listStyles = StyleSheet.create({
         marginTop: scale(16),
         marginLeft: scale(8),
     },
-    rowView: {
+    gridView: {
         marginTop: scale(50),
         marginHorizontal: scale(16),
         flexDirection: 'row',
