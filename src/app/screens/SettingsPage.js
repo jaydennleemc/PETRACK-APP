@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {
     ActivityIndicator,
     Alert,
+    Modal,
     SafeAreaView,
     ScrollView,
     StyleSheet,
@@ -18,6 +19,7 @@ import {Button} from "react-native-elements";
 import {Actions} from "react-native-router-flux";
 import AsyncStorage from '@react-native-community/async-storage';
 import I18n from '../i18n/i18n';
+import Dialog from "../components/dialog";
 
 let ApiService = require('../utils/APIService');
 
@@ -177,6 +179,18 @@ export default class SettingsPage extends Component {
                                 buttonStyle={styles.petButtonStyle}
                                 containerStyle={styles.petButtonContainer}/>
                     </View>
+
+                    <Modal
+                        animationType="node"
+                        transparent={true}
+                        visible={this.state.modalVisible}>
+                        <Dialog
+                            title={'aaa'}
+                            content={'sss'}
+                            confirmText={'afaf'}
+                            cancelText={'afaf'}
+                        />
+                    </Modal>
 
                 </View>
             );
