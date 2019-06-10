@@ -32,17 +32,29 @@ export default class SettingsPage extends Component {
         }
     }
 
-    componentDidMount(): void {
+    componentDidMount() {
         this._getProfile();
     }
 
     _getProfile = () => {
         ApiService.getProfile().then((resp) => {
-            this.setState({
-                loading: false,
-                username: resp.data.name,
-                email: resp.data.email
-            })
+
+            if(resp.data.code === 0) {
+                this.setState({
+                    loading: false,
+                    username: resp.data.name,
+                    email: resp.data.email
+                })
+            }else {
+                Alert.alert(
+                    'Error',
+                    resp.data.message,
+                    [{text: 'OK', onPress: () => console.log('OK Pressed')},],
+                    {cancelable: false},
+                  );
+            }
+
+         
         }).catch((error) => {
             console.log('get profile error: ', error);
         })

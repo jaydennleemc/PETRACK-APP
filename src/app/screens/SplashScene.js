@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import SplashScreen from 'react-native-splash-screen';
 import {View, Platform, Alert, Button, SafeAreaView,} from 'react-native';
 import {Actions} from "react-native-router-flux";
-
 import AsyncStorage from '@react-native-community/async-storage';
 
 let ApiService = require('../utils/APIService');
@@ -36,7 +35,7 @@ export default class SplashScene extends Component {
                 Actions.replace('registerScene');
             }
         } catch (error) {
-            console.log('error', error);
+            console.log('check jwt token error ', error);
         }
     };
 

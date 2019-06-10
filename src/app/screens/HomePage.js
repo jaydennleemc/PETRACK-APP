@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import {Dimensions, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Dimensions, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View, Alert} from 'react-native';
 import {scale} from "react-native-size-matters";
 import * as colors from '../constants/colors';
 import * as images from '../constants/images';
@@ -55,12 +55,12 @@ export default class HomePage extends Component {
     }
 
 
-    componentDidMount(): void {
+    componentDidMount() {
         this._getCurrentPosition();
         this._refreshLocation();
     }
 
-    componentWillUnmount(): void {
+    componentWillUnmount() {
         clearInterval()
     }
 
@@ -94,12 +94,21 @@ export default class HomePage extends Component {
     _findNearByDevice = () => {
         ApiService.findNearBy(this.state.region.latitude, this.state.region.longitude, 1000)
             .then(resp => {
-                console.log('findNearByDevice size = ', resp.data.dispensers.length);
-                this.setState({
-                    dispensers: resp.data.dispensers
-                }, () => {
-                    this._fetchMarkerData()
-                });
+                if(resp.data.code === 0) {
+                    console.log('findNearByDevice size = ', resp.data.dispensers.length);
+                    this.setState({
+                        dispensers: resp.data.dispensers
+                    }, () => {
+                        this._fetchMarkerData()
+                    });
+                }else {
+                    Alert.alert(
+                        'Error',
+                        resp.data.message,
+                        [{text: 'OK', onPress: () => console.log('OK Pressed')},],
+                        {cancelable: false},
+                      );
+                }
             }).catch((error) => {
             console.log('findNearByDevice error = ', error)
         })

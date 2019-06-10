@@ -34,7 +34,7 @@ export default class RegisterPhonePage extends Component {
         }
     }
 
-    componentDidMount(): void {
+    componentDidMount() {
         this.setState({
             pickerData: this.phone.getPickerData()
         })
@@ -61,16 +61,25 @@ export default class RegisterPhonePage extends Component {
                             console.log('Facebook Token: ', token);
                             // send facebook token to server
                             ApiService.facebookAuth(token).then(async function (resp) {
-                                console.log(resp.data);
-                                let jwtToken = resp.data.jwt_token;
-                                ApiService.setupJWTToken(jwtToken);
-                                console.log('JWT Token: ', jwtToken);
-                                // store jwt token to AsyncStorage
-                                await AsyncStorage.setItem('jwtToken', jwtToken).then(() => {
-                                    setTimeout(() => {
-                                        Actions.reset('homeScene');
-                                    }, 1000)
-                                })
+                                if(resp.data.code === 0){
+                                    console.log(resp.data);
+                                    let jwtToken = resp.data.jwt_token;
+                                    ApiService.setupJWTToken(jwtToken);
+                                    console.log('JWT Token: ', jwtToken);
+                                    // store jwt token to AsyncStorage
+                                    await AsyncStorage.setItem('jwtToken', jwtToken).then(() => {
+                                        setTimeout(() => {
+                                            Actions.reset('homeScene');
+                                        }, 500)
+                                    })
+                                }else {
+                                    Alert.alert(
+                                        'Error',
+                                        resp.data.message,
+                                        [{text: 'OK', onPress: () => console.log('OK Pressed')},],
+                                        {cancelable: false},
+                                      );
+                                }
                             }).catch((error) => {
                                 console.log('Request JWT Token Error: ', error)
                             });
@@ -146,6 +155,11 @@ export default class RegisterPhonePage extends Component {
 
     _requestSMSCode = () => {
         ApiService.sendSMS('+852' + this.state.phoneNumText).then(function (resp) {
+            if(resp.data.code === 0) {
+
+            }else {
+
+            }
             console.log('RegisterPhonePage requestSMSCode ', resp);
         }).catch((error) => {
             console.log('Request SMS Code Error: ', error)
@@ -155,6 +169,11 @@ export default class RegisterPhonePage extends Component {
 
     _phoneLogin = () => {
         ApiService.validateSMS(this.state.phoneNumText, this.state.smsCodeText).then(function (resp) {
+            if(resp.data.code === 0){
+
+            }else {
+                
+            }
             console.log('RegisterPhonePage phoneLogin ', resp)
         }).catch((error) => {
             console.log('Mobile Phone Login Error: ', error);

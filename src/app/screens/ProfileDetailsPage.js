@@ -31,16 +31,27 @@ export default class ProfileDetailsPage extends Component {
         }
     }
 
-    componentDidMount(): void {
+    componentDidMount() {
         console.log('pet information:', this.state.pet);
     }
 
     _deletePet = () => {
         ApiService.deletePet(this.state.pet.id).then((resp) => {
-            console.log('delete pet resp: ', resp.data);
-            this._backToPrevious({
-                refresh: true
-            })
+
+            if(resp.data.code === 0) {
+                console.log('delete pet resp: ', resp.data);
+                this._backToPrevious({
+                    refresh: true
+                })
+            }else {
+                Alert.alert(
+                    'Error',
+                    resp.data.message,
+                    [{text: 'OK', onPress: () => console.log('OK Pressed')},],
+                    {cancelable: false},
+                  );
+            }
+           
         }).catch((error) => {
             console.log('delete pet error: ', error);
         });

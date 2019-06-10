@@ -47,10 +47,20 @@ export default class AddDogPage extends Component {
 
         ApiService.addPet(name, gender, type, birthday, weight)
             .then((resp) => {
-                console.log('add pet resp', resp);
-                this._backToPrevious({
-                    refresh: true
-                })
+              
+                if(resp.data.code === 0 ){
+                    console.log('add pet resp', resp);
+                    this._backToPrevious({
+                        refresh: true
+                    })
+                }else{
+                    Alert.alert(
+                        'Error',
+                        resp.data.message,
+                        [{text: 'OK', onPress: () => console.log('OK Pressed')},],
+                        {cancelable: false},
+                      );
+                }
 
             }).catch((error) => {
             console.log(('cannot add dog error: ', error));

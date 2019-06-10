@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-
 import {Router, Scene} from 'react-native-router-flux';
 import SplashScene from "./screens/SplashScene";
 import RegisterPage from "./screens/RegisterPage";
@@ -19,6 +18,10 @@ import PairChipsPage from "./screens/chips/PairChipsPage";
 import SyncChipsPage from "./screens/chips/SyncChipsPage";
 
 export default class extends Component {
+
+    componentDidMount() {
+        
+    }
 
     render() {
         return (

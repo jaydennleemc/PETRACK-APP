@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View, Alert} from 'react-native';
 import * as colors from '../constants/colors';
 import * as images from '../constants/images';
 import {Styles} from "../constants/styles";
@@ -62,6 +62,7 @@ export default class RegisterPage extends Component {
                             console.log('Facebook Token: ', token);
                             // send facebook token to server
                             ApiService.facebookAuth(token).then(async function (resp) {
+                              if(resp.data.code === 0){
                                 console.log(resp.data);
                                 let jwtToken = resp.data.jwt_token;
                                 ApiService.setupJWTToken(jwtToken);
@@ -70,8 +71,16 @@ export default class RegisterPage extends Component {
                                 await AsyncStorage.setItem('jwtToken', jwtToken).then(() => {
                                     setTimeout(() => {
                                         Actions.reset('homeScene');
-                                    }, 1000)
+                                    }, 500)
                                 })
+                              }else {
+                                Alert.alert(
+                                    'Error',
+                                    resp.data.message,
+                                    [{text: 'OK', onPress: () => console.log('OK Pressed')},],
+                                    {cancelable: false},
+                                  );
+                              }
                             }).catch((error) => {
                                 console.log('Request JWT Token Error: ', error)
                             });
