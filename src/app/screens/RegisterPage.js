@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View, Alert} from 'react-native';
+import {Alert, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import * as colors from '../constants/colors';
 import * as images from '../constants/images';
 import {Styles} from "../constants/styles";
@@ -20,7 +20,8 @@ export default class RegisterPage extends Component {
         super(props);
         this.state = {
             cameraPermission: '',
-            photoPermission: ''
+            photoPermission: '',
+            locationPermission: ''
         }
     }
 
@@ -37,6 +38,10 @@ export default class RegisterPage extends Component {
 
         Permissions.request('camera').then(response => {
             this.setState({cameraPermission: response});
+        });
+
+        Permissions.request('location').then(response => {
+            this.setState({locationPermission: response});
         });
     };
 
@@ -62,25 +67,25 @@ export default class RegisterPage extends Component {
                             console.log('Facebook Token: ', token);
                             // send facebook token to server
                             ApiService.facebookAuth(token).then(async function (resp) {
-                              if(resp.data.code === 0){
-                                console.log(resp.data);
-                                let jwtToken = resp.data.jwt_token;
-                                ApiService.setupJWTToken(jwtToken);
-                                console.log('JWT Token: ', jwtToken);
-                                // store jwt token to AsyncStorage
-                                await AsyncStorage.setItem('jwtToken', jwtToken).then(() => {
-                                    setTimeout(() => {
-                                        Actions.reset('homeScene');
-                                    }, 500)
-                                })
-                              }else {
-                                Alert.alert(
-                                    'Error',
-                                    resp.data.message,
-                                    [{text: 'OK', onPress: () => console.log('OK Pressed')},],
-                                    {cancelable: false},
-                                  );
-                              }
+                                console.log('facebook auth resp: ', resp.data);
+                                if (resp.data.code === 0) {
+                                    let jwtToken = resp.data.jwt_token;
+                                    ApiService.setupJWTToken(jwtToken);
+                                    console.log('JWT Token: ', jwtToken);
+                                    // store jwt token to AsyncStorage
+                                    await AsyncStorage.setItem('jwtToken', jwtToken).then(() => {
+                                        setTimeout(() => {
+                                            Actions.reset('homeScene');
+                                        }, 500)
+                                    })
+                                } else {
+                                    Alert.alert(
+                                        'Error',
+                                        resp.data.message,
+                                        [{text: 'OK', onPress: () => console.log('OK Pressed')},],
+                                        {cancelable: false},
+                                    );
+                                }
                             }).catch((error) => {
                                 console.log('Request JWT Token Error: ', error)
                             });
@@ -143,13 +148,13 @@ export default class RegisterPage extends Component {
                         </TouchableOpacity>
                     </View>
 
-                    <TouchableOpacity style={{marginTop:verticalScale(20)}} onPress={() => {
+                    <TouchableOpacity style={{marginTop: verticalScale(20)}} onPress={() => {
                         this._gotoAgreementView()
                     }}>
                         <Text style={styles.termsText}>{I18n.t('terms_conditions')}</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={{marginTop:verticalScale(10)}} onPress={() => {
+                    <TouchableOpacity style={{marginTop: verticalScale(10)}} onPress={() => {
                         this._gotoPrivacyView()
                     }}>
                         <Text style={styles.privacyText}>{I18n.t('privacy_policy')}</Text>
@@ -174,7 +179,7 @@ const styles = StyleSheet.create({
 
     },
     image: {
-        paddingHorizontal:scale(16),
+        paddingHorizontal: scale(16),
         marginTop: scale(8),
         width: '100%',
         height: scale(60),

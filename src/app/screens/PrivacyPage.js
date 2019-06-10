@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import {SafeAreaView, Text, View} from 'react-native';
+import {Alert, SafeAreaView, View} from 'react-native';
 import {WebView} from 'react-native-webview';
 import CustomToolbar from "../components/customToolbar";
 import {Actions} from "react-native-router-flux";
 import * as colors from '../constants/colors';
-import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
+import {scale} from 'react-native-size-matters';
 
 let ApiService = require('../utils/APIService');
 
@@ -23,11 +23,19 @@ export default class PrivacyPage extends Component {
 
     _loadPrivacyPolicy = () => {
         ApiService.getPrivacy().then((resp) => {
-            this.setState({
-                html: resp.data
-            }, () => {
-                console.log(this.state.html)
-            });
+            console.log('get Privacy resp: ', resp.data);
+            if (resp.data.code === 0) {
+                this.setState({
+                    html: resp.data
+                });
+            } else {
+                Alert.alert(
+                    'Error',
+                    resp.data.message,
+                    [{text: 'OK', onPress: () => console.log('OK Pressed')},],
+                    {cancelable: false},
+                );
+            }
 
         }).catch((error) => {
             console.log(error)

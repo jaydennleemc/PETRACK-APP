@@ -67,7 +67,7 @@ export default class PetTypeModal extends Component {
                     </View>
                     <Button title={I18n.t('ok_btn')}
                             onPress={() => {
-                                Actions.addDogScene({dogType: (this.state.catSelect) ? 'cat' : 'dog'});
+                                Actions.addPetScene({dogType: (this.state.catSelect) ? 'cat' : 'dog'});
                                 this.props.callBack();
                             }}
                             disabled={!(this.state.dogSelect || this.state.catSelect)}

@@ -27,7 +27,7 @@ import I18n from '../i18n/i18n';
 
 let ApiService = require('../utils/APIService');
 
-export default class AddDogPage extends Component {
+export default class AddPetPage extends Component {
 
     constructor(props) {
         super(props);
@@ -47,19 +47,18 @@ export default class AddDogPage extends Component {
 
         ApiService.addPet(name, gender, type, birthday, weight)
             .then((resp) => {
-              
-                if(resp.data.code === 0 ){
-                    console.log('add pet resp', resp);
+                console.log('add pet resp', resp);
+                if (resp.data.code === 0) {
                     this._backToPrevious({
                         refresh: true
                     })
-                }else{
+                } else {
                     Alert.alert(
                         'Error',
                         resp.data.message,
                         [{text: 'OK', onPress: () => console.log('OK Pressed')},],
                         {cancelable: false},
-                      );
+                    );
                 }
 
             }).catch((error) => {

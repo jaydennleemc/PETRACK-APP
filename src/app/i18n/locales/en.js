@@ -36,7 +36,7 @@ export default {
     dog: 'Dog',
     //Dialog Button
     dialog_yes_btn: 'Yes',
-    dialog_no_btn: 'no',
+    dialog_no_btn: 'No',
 
     yes_btn: 'YES',
     cancel_btn: 'Cancel',
@@ -55,5 +55,7 @@ export default {
     sync: 'Sync',
     syncing: 'Syncing',
     synced: 'Synced',
+    delete_pet_title:'Delete This Pet?',
+    delete_pet_content:'Do you want to delete?'
 
 };

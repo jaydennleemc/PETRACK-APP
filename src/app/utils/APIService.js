@@ -22,7 +22,7 @@ const APIs = {
 //    Profile API
     getProfile: '/me/profile',
     updateProfile: '/me/profile/update',
-    uploadAvatar:'/me/profile/avatar',
+    uploadAvatar: '/me/profile/avatar',
 //    Pet API
     getPets: '/me/pets',
     getPet: '/me/pet/',
@@ -127,12 +127,10 @@ class APIService {
         });
     }
 
-    static uploadAvatar(){
+    static uploadAvatar() {
         const url = cloudVersion + APIs.uploadAvatar;
         const bearer = "Bearer " + jwtToken;
-        return fly.put(url, {
-
-        }, {
+        return fly.put(url, {}, {
             headers: {"Authorization": bearer}
         });
     }
@@ -147,7 +145,10 @@ class APIService {
 
     static getPet(id) {
         const url = cloudVersion + APIs.getPet;
-        return fly.get(url + id);
+        const bearer = "Bearer " + jwtToken;
+        return fly.get(url + id, {}, {
+            headers: {"Authorization": bearer}
+        });
     }
 
     static addPet(name, gender, type, birthdate, weight) {
@@ -164,12 +165,10 @@ class APIService {
         });
     }
 
-    static uploadPetAvatar(id){
+    static uploadPetAvatar(id) {
         const url = cloudVersion + APIs.addPet;
         const bearer = "Bearer " + jwtToken;
-        return fly.put(url, {
-
-        }, {
+        return fly.put(url, {}, {
             headers: {"Authorization": bearer}
         });
     }

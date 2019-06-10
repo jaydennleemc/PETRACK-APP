@@ -1,6 +1,16 @@
 import React, {Component} from 'react';
 
-import {ActivityIndicator, FlatList, Image, Modal, StyleSheet, Text, TouchableOpacity, View, TouchableHighlight} from 'react-native';
+import {
+    ActivityIndicator,
+    FlatList,
+    Image,
+    Modal,
+    StyleSheet,
+    Text,
+    TouchableHighlight,
+    TouchableOpacity,
+    View
+} from 'react-native';
 import {scale} from "react-native-size-matters";
 import * as colors from '../constants/colors';
 import * as images from '../constants/images';
@@ -40,6 +50,13 @@ export default class ProfilePage extends Component {
             this._getPets();
         }
     }
+
+    _backToPrevious = (props) => {
+        setTimeout(() => {
+            Actions.refresh(props)
+        }, 50);
+        Actions.pop();
+    };
 
     _getProfile = () => {
         ApiService.getProfile().then((resp) => {
@@ -95,6 +112,9 @@ export default class ProfilePage extends Component {
                         <View style={{flexDirection: 'row'}}>
                             <TouchableOpacity style={{flex: 1,}} onPress={() => {
                                 Actions.pop();
+                                this._backToPrevious({
+                                    refresh: true
+                                })
                             }}>
                                 <Icon name={'arrowleft'} size={scale(30)} style={{color: colors.whiteColor}}/>
                             </TouchableOpacity>

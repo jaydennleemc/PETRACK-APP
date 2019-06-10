@@ -5,12 +5,12 @@ import RegisterPage from "./screens/RegisterPage";
 import RegisterPhonePage from "./screens/RegisterPhonePage";
 import HomePage from "./screens/HomePage";
 import ProfilePage from "./screens/ProfilePage";
-import ProfileDetailsPage from "./screens/ProfileDetailsPage";
+import PetDetailsPage from "./screens/PetDetailsPage";
 import ScanPage from "./screens/ScanPage";
 import SettingsPage from "./screens/SettingsPage";
 import AgreementPage from "./screens/AgreementPage";
 import PrivacyPage from "./screens/PrivacyPage";
-import AddDogPage from "./screens/AddDogPage";
+import AddPetPage from "./screens/AddPetPage";
 import DeviceControlPage from "./screens/DeviceControlPage";
 import SetChipsPage from "./screens/chips/SetChipsPage";
 import FindChipsPage from "./screens/chips/FindChipsPage";
@@ -35,8 +35,8 @@ export default class extends Component {
 
                     <Scene key={"homeScene"} component={HomePage} hideNavBar={true}/>
                     <Scene key={"profileScene"} component={ProfilePage} hideNavBar={true}/>
-                    <Scene key={"addDogScene"} component={AddDogPage} hideNavBar={true}/>
-                    <Scene key={"profileDetailScene"} component={ProfileDetailsPage} hideNavBar={true}/>
+                    <Scene key={"addPetScene"} component={AddPetPage} hideNavBar={true}/>
+                    <Scene key={"petDetailScene"} component={PetDetailsPage} hideNavBar={true}/>
                     <Scene key={"scanScene"} component={ScanPage} hideNavBar={true}/>
                     <Scene key={"deviceControlScene"} component={DeviceControlPage} hideNavBar={true}/>
                     <Scene key={"settingScene"} component={SettingsPage} hideNavBar={true}/>

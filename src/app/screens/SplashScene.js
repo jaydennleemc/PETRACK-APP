@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import SplashScreen from 'react-native-splash-screen';
-import {View, Platform, Alert, Button, SafeAreaView,} from 'react-native';
+import {View} from 'react-native';
 import {Actions} from "react-native-router-flux";
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -44,13 +44,13 @@ export default class SplashScene extends Component {
             console.log(resp.data);
             let code = resp.data.code;
             ApiService.setupCloudVersion('/v1');
-            if (code === 1) {
+            if (code === 0) {
                 this._checkToken()
             } else {
                 //todo handle update
             }
         }).catch((error) => {
-            console.log('check version error ',error);
+            console.log('check version error ', error);
         })
     };
 

@@ -14,10 +14,14 @@ export default class DogListItem extends PureComponent {
         }
     }
 
+
+    componentDidMount() {
+        // console.log('pet info: ', this.state.pet)
+    }
+
     _onPress = () => {
         this.props.onPressItem(this.props.id);
     };
-
 
     _renderGridViewItem = (value1, value2) => {
         return (
@@ -31,7 +35,7 @@ export default class DogListItem extends PureComponent {
     render() {
         return (
             <TouchableOpacity onPress={() => {
-                Actions.profileDetailScene({pet: this.state.pet});
+                Actions.petDetailScene({petId: this.state.pet.id});
             }}>
                 <View style={listStyles.container}>
                     <Image resizeMode={"contain"} style={{width: scale(96), height: scale(130)}} source={images.dog1}/>

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import {Dimensions, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View, Alert} from 'react-native';
+import {Alert, Dimensions, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {scale} from "react-native-size-matters";
 import * as colors from '../constants/colors';
 import * as images from '../constants/images';
@@ -20,32 +20,39 @@ const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 let ApiService = require('../utils/APIService');
 
 var currentRegion = null;
-
+var _interval = null;
 export default class HomePage extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             showDispenserInfo: false,
+            timerTask: true,
             dispensers: [],
             markers: [],
             region: null,
-        }
+        };
     }
 
 
     componentDidMount() {
         this._getCurrentPosition();
-        this._refreshLocation();
+        _interval = this._refreshLocation()
     }
 
     componentWillUnmount() {
-        clearInterval()
+        clearInterval(_interval)
     }
 
+    componentWillReceiveProps(nextProps, nextContext) {
+        console.log('should refresh ', nextProps.refresh);
+        if (nextProps.refresh === true) {
+            _interval = this._refreshLocation()
+        }
+    }
 
     _refreshLocation = () => {
-        setInterval(() => {
+        let timerTask = setInterval(() => {
             navigator.geolocation.getCurrentPosition((position) => {
                 let lat = parseFloat(position.coords.latitude);
                 let long = parseFloat(position.coords.longitude);
@@ -65,7 +72,9 @@ export default class HomePage extends Component {
                     console.log(this.state.markers)
                 })
             });
-        }, 5000)
+        }, 5000);
+
+        return timerTask;
     };
 
     _getCurrentPosition = () => {
@@ -92,20 +101,20 @@ export default class HomePage extends Component {
     _findNearByDevice = () => {
         ApiService.findNearBy(this.state.region.latitude, this.state.region.longitude, 1000)
             .then(resp => {
-                if(resp.data.code === 0) {
+                if (resp.data.code === 0) {
                     console.log('findNearByDevice size = ', resp.data.dispensers.length);
                     this.setState({
                         dispensers: resp.data.dispensers
                     }, () => {
                         this._fetchMarkerData()
                     });
-                }else {
+                } else {
                     Alert.alert(
                         'Error',
                         resp.data.message,
                         [{text: 'OK', onPress: () => console.log('OK Pressed')},],
                         {cancelable: false},
-                      );
+                    );
                 }
             }).catch((error) => {
             console.log('findNearByDevice error = ', error)
@@ -158,7 +167,8 @@ export default class HomePage extends Component {
                     rightIcon={'ios-person'}
                     title={'PETRACK'}
                     rightIconOnPress={() => {
-                        Actions.push("profileScene")
+                        clearInterval(_interval);
+                        Actions.push("profileScene");
                     }}
                     rightIconColor={colors.themeColor}
                     disableLeft={true}/>

@@ -22,13 +22,13 @@ export default class Dialog extends Component {
                     height: scale(40),
                 }}>
 
-                    <TouchableOpacity style={styles.button} onPress={() => this.props.confirmOnPress}>
+                    <TouchableOpacity style={styles.button} onPress={() => this.props.confirmOnPress()}>
                         <Text style={{alignSelf: 'center',}}>{this.props.confirmText}</Text>
                     </TouchableOpacity>
 
                     <View style={styles.verticalLine}/>
 
-                    <TouchableOpacity style={styles.button} onPress={() => this.props.cancelOnPress}>
+                    <TouchableOpacity style={styles.button} onPress={() => this.props.cancelOnPress()}>
                         <Text style={{alignSelf: 'center'}}>{this.props.cancelText}</Text>
                     </TouchableOpacity>
 
