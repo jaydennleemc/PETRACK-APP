@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {
     ActivityIndicator,
     Alert,
+    Modal,
     SafeAreaView,
     ScrollView,
     StyleSheet,
@@ -18,6 +19,7 @@ import {Button} from "react-native-elements";
 import {Actions} from "react-native-router-flux";
 import AsyncStorage from '@react-native-community/async-storage';
 import I18n from '../i18n/i18n';
+import Dialog from "../components/dialog";
 
 let ApiService = require('../utils/APIService');
 
@@ -27,6 +29,7 @@ export default class SettingsPage extends Component {
         super(props);
         this.state = {
             loading: true,
+            signoutDialog: false,
             username: '',
             email: ''
         }
@@ -62,24 +65,14 @@ export default class SettingsPage extends Component {
 
 
     _signOut = () => {
-        let yes = {
-            text: I18n.t('dialog_yes_btn'), onPress: () => {
-                ApiService.signOut().then((resp) => {
-                    console.log(resp);
-                    AsyncStorage.clear().then(() => {
-                        Actions.reset('registerScene');
-                    })
-                }).catch((error) => {
-                    console.log('Setting page sign out error = ', error)
-                })
-            }
-        };
-        let no = {text: I18n.t('dialog_no_btn'), style: 'cancel'};
-
-        Alert.alert('Sign Out', 'Do you want to sign out ?',
-            [yes, no],
-            {cancelable: false}
-        );
+        ApiService.signOut().then((resp) => {
+            console.log(resp);
+            AsyncStorage.clear().then(() => {
+                Actions.reset('registerScene');
+            })
+        }).catch((error) => {
+            console.log('Setting page sign out error = ', error)
+        })
     };
 
     render() {
@@ -184,11 +177,33 @@ export default class SettingsPage extends Component {
                     <View style={styles.buttonView}>
                         <Button title={'Sign out'}
                                 onPress={() => {
-                                    this._signOut();
+                                    this.setState({
+                                        signoutDialog: true
+                                    })
                                 }}
                                 buttonStyle={styles.petButtonStyle}
                                 containerStyle={styles.petButtonContainer}/>
                     </View>
+
+                    <Modal
+                        animationType="node"
+                        transparent={true}
+                        visible={this.state.signoutDialog}>
+                        <Dialog
+                            title={'Sign Out'}
+                            content={'Sign Out Do you want to sign out ?'}
+                            confirmText={I18n.t('dialog_yes_btn')}
+                            cancelText={I18n.t('dialog_no_btn')}
+                            confirmOnPress={() => {
+                                this._signOut();
+                            }}
+                            cancelOnPress={() => {
+                                this.setState({
+                                    signoutDialog: false
+                                })
+                            }}
+                        />
+                    </Modal>
 
                 </View>
             );

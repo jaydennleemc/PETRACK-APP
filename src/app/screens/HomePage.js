@@ -13,16 +13,13 @@ import CustomSlidingUpPanel from "../components/customSlidingUpPanel";
 import I18n from '../i18n/i18n';
 
 const {width, height} = Dimensions.get('window');
-const SCREEN_HEIGHT = height;
-const SCREEN_WIDTH = width;
 const ASPECT_RATIO = width / height;
 const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 let ApiService = require('../utils/APIService');
 
-const origin = {latitude: 37.3318456, longitude: -122.0296002};
-const destination = {latitude: 37.771707, longitude: -122.4053769};
+var currentRegion = null;
 
 export default class HomePage extends Component {
 
@@ -31,26 +28,8 @@ export default class HomePage extends Component {
         this.state = {
             showDispenserInfo: false,
             dispensers: [],
-            markers: [
-                {
-                    coordinate: {
-                        latitude: 22.308047255697193,
-                        longitude: 114.19007422465576,
-                    },
-                },
-                {
-                    coordinate: {
-                        latitude: 22.508047155697093,
-                        longitude: 114.20007422465576,
-                    },
-                },
-            ],
-            region: {
-                latitude: 37.3318456,
-                longitude: -122.0296002,
-                latitudeDelta: 0.04864195044303443,
-                longitudeDelta: 0.040142817690068,
-            },
+            markers: [],
+            region: null,
         }
     }
 
@@ -64,10 +43,29 @@ export default class HomePage extends Component {
         clearInterval()
     }
 
+
     _refreshLocation = () => {
         setInterval(() => {
-            this._getCurrentPosition();
-        }, 10000)
+            navigator.geolocation.getCurrentPosition((position) => {
+                let lat = parseFloat(position.coords.latitude);
+                let long = parseFloat(position.coords.longitude);
+                let initialRegion = {
+                    latitude: lat,
+                    longitude: long,
+                    latitudeDelta: LATITUDE_DELTA,
+                    longitudeDelta: LONGITUDE_DELTA,
+                };
+
+                console.log('current location info', initialRegion);
+                this.setState({
+                    region: initialRegion,
+                    initialRegion: currentRegion
+                }, () => {
+                    this._findNearByDevice();
+                    console.log(this.state.markers)
+                })
+            });
+        }, 5000)
     };
 
     _getCurrentPosition = () => {
@@ -80,11 +78,11 @@ export default class HomePage extends Component {
                 latitudeDelta: LATITUDE_DELTA,
                 longitudeDelta: LONGITUDE_DELTA,
             };
-
-            console.log('current location info', initialRegion);
+            currentRegion = initialRegion;
 
             this.setState({
-                region: initialRegion
+                region: initialRegion,
+                initialRegion: initialRegion
             }, () => {
                 this._findNearByDevice();
             })
@@ -115,7 +113,7 @@ export default class HomePage extends Component {
     };
 
     _fetchMarkerData() {
-        if (this.state.markers.length !== 0) {
+        if (this.state.dispensers.length !== 0) {
             var markers = [];
             for (let dispenser of this.state.dispensers) {
                 markers.push({
@@ -128,9 +126,7 @@ export default class HomePage extends Component {
 
             this.setState({
                 markers: markers
-            }, () => {
-                console.log(this.state.markers)
-            })
+            });
         }
     }
 
@@ -149,6 +145,9 @@ export default class HomePage extends Component {
         })
     }
 
+    _onRegionChange = (region) => {
+        currentRegion = region;
+    };
 
     render() {
         return (
@@ -166,12 +165,13 @@ export default class HomePage extends Component {
 
                 {/* Map View */}
                 <MapView
+                    onRegionChange={(region => this._onRegionChange(region))}
                     provider={PROVIDER_GOOGLE}
+                    moveOnMarkerPress={true}
+                    region={this.state.initialRegion}
                     style={{flex: 1}}
-                    region={this.state.region}
                     followsUserLocation={false}
                     showsUserLocation={true}>
-
                     {this.state.markers.map((marker, index) => {
                         return (
                             <MapView.Marker
@@ -208,21 +208,22 @@ export default class HomePage extends Component {
     }
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        shadowOpacity: 0.25,
-        backgroundColor: 'white',
-    },
-    scanButtonView: {
-        position: 'absolute',
-        bottom: scale(40),
-        alignItems: 'center',
-        width: '100%'
-    },
-    scanText: {
-        color: colors.themeColor,
-        marginTop: scale(8),
-        alignSelf: 'center'
-    },
-});
+const
+    styles = StyleSheet.create({
+        container: {
+            flex: 1,
+            shadowOpacity: 0.25,
+            backgroundColor: 'white',
+        },
+        scanButtonView: {
+            position: 'absolute',
+            bottom: scale(40),
+            alignItems: 'center',
+            width: '100%'
+        },
+        scanText: {
+            color: colors.themeColor,
+            marginTop: scale(8),
+            alignSelf: 'center'
+        },
+    });
