@@ -41,21 +41,21 @@ export default class SettingsPage extends Component {
 
     _getProfile = () => {
         ApiService.getProfile().then((resp) => {
-
-            if(resp.data.code === 0) {
+            console.log('setting page', resp.data);
+            // if(resp.data.code === 0) {
                 this.setState({
                     loading: false,
                     username: resp.data.name,
                     email: resp.data.email
                 })
-            }else {
-                Alert.alert(
-                    'Error',
-                    resp.data.message,
-                    [{text: 'OK', onPress: () => console.log('OK Pressed')},],
-                    {cancelable: false},
-                  );
-            }
+            // }else {
+            //     Alert.alert(
+            //         'Error',
+            //         resp.data.message,
+            //         [{text: 'OK', onPress: () => console.log('OK Pressed')},],
+            //         {cancelable: false},
+            //       );
+            // }
 
          
         }).catch((error) => {
