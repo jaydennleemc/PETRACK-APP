@@ -1,7 +1,7 @@
 import fly from 'flyio';
 import Utils from './Utils';
 
-const base_url = 'http://api.petrack.app';
+const base_url = 'http://192.168.0.168:3000/api';
 fly.config.timeout = 3000;
 fly.config.baseURL = base_url;
 var cloudVersion = '';
@@ -11,28 +11,28 @@ const APIs = {
 //    Basic API
     agreement: '/agreement',
     privacy: '/privacy',
-    version: '/basic/versions',
+    version: '/versions',
     breeds: '/basic/breeds',
 //     Auth API
-    sendSMS: '/auth/mobile/sendSMS',
-    validateSMS: '/auth/mobile/validate',
-    facebookAuth: '/auth/facebook',
-    signOut: '/auth/logout',
+    sendSMS: '/auth',
+    validateSMS: '/auth',
+    facebookAuth: '/auth',
+    signOut: '/signOut',
 
 //    Profile API
-    getProfile: '/me/profile',
-    updateProfile: '/me/profile/update',
-    uploadAvatar: '/me/profile/avatar',
+    getProfile: '/profile',
+    updateProfile: '/profile/update',
+    uploadAvatar: '/profile/avatar',
 //    Pet API
-    getPets: '/me/pets',
-    getPet: '/me/pet/',
-    addPet: '/me/pet/add',
-    deletePet: '/me/pet/remove/',
-    updatePet: '/me/pet/update/',
-    uploadPetAvatar: '/me/pet/avatar/',
+    getPets: '/pets',
+    getPet: '/pet',
+    addPet: '/pet',
+    deletePet: '/pet',
+    updatePet: '/pet',
+    uploadPetAvatar: '/pet/avatar',
 //    Clips API
-    getClips: '/me/clips',
-    getClip: '/me/clip/',
+    getClips: '/chips',
+    getClip: '/chips',
     addClip: '/me/clip/add',
     removeClip: '/me/clip/remove/',
     updateClip: '/me/clip/update/',
