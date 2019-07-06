@@ -1,7 +1,8 @@
 import fly from 'flyio';
 import Utils from './Utils';
 
-const base_url = 'http://192.168.0.168:3000/api';
+// const base_url = 'http://jayden2215.ddns.net:8080/api';
+const base_url = 'http://localhost:3000/api';
 fly.config.timeout = 3000;
 fly.config.baseURL = base_url;
 var cloudVersion = '';
@@ -146,7 +147,7 @@ class APIService {
     static getPet(id) {
         const url = cloudVersion + APIs.getPet;
         const bearer = "Bearer " + jwtToken;
-        return fly.get(url + id, {}, {
+        return fly.get(url, {"id": id}, {
             headers: {"Authorization": bearer}
         });
     }
@@ -154,7 +155,7 @@ class APIService {
     static addPet(name, gender, type, birthdate, weight) {
         const url = cloudVersion + APIs.addPet;
         const bearer = "Bearer " + jwtToken;
-        return fly.post(url, {
+        return fly.put(url, {
             'name': name,
             'gender': gender,
             'type': type,

@@ -63,8 +63,8 @@ export default class ProfilePage extends Component {
             console.log(resp.data);
             this.setState({
                 loading: false,
-                profileImage: resp.data.avatar,
-                username: resp.data.name,
+                profileImage: resp.data.payload.picture,
+                username: resp.data.payload.name,
             }, () => {
                 this._setupProfile()
             })
@@ -77,7 +77,7 @@ export default class ProfilePage extends Component {
         ApiService.getPets().then((resp) => {
             console.log('get pets resp: ', resp);
             this.setState({
-                pets: resp.data.pets
+                pets: resp.data.payload
             });
         }).catch((error) => {
             console.log('get pets error: ', error);

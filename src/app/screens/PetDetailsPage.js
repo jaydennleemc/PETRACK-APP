@@ -47,7 +47,7 @@ export default class PetDetailsPage extends Component {
             if (resp.data.code === 0) {
                 this.setState({
                     loading: false,
-                    pet: resp.data.pet
+                    pet: resp.data.payload
                 })
             } else {
                 Alert.alert(
