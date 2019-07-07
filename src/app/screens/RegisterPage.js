@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Alert, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {ActivityIndicator, Alert, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import * as colors from '../constants/colors';
 import * as images from '../constants/images';
 import {Styles} from "../constants/styles";
@@ -19,6 +19,7 @@ export default class RegisterPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            loading: false,
             cameraPermission: '',
             photoPermission: '',
             locationPermission: ''
@@ -55,14 +56,22 @@ export default class RegisterPage extends Component {
         })
     };
 
+    setLoading = (value) => {
+        this.setState({
+            loading: value
+        })
+    };
+
     _fbAuth = () => {
         LoginManager.logInWithReadPermissions(this.facebookPermission).then(
-            function (result) {
+            (result) => {
                 if (result.isCancelled) {
+                    this.setLoading(false)
                     console.log("Login cancelled");
                 } else {
-                    AccessToken.getCurrentAccessToken().then(async function (data) {
+                    AccessToken.getCurrentAccessToken().then((data) => {
                         try {
+                            this.setLoading(true);
                             let token = data.accessToken.toString();
                             console.log('Facebook Token: ', token);
                             // send facebook token to server
@@ -111,58 +120,72 @@ export default class RegisterPage extends Component {
     };
 
     render() {
-        return (
-            <View style={Styles.containerWithThemeColor}>
-                <SafeAreaView/>
-                {/*  Logo */}
-                <View style={styles.logoContainer}>
-                    <Image
-                        resizeMode={"contain"}
-                        style={{width: scale(250), height: scale(200)}}
-                        source={images.logo}/>
-                </View>
 
-                <View style={{flex: 1}}/>
-
-                {/*  Buttons */}
-                <View style={styles.bottomContainer}>
-
-                    <View style={styles.image}>
-                        <TouchableOpacity onPress={() => {
-                            this._fbAuth()
-                        }}>
-                            <Image
-                                resizeMode={"contain"}
-                                style={styles.image}
-                                source={images.register_facebook}/>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.image}>
-                        <TouchableOpacity onPress={() => {
-                            Actions.registerPhoneScene();
-                        }}>
-                            <Image
-                                resizeMode={'contain'}
-                                style={styles.image}
-                                source={images.register_phone}/>
-                        </TouchableOpacity>
+        if (!this.state.loading) {
+            return (
+                <View style={Styles.containerWithThemeColor}>
+                    <SafeAreaView/>
+                    {/*  Logo */}
+                    <View style={styles.logoContainer}>
+                        <Image
+                            resizeMode={"contain"}
+                            style={{width: scale(250), height: scale(200)}}
+                            source={images.logo}/>
                     </View>
 
-                    <TouchableOpacity style={{marginTop: verticalScale(20)}} onPress={() => {
-                        this._gotoAgreementView()
-                    }}>
-                        <Text style={styles.termsText}>{I18n.t('terms_conditions')}</Text>
-                    </TouchableOpacity>
+                    <View style={{flex: 1}}/>
 
-                    <TouchableOpacity style={{marginTop: verticalScale(10)}} onPress={() => {
-                        this._gotoPrivacyView()
-                    }}>
-                        <Text style={styles.privacyText}>{I18n.t('privacy_policy')}</Text>
-                    </TouchableOpacity>
+                    {/*  Buttons */}
+                    <View style={styles.bottomContainer}>
+
+                        <View style={styles.image}>
+                            <TouchableOpacity onPress={() => {
+                                this._fbAuth()
+                            }}>
+                                <Image
+                                    resizeMode={"contain"}
+                                    style={styles.image}
+                                    source={images.register_facebook}/>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.image}>
+                            <TouchableOpacity onPress={() => {
+                                Actions.registerPhoneScene();
+                            }}>
+                                <Image
+                                    resizeMode={'contain'}
+                                    style={styles.image}
+                                    source={images.register_phone}/>
+                            </TouchableOpacity>
+                        </View>
+
+                        <TouchableOpacity style={{marginTop: verticalScale(20)}} onPress={() => {
+                            this._gotoAgreementView()
+                        }}>
+                            <Text style={styles.termsText}>{I18n.t('terms_conditions')}</Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity style={{marginTop: verticalScale(10)}} onPress={() => {
+                            this._gotoPrivacyView()
+                        }}>
+                            <Text style={styles.privacyText}>{I18n.t('privacy_policy')}</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-            </View>
-        );
+            )
+        } else {
+            return (
+                <View style={{
+                    position: 'absolute',
+                    top: '50%',
+                    right: '45%'
+                }}>
+                    <ActivityIndicator size="large" color={colors.lightColor}/>
+                </View>
+            )
+        }
     }
+
 }
 
 

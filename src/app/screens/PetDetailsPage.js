@@ -4,7 +4,6 @@ import {
     ActivityIndicator,
     Alert,
     ImageBackground,
-    Modal,
     SafeAreaView,
     ScrollView,
     StyleSheet,
@@ -21,7 +20,7 @@ import {Button} from "react-native-elements";
 import {Styles} from '../constants/styles';
 import {Actions} from "react-native-router-flux";
 import I18n from '../i18n/i18n';
-import Dialog from "../components/dialog";
+import CustomDialog from "../components/dialog/cutomDialog";
 
 let ApiService = require('../utils/APIService');
 
@@ -65,9 +64,11 @@ export default class PetDetailsPage extends Component {
 
     _deletePet = () => {
         ApiService.deletePet(this.state.pet.id).then((resp) => {
-
             if (resp.data.code === 0) {
                 console.log('delete pet resp: ', resp.data);
+                this.setState({
+                    deletePetDialog: false
+                });
                 this._backToPrevious({
                     refresh: true
                 })
@@ -213,25 +214,21 @@ export default class PetDetailsPage extends Component {
                                 containerStyle={styles.petButtonContainer}/>
                     </View>
                     {/* Delete Pet Dialog */}
-                    <Modal
-                        animationType="node"
-                        transparent={true}
-                        visible={this.state.deletePetDialog}>
-                        <Dialog
-                            title={I18n.t('delete_pet_title')}
-                            content={I18n.t('delete_pet_content')}
-                            confirmText={I18n.t('dialog_yes_btn')}
-                            cancelText={I18n.t('dialog_no_btn')}
-                            confirmOnPress={() => {
-                                this._deletePet()
-                            }}
-                            cancelOnPress={() => {
-                                this.setState({
-                                    deletePetDialog: false
-                                })
-                            }}
-                        />
-                    </Modal>
+                    <CustomDialog
+                        visible={this.state.deletePetDialog}
+                        title={I18n.t('delete_pet_title')}
+                        content={I18n.t('delete_pet_content')}
+                        confirmText={I18n.t('dialog_yes_btn')}
+                        cancelText={I18n.t('dialog_no_btn')}
+                        confirmOnPress={() => {
+                            this._deletePet()
+                        }}
+                        cancelOnPress={() => {
+                            this.setState({
+                                deletePetDialog: false
+                            })
+                        }}
+                    />
                 </View>
             );
         } else {

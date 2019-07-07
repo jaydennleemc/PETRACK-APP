@@ -1,8 +1,8 @@
 import fly from 'flyio';
 import Utils from './Utils';
 
-// const base_url = 'http://jayden2215.ddns.net:8080/api';
-const base_url = 'http://localhost:3000/api';
+const base_url = 'http://jayden2215.ddns.net:8080/api';
+// const base_url = 'http://localhost:3000/api';
 fly.config.timeout = 3000;
 fly.config.baseURL = base_url;
 var cloudVersion = '';
@@ -177,7 +177,7 @@ class APIService {
     static deletePet(id) {
         const url = cloudVersion + APIs.deletePet;
         const bearer = "Bearer " + jwtToken;
-        return fly.delete(url + id, {}, {headers: {"Authorization": bearer}});
+        return fly.delete(url, {"id":id}, {headers: {"Authorization": bearer}});
     }
 
     static updatePet(id) {
