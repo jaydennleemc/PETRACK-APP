@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ActivityIndicator, Alert, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {AlertStatic as Alert, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import * as colors from '../constants/colors';
 import * as images from '../constants/images';
 import {Styles} from "../constants/styles";
@@ -7,8 +7,9 @@ import {Actions} from "react-native-router-flux";
 import {AccessToken, LoginManager} from "react-native-fbsdk";
 import {scale, verticalScale} from 'react-native-size-matters';
 import Permissions from 'react-native-permissions'
-import AsyncStorage from "@react-native-community/async-storage";
 import I18n from '../i18n/i18n';
+import LoadingDialog from "../components/dialog/loadDialog";
+import * as AsyncStorage from "react-native/Libraries/Storage/AsyncStorage";
 
 let ApiService = require('../utils/APIService');
 
@@ -56,60 +57,75 @@ export default class RegisterPage extends Component {
         })
     };
 
-    setLoading = (value) => {
-        this.setState({
-            loading: value
-        })
+    _showLoading = (value) => {
+        this.setState({loading: value})
     };
 
-    _fbAuth = () => {
+    _getAccessTokenFromFacebook = () => {
         LoginManager.logInWithReadPermissions(this.facebookPermission).then(
             (result) => {
                 if (result.isCancelled) {
-                    this.setLoading(false)
-                    console.log("Login cancelled");
+                    console.log(`Login cancelled`);
                 } else {
                     AccessToken.getCurrentAccessToken().then((data) => {
-                        try {
-                            this.setLoading(true);
-                            let token = data.accessToken.toString();
-                            console.log('Facebook Token: ', token);
-                            // send facebook token to server
-                            ApiService.facebookAuth(token).then(async function (resp) {
-                                console.log('facebook auth resp: ', resp.data);
-                                if (resp.data.code === 0) {
-                                    let jwtToken = resp.data.token;
-                                    ApiService.setupJWTToken(jwtToken);
-                                    console.log('JWT Token: ', jwtToken);
-                                    // store jwt token to AsyncStorage
-                                    await AsyncStorage.setItem('jwtToken', jwtToken).then(() => {
-                                        setTimeout(() => {
-                                            Actions.reset('homeScene');
-                                        }, 500)
-                                    })
-                                } else {
-                                    Alert.alert(
-                                        'Error',
-                                        resp.data.message,
-                                        [{text: 'OK', onPress: () => console.log('OK Pressed')},],
-                                        {cancelable: false},
-                                    );
-                                }
-                            }).catch((error) => {
-                                console.log('Request JWT Token Error: ', error)
-                            });
-                        } catch (error) {
-                            console.log('Facebook Authentication Error: ', error)
-                        }
+                        this._showLoading(true);
+                        let token = data.accessToken.toString();
+                        console.log(`Facebook Token: ${token}`);
+                        // send facebook token to server
+                        this._verifyFacebookToken(token);
                     });
                     console.log("Login success with permissions: " + result.grantedPermissions.toString());
                 }
             },
             function (error) {
-                console.log("Login fail with error: " + error);
+                console.log(`Login fail with error: ${error}`);
             }
         );
     };
+
+    _authWithServer = (token) => {
+        return new Promise((resolve, reject) => {
+            ApiService.facebookAuth(token).then(function (resp) {
+                if (resp.data.code === 0) {
+                    let jwtToken = resp.data.token;
+                    ApiService.setupJWTToken(jwtToken);
+                    console.log(`JWT Token: ${jwtToken}`);
+                    // store jwt token to AsyncStorage
+                    try {
+                        AsyncStorage.setItem('jwtToken', jwtToken).then(() => {
+                            console.log('jwtToken saved');
+                            resolve(true);
+                        })
+                    } catch (error) {
+                        console.log(`Request JWT Token Error: ${error}`)
+                    }
+                } else {
+                    resolve(resp);
+                }
+            })
+        })
+    };
+
+    _verifyFacebookToken = (token) => {
+        this._authWithServer(token).then((result) => {
+            if (result) {
+                setTimeout(() => {
+                    Actions.reset('homeScene');
+                }, 500);
+                setTimeout(() => {
+                    this._showLoading(false);
+                }, 200)
+            } else {
+                Alert.alert(
+                    'Error',
+                    result.data.message,
+                    [{text: 'OK', onPress: () => console.log('OK Pressed')},],
+                    {cancelable: false},
+                );
+            }
+        })
+    };
+
 
     _gotoAgreementView = () => {
         Actions.push('agreementScene');
@@ -121,69 +137,61 @@ export default class RegisterPage extends Component {
 
     render() {
 
-        if (!this.state.loading) {
-            return (
-                <View style={Styles.containerWithThemeColor}>
-                    <SafeAreaView/>
-                    {/*  Logo */}
-                    <View style={styles.logoContainer}>
-                        <Image
-                            resizeMode={"contain"}
-                            style={{width: scale(250), height: scale(200)}}
-                            source={images.logo}/>
-                    </View>
+        return (
+            <View style={Styles.containerWithThemeColor}>
+                <SafeAreaView/>
+                {/*  Logo */}
+                <View style={styles.logoContainer}>
+                    <Image
+                        resizeMode={"contain"}
+                        style={{width: scale(250), height: scale(200)}}
+                        source={images.logo}/>
+                </View>
 
-                    <View style={{flex: 1}}/>
+                <View style={{flex: 1}}/>
 
-                    {/*  Buttons */}
-                    <View style={styles.bottomContainer}>
+                {/*  Buttons */}
+                <View style={styles.bottomContainer}>
 
-                        <View style={styles.image}>
-                            <TouchableOpacity onPress={() => {
-                                this._fbAuth()
-                            }}>
-                                <Image
-                                    resizeMode={"contain"}
-                                    style={styles.image}
-                                    source={images.register_facebook}/>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={styles.image}>
-                            <TouchableOpacity onPress={() => {
-                                Actions.registerPhoneScene();
-                            }}>
-                                <Image
-                                    resizeMode={'contain'}
-                                    style={styles.image}
-                                    source={images.register_phone}/>
-                            </TouchableOpacity>
-                        </View>
-
-                        <TouchableOpacity style={{marginTop: verticalScale(20)}} onPress={() => {
-                            this._gotoAgreementView()
+                    <View style={styles.image}>
+                        <TouchableOpacity onPress={() => {
+                            this._getAccessTokenFromFacebook()
                         }}>
-                            <Text style={styles.termsText}>{I18n.t('terms_conditions')}</Text>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity style={{marginTop: verticalScale(10)}} onPress={() => {
-                            this._gotoPrivacyView()
-                        }}>
-                            <Text style={styles.privacyText}>{I18n.t('privacy_policy')}</Text>
+                            <Image
+                                resizeMode={"contain"}
+                                style={styles.image}
+                                source={images.register_facebook}/>
                         </TouchableOpacity>
                     </View>
+                    <View style={styles.image}>
+                        <TouchableOpacity onPress={() => {
+                            Actions.registerPhoneScene();
+                        }}>
+                            <Image
+                                resizeMode={'contain'}
+                                style={styles.image}
+                                source={images.register_phone}/>
+                        </TouchableOpacity>
+                    </View>
+
+                    <TouchableOpacity style={{marginTop: verticalScale(20)}} onPress={() => {
+                        this._gotoAgreementView()
+                    }}>
+                        <Text style={styles.termsText}>{I18n.t('terms_conditions')}</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={{marginTop: verticalScale(10)}} onPress={() => {
+                        this._gotoPrivacyView()
+                    }}>
+                        <Text style={styles.privacyText}>{I18n.t('privacy_policy')}</Text>
+                    </TouchableOpacity>
                 </View>
-            )
-        } else {
-            return (
-                <View style={{
-                    position: 'absolute',
-                    top: '50%',
-                    right: '45%'
-                }}>
-                    <ActivityIndicator size="large" color={colors.lightColor}/>
-                </View>
-            )
-        }
+
+                {/* Loading Dialog */}
+                <LoadingDialog
+                    visible={this.state.loading}/>
+            </View>
+        )
     }
 
 }

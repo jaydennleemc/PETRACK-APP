@@ -19,6 +19,7 @@ import {Actions} from "react-native-router-flux";
 import AsyncStorage from '@react-native-community/async-storage';
 import I18n from '../i18n/i18n';
 import CustomDialog from "../components/dialog/cutomDialog";
+import LoadingDialog from "../components/dialog/loadDialog";
 
 let ApiService = require('../utils/APIService');
 
@@ -28,7 +29,8 @@ export default class SettingsPage extends Component {
         super(props);
         this.state = {
             loading: true,
-            signoutDialog: false,
+            apiDialog: false,
+            signOutDialog: false,
             username: '',
             email: ''
         }
@@ -64,12 +66,16 @@ export default class SettingsPage extends Component {
 
 
     _signOut = () => {
+        this.setState({
+            signOutDialog: false,
+            apiDialog: true
+        });
         ApiService.signOut().then((resp) => {
             console.log(resp);
+            this.setState({
+                apiDialog: false
+            });
             AsyncStorage.clear().then(() => {
-                this.setState({
-                    signoutDialog: false
-                })
                 Actions.reset('registerScene');
             })
         }).catch((error) => {
@@ -180,16 +186,15 @@ export default class SettingsPage extends Component {
                         <Button title={'Sign out'}
                                 onPress={() => {
                                     this.setState({
-                                        signoutDialog: true
+                                        signOutDialog: true
                                     })
                                 }}
                                 buttonStyle={styles.petButtonStyle}
                                 containerStyle={styles.petButtonContainer}/>
                     </View>
 
-
                     <CustomDialog
-                        visible={this.state.signoutDialog}
+                        visible={this.state.signOutDialog}
                         title={'Sign Out'}
                         content={'Sign Out Do you want to sign out ?'}
                         confirmText={I18n.t('dialog_yes_btn')}
@@ -199,10 +204,12 @@ export default class SettingsPage extends Component {
                         }}
                         cancelOnPress={() => {
                             this.setState({
-                                signoutDialog: false
+                                signOutDialog: false
                             })
                         }}
                     />
+
+                    <LoadingDialog visible={this.state.apiDialog}/>
                 </View>
             );
         } else {
@@ -234,7 +241,7 @@ const styles = StyleSheet.create({
     buttonView: {
         width: '100%',
         position: 'absolute',
-        bottom: scale(16),
+        bottom: scale(32),
     },
     petButtonStyle: {
         borderRadius: 25,
