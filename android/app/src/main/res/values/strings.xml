@@ -1,8 +1,7 @@
 <resources>
     <string name="app_name">petrack</string>
 
-    <string name="facebook_app_id">421065172053680</string>
-    <string name="fb_login_protocol_scheme">fb421065172053680</string>
-
+    <string name="facebook_app_id">352771188730462</string> 
+    <string name="fb_login_protocol_scheme">fb352771188730462</string>
 
 </resources>

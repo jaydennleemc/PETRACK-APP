@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {
+    Platform,
     ActivityIndicator,
     Alert,
     SafeAreaView,
@@ -244,6 +245,7 @@ const styles = StyleSheet.create({
         bottom: scale(32),
     },
     petButtonStyle: {
+        height:scale(40),
         borderRadius: 25,
         backgroundColor: colors.greyColor
     },

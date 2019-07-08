@@ -1,18 +1,18 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
-import {Alert, Dimensions, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {scale} from "react-native-size-matters";
+import { Alert, Dimensions, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { scale } from "react-native-size-matters";
 import * as colors from '../constants/colors';
 import * as images from '../constants/images';
-import {Styles} from '../constants/styles';
+import { Styles } from '../constants/styles';
 import CustomToolbar from "../components/customToolbar";
-import MapView, {PROVIDER_GOOGLE} from 'react-native-maps'
-import {Actions} from "react-native-router-flux";
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'
+import { Actions } from "react-native-router-flux";
 import * as Animatable from 'react-native-animatable';
 import CustomSlidingUpPanel from "../components/customSlidingUpPanel";
 import I18n from '../i18n/i18n';
 
-const {width, height} = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
 const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
@@ -72,7 +72,7 @@ export default class HomePage extends Component {
                     console.log(this.state.markers)
                 })
             });
-        }, 5000);
+        }, 12000);
 
         return timerTask;
     };
@@ -112,13 +112,13 @@ export default class HomePage extends Component {
                     Alert.alert(
                         'Error',
                         resp.data.message,
-                        [{text: 'OK', onPress: () => console.log('OK Pressed')},],
-                        {cancelable: false},
+                        [{ text: 'OK', onPress: () => console.log('OK Pressed') },],
+                        { cancelable: false },
                     );
                 }
             }).catch((error) => {
-            console.log('findNearByDevice error = ', error)
-        })
+                console.log('findNearByDevice error = ', error)
+            })
     };
 
     _fetchMarkerData() {
@@ -161,7 +161,7 @@ export default class HomePage extends Component {
     render() {
         return (
             <View style={Styles.container}>
-                <SafeAreaView/>
+                <SafeAreaView />
                 {/* App bar */}
                 <CustomToolbar
                     rightIcon={'ios-person'}
@@ -171,7 +171,7 @@ export default class HomePage extends Component {
                         Actions.push("profileScene");
                     }}
                     rightIconColor={colors.themeColor}
-                    disableLeft={true}/>
+                    disableLeft={true} />
 
                 {/* Map View */}
                 <MapView
@@ -179,7 +179,7 @@ export default class HomePage extends Component {
                     provider={PROVIDER_GOOGLE}
                     moveOnMarkerPress={true}
                     region={this.state.initialRegion}
-                    style={{flex: 1}}
+                    style={{ flex: 1 }}
                     followsUserLocation={false}
                     showsUserLocation={true}>
                     {this.state.markers.map((marker, index) => {
@@ -191,8 +191,8 @@ export default class HomePage extends Component {
                                     this._showPanel(this.state.region, this.state.markers[index].coordinate);
                                 }}>
                                 <Image source={images.ic_point}
-                                       resizeMode="contain"
-                                       style={{width: scale(40), height: scale(40)}}/>
+                                    resizeMode="contain"
+                                    style={{ width: scale(40), height: scale(40) }} />
                             </MapView.Marker>
                         );
                     })}
@@ -203,7 +203,7 @@ export default class HomePage extends Component {
                         <TouchableOpacity onPress={() => {
                             Actions.push("scanScene")
                         }}>
-                            <Image source={images.scan_btn}/>
+                            <Image source={images.scan_btn} />
                         </TouchableOpacity>
                         <Text style={styles.scanText}>{I18n.t('scan_qr_code')}</Text>
                     </View>
@@ -211,7 +211,7 @@ export default class HomePage extends Component {
 
 
                 <CustomSlidingUpPanel
-                    ref={c => this._panel = c}/>
+                    ref={c => this._panel = c} />
 
             </View>
         );

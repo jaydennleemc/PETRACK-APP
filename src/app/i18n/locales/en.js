@@ -56,6 +56,7 @@ export default {
     syncing: 'Syncing',
     synced: 'Synced',
     delete_pet_title:'Delete This Pet?',
-    delete_pet_content:'Do you want to delete?'
+    delete_pet_content:'Do you want to delete?',
+    setupChipsTitle:'Setup Chips'
 
 };

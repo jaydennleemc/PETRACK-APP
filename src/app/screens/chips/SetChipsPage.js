@@ -5,6 +5,7 @@ import * as colors from '../../constants/colors';
 import * as images from '../../constants/images';
 import {scale} from 'react-native-size-matters';
 import I18n from '../../i18n/i18n';
+import { Actions } from 'react-native-router-flux';
 
 export default class SetChipsPage extends Component {
 
@@ -22,7 +23,10 @@ export default class SetChipsPage extends Component {
             <View style={styles.container}>
                 <SafeAreaView/>
                 <CustomToolbar
-                    title={''}
+                    leftIconOnPress={()=>{
+                        Actions.pop();
+                    }}
+                    title={I18n.t('setupChipsTitle')}
                     disableRight={true}
                     leftIconColor={colors.lightColor}/>
 

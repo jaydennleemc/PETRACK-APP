@@ -149,7 +149,7 @@ export default class AddPetPage extends Component {
                         <View style={styles.body}>
                             <Text style={{color: colors.lightColor}}>{I18n.t('pet_chip')}</Text>
                             <TouchableOpacity onPress={() => {
-                                Alert.alert('Setup Clip not available');
+                                Actions.push('setupChipsScene');
                             }}>
                                 <TextInput
                                     pointerEvents="none"
@@ -211,6 +211,7 @@ const styles = StyleSheet.create({
         bottom: scale(16),
     },
     petButtonStyle: {
+        height:scale(40),
         borderRadius: 25,
         backgroundColor: colors.greyColor
     },

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 
 import {
+    SafeAreaView,
     ActivityIndicator,
     FlatList,
     Image,
@@ -108,7 +109,8 @@ export default class ProfilePage extends Component {
         if (!this.state.loading) {
             return (
                 <View style={Styles.container}>
-                    <View style={[styles.view1, {paddingTop: scale(30)}]}>
+                    <SafeAreaView/>
+                    <View style={[styles.view1, {paddingTop: scale(8)}]}>
                         <View style={{flexDirection: 'row'}}>
                             <TouchableOpacity style={{flex: 1,}} onPress={() => {
                                 Actions.pop();
@@ -196,6 +198,7 @@ const styles = StyleSheet.create({
         padding: scale(16),
     },
     view2: {
+        marginTop:scale(16),
         alignItems: 'center'
     },
     username: {
@@ -209,6 +212,7 @@ const styles = StyleSheet.create({
         bottom: scale(32),
     },
     petButtonStyle: {
+        height:scale(40),
         borderRadius: 25,
         backgroundColor: colors.greyColor
     },
