@@ -102,9 +102,9 @@ export default class HomePage extends Component {
         ApiService.findNearBy(this.state.region.latitude, this.state.region.longitude, 1000)
             .then(resp => {
                 if (resp.data.code === 0) {
-                    console.log('findNearByDevice size = ', resp.data.dispensers.length);
+                    console.log('findNearByDevice size = ', resp.data.payload.length);
                     this.setState({
-                        dispensers: resp.data.dispensers
+                        dispensers: resp.data.payload
                     }, () => {
                         this._fetchMarkerData()
                     });
@@ -127,14 +127,16 @@ export default class HomePage extends Component {
             for (let dispenser of this.state.dispensers) {
                 markers.push({
                     coordinate: {
-                        latitude: dispenser.location.coordinates[1],
-                        longitude: dispenser.location.coordinates[0],
+                        latitude: dispenser.location.latitude,
+                        longitude: dispenser.location.longitude,
                     },
                 })
             }
-
+            
             this.setState({
                 markers: markers
+            }, () => {
+                console.log(`markets = ${JSON.stringify(this.state.markers)}`)
             });
         }
     }
@@ -183,6 +185,7 @@ export default class HomePage extends Component {
                     followsUserLocation={false}
                     showsUserLocation={true}>
                     {this.state.markers.map((marker, index) => {
+                        
                         return (
                             <MapView.Marker
                                 coordinate={marker.coordinate}

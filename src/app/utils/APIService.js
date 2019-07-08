@@ -38,7 +38,7 @@ const APIs = {
     removeClip: '/me/clip/remove/',
     updateClip: '/me/clip/update/',
 //    Dispenser API
-    findNearby: '/dispensers/findNearby',
+    findNearby: '/dispenser/findNearby',
     findDispenser: '/dispenser/',
     addDispenser: '/dispenser/add',
     removeDispenser: '/dispenser/remove/',
